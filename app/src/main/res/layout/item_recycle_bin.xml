@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/spacing_2xs"
+    app:cardCornerRadius="@dimen/card_corner_radius_small"
+    app:cardElevation="@dimen/elevation_none"
+    app:strokeWidth="@dimen/card_stroke_width"
+    app:strokeColor="@color/outline_variant"
+    android:id="@+id/cardRecycleBin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Thumbnail -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageThumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/thumbnail_medium"
+                android:scaleType="centerCrop"
+                android:contentDescription="File thumbnail"
+                tools:background="@color/surface_variant" />
+
+            <!-- Expiry badge -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textExpiry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="@dimen/spacing_sm"
+                android:background="@drawable/bg_duration_badge"
+                android:backgroundTint="@color/semi_transparent_black"
+                android:paddingHorizontal="@dimen/spacing_sm"
+                android:paddingVertical="@dimen/spacing_2xs"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:textColor="@color/text_inverse"
+                tools:text="25 days left" />
+
+        </FrameLayout>
+
+        <!-- File Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/card_padding_small">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textFileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="IMG_20250101.jpg" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textOriginalPath"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant"
+                android:maxLines="1"
+                android:ellipsize="middle"
+                tools:text="/DCIM/Camera/" />
+
+            <!-- Action Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_marginTop="@dimen/spacing_2xs">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDeletePermanent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height_small"
+                    android:text="@string/recycle_bin_delete_permanently"
+                    android:textColor="@color/error"
+                    app:icon="@drawable/ic_delete"
+                    app:iconTint="@color/error"
+                    style="@style/Widget.Material3.Button.TextButton" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRestore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height_small"
+                    android:text="@string/recycle_bin_restore"
+                    app:icon="@drawable/ic_restore"
+                    style="@style/Widget.Material3.Button.FilledTonalButton" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

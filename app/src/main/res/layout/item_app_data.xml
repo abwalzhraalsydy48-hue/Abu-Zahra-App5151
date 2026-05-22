@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="@dimen/list_item_padding_horizontal"
+    android:paddingVertical="@dimen/list_item_padding_vertical"
+    android:minHeight="@dimen/list_item_height_two_line"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- App Icon -->
+    <ImageView
+        android:id="@+id/imageAppIcon"
+        android:layout_width="@dimen/avatar_large"
+        android:layout_height="@dimen/avatar_large"
+        android:contentDescription="App icon"
+        android:layout_marginEnd="@dimen/list_item_icon_margin_end"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <!-- App Name & Package -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="WhatsApp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textPackage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="@color/on_surface_variant"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="com.whatsapp" />
+
+    </LinearLayout>
+
+    <!-- Data Type Badge -->
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipDataType"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/chip_height_small"
+        android:layout_marginStart="@dimen/spacing_sm"
+        app:chipMinHeight="@dimen/chip_height_small"
+        app:textEndPadding="@dimen/spacing_sm"
+        app:textStartPadding="@dimen/spacing_sm"
+        app:chipIconVisible="false"
+        app:closeIconVisible="false"
+        app:chipBackgroundColor="@color/secondary_container"
+        android:textColor="@color/on_secondary_container"
+        style="@style/Widget.Material3.Chip.Suggestion"
+        tools:text="Cache" />
+
+</LinearLayout>

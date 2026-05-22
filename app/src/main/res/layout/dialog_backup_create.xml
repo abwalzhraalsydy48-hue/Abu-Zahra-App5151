@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dialog_padding">
+
+    <!-- Title -->
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backup_create_new"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+        android:layout_marginBottom="@dimen/spacing_lg" />
+
+    <!-- Backup Name -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputBackupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Backup Name"
+        app:startIconDrawable="@drawable/ic_backup"
+        android:layout_marginBottom="@dimen/spacing_lg"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Backup Type Selection -->
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backup_select_data"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        android:textColor="@color/primary"
+        android:layout_marginBottom="@dimen/spacing_sm" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupBackupTypes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:singleSelection="false"
+        app:chipSpacingHorizontal="@dimen/chip_spacing"
+        android:layout_marginBottom="@dimen/spacing_lg">
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_data_photos"
+            app:chipIcon="@drawable/ic_photo"
+            app:checkedIconVisible="true"
+            android:checked="true"
+            style="@style/Widget.Material3.Chip.Filter" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_data_videos"
+            app:chipIcon="@drawable/ic_video"
+            app:checkedIconVisible="true"
+            android:checked="true"
+            style="@style/Widget.Material3.Chip.Filter" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_data_contacts"
+            app:chipIcon="@drawable/ic_contact"
+            app:checkedIconVisible="true"
+            style="@style/Widget.Material3.Chip.Filter" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_data_sms"
+            app:chipIcon="@drawable/ic_sms"
+            app:checkedIconVisible="true"
+            style="@style/Widget.Material3.Chip.Filter" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_data_call_log"
+            app:chipIcon="@drawable/ic_call"
+            app:checkedIconVisible="true"
+            style="@style/Widget.Material3.Chip.Filter" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_data_app_data"
+            app:chipIcon="@drawable/ic_app"
+            app:checkedIconVisible="true"
+            style="@style/Widget.Material3.Chip.Filter" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_data_settings"
+            app:chipIcon="@drawable/ic_settings"
+            app:checkedIconVisible="true"
+            style="@style/Widget.Material3.Chip.Filter" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <!-- Encrypt Toggle -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/spacing_md">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/backup_encryption"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/backup_encryption_desc"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant" />
+
+        </LinearLayout>
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switchEncrypt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!-- Password Fields (shown when encrypt is on) -->
+    <LinearLayout
+        android:id="@+id/layoutPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/backup_password"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:endIconMode="password_toggle"
+            android:layout_marginBottom="@dimen/spacing_md"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputPasswordConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/backup_password_confirm"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:endIconMode="password_toggle"
+            app:errorEnabled="true"
+            android:layout_marginBottom="@dimen/spacing_lg"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- Progress Indicator -->
+    <LinearLayout
+        android:id="@+id/layoutProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/spacing_lg">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBackup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:trackHeight="@dimen/progress_bar_height"
+            app:trackCornerRadius="@dimen/corner_radius_small"
+            app:indicatorColor="@color/primary"
+            android:max="100"
+            tools:progress="35" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textProgressStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="@color/on_surface_variant"
+            tools:text="Backing up photos... 35%" />
+
+    </LinearLayout>
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/action_cancel"
+            android:layout_marginEnd="@dimen/spacing_sm"
+            style="@style/Widget.Material3.Button.TextButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCreateBackup"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/backup_create"
+            app:icon="@drawable/ic_backup"
+            style="@style/Widget.Material3.Button.FilledButton" />
+
+    </LinearLayout>
+
+</LinearLayout>

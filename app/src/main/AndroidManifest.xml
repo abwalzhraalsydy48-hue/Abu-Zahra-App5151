@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ultimaterecovery.pro">
+
+    <!-- Storage Permissions -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+    <!-- SMS & Call Log Permissions -->
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+
+    <!-- Contacts & Phone Permissions -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- Network Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Foreground Service Permissions -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+    <!-- Wake Lock & Boot Permissions -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Biometric & Notification Permissions -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Features -->
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
+
+    <application
+        android:name=".UltimateRecoveryApplication"
+        android:allowBackup="true"
+        android:backupAgent=".backup.AppBackupAgent"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:theme="@style/Theme.UltimateRecoveryPro"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        tools:targetApi="34">
+
+        <!-- ==================== ACTIVITIES ==================== -->
+
+        <!-- Main Entry Point -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <!-- Scan Activity -->
+        <activity
+            android:name=".ui.scan.ScanActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <!-- Recovery Activities -->
+        <activity
+            android:name=".ui.recovery.PhotoRecoveryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.recovery.VideoRecoveryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.recovery.FileRecoveryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.recovery.SmsRecoveryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.recovery.CallLogRecoveryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.recovery.AppDataRecoveryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.recovery.AccountRecoveryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <!-- Backup Activity -->
+        <activity
+            android:name=".ui.backup.BackupActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <!-- Recycle Bin Activity -->
+        <activity
+            android:name=".ui.recyclebin.RecycleBinActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <!-- File Manager Activity -->
+        <activity
+            android:name=".ui.filemanager.FileManagerActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+
+        <!-- Settings Activity -->
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
+        <!-- Lock Activity (App Lock / PIN / Biometric) -->
+        <activity
+            android:name=".ui.lock.LockActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:noHistory="true" />
+
+        <!-- Scan Result Activity -->
+        <activity
+            android:name=".ui.scan.ScanResultActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.scan.ScanActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.scan.ScanActivity" />
+        </activity>
+
+        <!-- Preview Activity -->
+        <activity
+            android:name=".ui.preview.PreviewActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.scan.ScanResultActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.UltimateRecoveryPro.Preview">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.scan.ScanResultActivity" />
+        </activity>
+
+        <!-- About Activity -->
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.settings.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_about">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.settings.SettingsActivity" />
+        </activity>
+
+        <!-- ==================== SERVICES ==================== -->
+
+        <!-- Foreground Scan Service -->
+        <service
+            android:name=".service.ScanService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            android:stopWithTask="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.ultimaterecovery.pro.ACTION_START_SCAN" />
+                <action android:name="com.ultimaterecovery.pro.ACTION_STOP_SCAN" />
+                <action android:name="com.ultimaterecovery.pro.ACTION_PAUSE_SCAN" />
+                <action android:name="com.ultimaterecovery.pro.ACTION_RESUME_SCAN" />
+            </intent-filter>
+        </service>
+
+        <!-- Backup Service -->
+        <service
+            android:name=".service.BackupService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            android:stopWithTask="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.ultimaterecovery.pro.ACTION_START_BACKUP" />
+                <action android:name="com.ultimaterecovery.pro.ACTION_STOP_BACKUP" />
+                <action android:name="com.ultimaterecovery.pro.ACTION_RESTORE_BACKUP" />
+            </intent-filter>
+        </service>
+
+        <!-- Recycle Bin Monitor Service -->
+        <service
+            android:name=".service.RecycleBinMonitorService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            android:stopWithTask="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.ultimaterecovery.pro.ACTION_MONITOR_RECYCLE_BIN" />
+                <action android:name="com.ultimaterecovery.pro.ACTION_EMPTY_RECYCLE_BIN" />
+            </intent-filter>
+        </service>
+
+        <!-- ==================== RECEIVERS ==================== -->
+
+        <!-- Boot Receiver -->
+        <receiver
+            android:name=".receiver.BootReceiver"
+            android:exported="true"
+            android:directBootAware="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ==================== PROVIDERS ==================== -->
+
+        <!-- File Provider for sharing files -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- ==================== META-DATA ==================== -->
+
+        <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAIxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
+    </application>
+
+</manifest>

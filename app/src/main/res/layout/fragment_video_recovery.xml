@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Video Grid (2 columns) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerVideos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:padding="@dimen/spacing_sm"
+                android:paddingBottom="@dimen/spacing_9xl"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/item_recovered_video"
+                tools:itemCount="4" />
+
+            <!-- Empty State -->
+            <LinearLayout
+                android:id="@+id/layoutEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/spacing_5xl"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_massive"
+                    android:layout_height="@dimen/icon_size_massive"
+                    android:src="@drawable/ic_video_empty"
+                    android:contentDescription="@string/video_recovery_empty"
+                    app:tint="@color/on_surface_variant"
+                    android:alpha="0.5" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/video_recovery_empty"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    android:layout_marginTop="@dimen/spacing_lg" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan_no_results_hint"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="@color/on_surface_variant"
+                    android:layout_marginTop="@dimen/spacing_sm" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- Toolbar Actions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:padding="@dimen/margin_screen_horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSort"
+            android:layout_width="@dimen/button_height_small"
+            android:layout_height="@dimen/button_height_small"
+            app:icon="@drawable/ic_sort"
+            style="@style/Widget.Material3.Button.IconButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFilter"
+            android:layout_width="@dimen/button_height_small"
+            android:layout_height="@dimen/button_height_small"
+            app:icon="@drawable/ic_filter"
+            style="@style/Widget.Material3.Button.IconButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSelectAll"
+            android:layout_width="@dimen/button_height_small"
+            android:layout_height="@dimen/button_height_small"
+            app:icon="@drawable/ic_select_all"
+            style="@style/Widget.Material3.Button.IconButton" />
+
+    </LinearLayout>
+
+    <!-- Recover FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRecover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/action_recover"
+        app:icon="@drawable/ic_recover"
+        app:backgroundTint="@color/primary"
+        app:tint="@color/on_primary"
+        app:fabSize="normal"
+        app:elevation="@dimen/fab_elevation" />
+
+</FrameLayout>

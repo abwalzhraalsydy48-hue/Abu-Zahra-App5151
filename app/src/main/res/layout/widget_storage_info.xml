@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/surface"
+    android:padding="16dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/surface_container"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/outline_variant"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Section Title -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textStorageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Storage Usage"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="@color/on_surface" />
+
+            <!-- Tap hint -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textTapHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Tap to see details"
+                android:textAppearance="?attr/textAppearanceLabelSmall"
+                android:textColor="@color/on_surface_variant"
+                android:visibility="visible" />
+
+            <!-- StorageInfoView -->
+            <com.ultimaterecovery.pro.ui.widgets.StorageInfoView
+                android:id="@+id/storageInfoView"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:centerSubTextColor="@color/storage_center_sub_text"
+                app:centerTextColor="@color/storage_center_text"
+                app:donutBackgroundColor="@color/storage_donut_background" />
+
+            <!-- Quick Stats Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Used -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@color/storage_used_color" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textUsed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="?attr/textAppearanceLabelMedium"
+                        android:textColor="@color/on_surface"
+                        tools:text="45.2 GB" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Used"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+                <!-- Free -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@color/storage_free_color" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textFree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="?attr/textAppearanceLabelMedium"
+                        android:textColor="@color/on_surface"
+                        tools:text="20.8 GB" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Free"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+                <!-- Total -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@color/storage_total_color" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="?attr/textAppearanceLabelMedium"
+                        android:textColor="@color/on_surface"
+                        tools:text="64.0 GB" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Cleanup Action -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCleanup"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Free Up Space"
+                app:icon="@android:drawable/ic_menu_delete" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

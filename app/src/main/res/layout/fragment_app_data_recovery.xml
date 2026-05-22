@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- System/User Toggle -->
+    <com.google.android.material.togglebutton.MaterialButtonToggleGroup
+        android:id="@+id/toggleAppType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_screen_horizontal"
+        android:layout_marginVertical="@dimen/spacing_sm"
+        app:singleSelection="true"
+        app:selectionRequired="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUserApps"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight="1"
+            android:text="User Apps"
+            style="@style/Widget.Material3.Button.OutlinedButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSystemApps"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight="1"
+            android:text="System Apps"
+            style="@style/Widget.Material3.Button.OutlinedButton" />
+
+    </com.google.android.material.togglebutton.MaterialButtonToggleGroup>
+
+    <!-- Root Required Warning -->
+    <com.google.android.material.banner.Banner
+        android:id="@+id/bannerRootRequired"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_screen_horizontal"
+        android:visibility="gone"
+        app:bannerText="@string/app_data_root_required" />
+
+    <!-- App Data List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAppData"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/margin_screen_horizontal"
+        android:paddingTop="@dimen/spacing_sm"
+        android:paddingBottom="@dimen/spacing_9xl"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_app_data"
+        tools:itemCount="5" />
+
+</LinearLayout>

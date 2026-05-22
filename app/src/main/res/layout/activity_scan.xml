@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.scan.ScanActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/title_scan"
+            app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_screen_horizontal">
+
+            <!-- Scan Type Selection -->
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan_subtitle"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/on_surface_variant"
+                android:layout_marginBottom="@dimen/spacing_md" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginBottom="@dimen/spacing_lg">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Quick Scan Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardQuickScan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_sm"
+                        android:checkable="true"
+                        android:checked="true"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:strokeWidth="@dimen/card_stroke_width"
+                        style="@style/Widget.Material3.CardView.Filled">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="@dimen/card_padding"
+                            android:minWidth="@dimen/category_card_height">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_extra_large"
+                                android:layout_height="@dimen/icon_size_extra_large"
+                                android:src="@drawable/ic_quick_scan"
+                                android:contentDescription="@string/scan_quick"
+                                app:tint="@color/primary"
+                                android:layout_marginBottom="@dimen/spacing_sm" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/scan_quick"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/scan_quick_desc"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                android:textColor="@color/on_surface_variant"
+                                android:maxWidth="120dp"
+                                android:gravity="center"
+                                android:layout_marginTop="@dimen/spacing_2xs" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Deep Scan Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardDeepScan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_sm"
+                        android:checkable="true"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:strokeWidth="@dimen/card_stroke_width"
+                        style="@style/Widget.Material3.CardView.Outlined">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="@dimen/card_padding"
+                            android:minWidth="@dimen/category_card_height">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_extra_large"
+                                android:layout_height="@dimen/icon_size_extra_large"
+                                android:src="@drawable/ic_deep_scan"
+                                android:contentDescription="@string/scan_deep"
+                                app:tint="@color/secondary"
+                                android:layout_marginBottom="@dimen/spacing_sm" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/scan_deep"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/scan_deep_desc"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                android:textColor="@color/on_surface_variant"
+                                android:maxWidth="120dp"
+                                android:gravity="center"
+                                android:layout_marginTop="@dimen/spacing_2xs" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Signature Scan Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSignatureScan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_sm"
+                        android:checkable="true"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:strokeWidth="@dimen/card_stroke_width"
+                        style="@style/Widget.Material3.CardView.Outlined">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="@dimen/card_padding"
+                            android:minWidth="@dimen/category_card_height">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_extra_large"
+                                android:layout_height="@dimen/icon_size_extra_large"
+                                android:src="@drawable/ic_signature_scan"
+                                android:contentDescription="Signature"
+                                app:tint="@color/tertiary"
+                                android:layout_marginBottom="@dimen/spacing_sm" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Signature"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="File signature based scan"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                android:textColor="@color/on_surface_variant"
+                                android:maxWidth="120dp"
+                                android:gravity="center"
+                                android:layout_marginTop="@dimen/spacing_2xs" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Raw Scan Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardRawScan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_sm"
+                        android:checkable="true"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:strokeWidth="@dimen/card_stroke_width"
+                        style="@style/Widget.Material3.CardView.Outlined">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="@dimen/card_padding"
+                            android:minWidth="@dimen/category_card_height">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_extra_large"
+                                android:layout_height="@dimen/icon_size_extra_large"
+                                android:src="@drawable/ic_raw_scan"
+                                android:contentDescription="Raw"
+                                app:tint="@color/warning"
+                                android:layout_marginBottom="@dimen/spacing_sm" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Raw"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Raw sector-level scan"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                android:textColor="@color/on_surface_variant"
+                                android:maxWidth="120dp"
+                                android:gravity="center"
+                                android:layout_marginTop="@dimen/spacing_2xs" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Partition Scan Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardPartitionScan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        app:cardCornerRadius="@dimen/card_corner_radius"
+                        app:cardElevation="@dimen/card_elevation"
+                        app:strokeWidth="@dimen/card_stroke_width"
+                        style="@style/Widget.Material3.CardView.Outlined">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="@dimen/card_padding"
+                            android:minWidth="@dimen/category_card_height">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_extra_large"
+                                android:layout_height="@dimen/icon_size_extra_large"
+                                android:src="@drawable/ic_partition_scan"
+                                android:contentDescription="Partition"
+                                app:tint="@color/error"
+                                android:layout_marginBottom="@dimen/spacing_sm" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Partition"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Scan partition tables"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                android:textColor="@color/on_surface_variant"
+                                android:maxWidth="120dp"
+                                android:gravity="center"
+                                android:layout_marginTop="@dimen/spacing_2xs" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <!-- Category Filter Chips -->
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filter by Category"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:layout_marginBottom="@dimen/spacing_sm" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="false"
+                app:chipSpacingHorizontal="@dimen/chip_spacing"
+                app:chipSpacingVertical="@dimen/spacing_sm"
+                android:layout_marginBottom="@dimen/spacing_xl">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPhotos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan_type_photos"
+                    app:chipIcon="@drawable/ic_photo"
+                    app:checkedIconVisible="true"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipVideos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan_type_videos"
+                    app:chipIcon="@drawable/ic_video"
+                    app:checkedIconVisible="true"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAudio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan_type_audio"
+                    app:chipIcon="@drawable/ic_audio"
+                    app:checkedIconVisible="true"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDocuments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan_type_documents"
+                    app:chipIcon="@drawable/ic_document"
+                    app:checkedIconVisible="true"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan_type_sms"
+                    app:chipIcon="@drawable/ic_sms"
+                    app:checkedIconVisible="true"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCallLog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan_type_call_log"
+                    app:chipIcon="@drawable/ic_call"
+                    app:checkedIconVisible="true"
+                    style="@style/Widget.Material3.Chip.Filter" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Scanning Animation & Progress Section -->
+            <LinearLayout
+                android:id="@+id/layoutScanProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginVertical="@dimen/spacing_xl">
+
+                <!-- Lottie Animation -->
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieScanning"
+                    android:layout_width="@dimen/scan_circle_size"
+                    android:layout_height="@dimen/scan_circle_size"
+                    app:lottie_rawRes="@raw/scanning_animation"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true" />
+
+                <!-- Circular Progress Indicator -->
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_md"
+                    app:indicatorSize="@dimen/progress_circle_size_large"
+                    app:trackThickness="@dimen/progress_circle_stroke_width_large"
+                    app:trackColor="@color/scan_progress_background"
+                    app:indicatorColor="@color/scan_progress"
+                    app:trackCornerRadius="@dimen/corner_radius_small"
+                    android:max="100"
+                    tools:progress="65" />
+
+                <!-- Percentage Text -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textScanPercentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                    android:textColor="@color/primary"
+                    tools:text="65%" />
+
+                <!-- File Count -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textFileCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    android:textColor="@color/on_surface_variant"
+                    tools:text="1,234 files found" />
+
+                <!-- Current Path -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textScanPath"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="@color/on_surface_variant"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    tools:text="/storage/emulated/0/DCIM/Camera/" />
+
+            </LinearLayout>
+
+            <!-- Scan Control Buttons -->
+            <LinearLayout
+                android:id="@+id/layoutScanControls"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginVertical="@dimen/spacing_lg">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPauseScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height"
+                    android:text="@string/scan_pause"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    app:icon="@drawable/ic_pause"
+                    style="@style/Widget.Material3.Button.OutlinedButton" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnResumeScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height"
+                    android:text="@string/scan_resume"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_play"
+                    style="@style/Widget.Material3.Button.FilledTonalButton" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancelScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height"
+                    android:text="@string/action_cancel"
+                    app:icon="@drawable/ic_stop"
+                    style="@style/Widget.Material3.Button.TextButton" />
+
+            </LinearLayout>
+
+            <!-- Start Scan Button (shown when not scanning) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnStartScan"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height_large"
+                android:text="@string/scan_start"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                app:icon="@drawable/ic_scan"
+                app:iconGravity="textStart"
+                android:layout_marginVertical="@dimen/spacing_xl"
+                style="@style/Widget.Material3.Button.ElevatedButton" />
+
+            <!-- Results Summary Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardResultsSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                android:layout_marginTop="@dimen/spacing_lg">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_padding">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/scan_complete"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:textColor="@color/success"
+                        app:drawableStartCompat="@drawable/ic_check_circle"
+                        android:drawablePadding="@dimen/spacing_sm" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/textResultsSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        tools:text="Found 1,234 recoverable files (2.3 GB)" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnViewResults"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:text="@string/action_view_details"
+                        app:icon="@drawable/ic_arrow_forward"
+                        app:iconGravity="end"
+                        style="@style/Widget.Material3.Button.FilledButton" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

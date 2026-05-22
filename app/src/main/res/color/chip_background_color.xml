@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Checked state - primary background -->
+    <item android:state_checked="true"
+        android:color="@color/primary" />
+
+    <!-- Selected state - primary variant -->
+    <item android:state_selected="true"
+        android:color="@color/primary_variant" />
+
+    <!-- Pressed state - primary dark -->
+    <item android:state_pressed="true"
+        android:color="@color/primary_dark" />
+
+    <!-- Focused state - primary variant -->
+    <item android:state_focused="true"
+        android:color="@color/primary_variant" />
+
+    <!-- Hovered state - primary light -->
+    <item android:state_hovered="true"
+        android:color="@color/primary_light" />
+
+    <!-- Activated state - accent -->
+    <item android:state_activated="true"
+        android:color="@color/accent_blue" />
+
+    <!-- Default state - surface color -->
+    <item android:color="@color/surface" />
+
+</selector>

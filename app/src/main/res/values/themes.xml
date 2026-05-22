@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ==================== BASE APPLICATION THEME (Light) ==================== -->
+    <style name="Theme.UltimateRecoveryPro" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_variant</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
+
+        <!-- Secondary brand colors -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_variant</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorSecondaryContainer">@color/secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/on_secondary_container</item>
+
+        <!-- Tertiary brand colors -->
+        <item name="colorTertiary">@color/tertiary</item>
+        <item name="colorTertiaryVariant">@color/tertiary_variant</item>
+        <item name="colorOnTertiary">@color/on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/on_tertiary_container</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@color/error</item>
+        <item name="colorErrorVariant">@color/error_variant</item>
+        <item name="colorOnError">@color/on_error</item>
+        <item name="colorErrorContainer">@color/error_container</item>
+        <item name="colorOnErrorContainer">@color/on_error_container</item>
+
+        <!-- Background and surface colors -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/on_background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+        <item name="colorSurfaceContainerLowest">@color/surface</item>
+        <item name="colorSurfaceContainerLow">@color/surface_container_low</item>
+        <item name="colorSurfaceContainer">@color/surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/surface_container_high</item>
+        <item name="colorSurfaceContainerHighest">@color/surface_container_highest</item>
+
+        <!-- Outline and inverse -->
+        <item name="colorOutline">@color/outline</item>
+        <item name="colorOutlineVariant">@color/outline_variant</item>
+        <item name="colorInverseSurface">@color/inverse_surface</item>
+        <item name="colorInverseOnSurface">@color/inverse_on_surface</item>
+        <item name="colorInversePrimary">@color/inverse_primary</item>
+
+        <!-- Scrim and shadow -->
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+
+        <!-- Text appearances -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+
+        <!-- Ripple & selection -->
+        <item name="colorControlHighlight">@color/ripple</item>
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorControlNormal">@color/outline</item>
+
+        <!-- Window settings -->
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- Animation -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+
+        <!-- Material 3 specific -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.UltimateRecovery.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.UltimateRecovery.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.UltimateRecovery.LargeComponent</item>
+    </style>
+
+    <!-- ==================== DARK THEME ==================== -->
+    <style name="Theme.UltimateRecoveryPro.Dark" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Primary brand colors -->
+        <item name="colorPrimary">@color/dark_primary</item>
+        <item name="colorPrimaryVariant">@color/dark_primary_variant</item>
+        <item name="colorOnPrimary">@color/dark_on_primary</item>
+        <item name="colorPrimaryContainer">@color/dark_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/dark_on_primary_container</item>
+
+        <!-- Secondary brand colors -->
+        <item name="colorSecondary">@color/dark_secondary</item>
+        <item name="colorSecondaryVariant">@color/dark_secondary_variant</item>
+        <item name="colorOnSecondary">@color/dark_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/dark_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/dark_on_secondary_container</item>
+
+        <!-- Tertiary brand colors -->
+        <item name="colorTertiary">@color/dark_tertiary</item>
+        <item name="colorTertiaryVariant">@color/dark_tertiary_variant</item>
+        <item name="colorOnTertiary">@color/dark_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/dark_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/dark_on_tertiary_container</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@color/dark_error</item>
+        <item name="colorErrorVariant">@color/dark_error_variant</item>
+        <item name="colorOnError">@color/dark_on_error</item>
+        <item name="colorErrorContainer">@color/dark_error_container</item>
+        <item name="colorOnErrorContainer">@color/dark_on_error_container</item>
+
+        <!-- Background and surface colors -->
+        <item name="android:colorBackground">@color/dark_background</item>
+        <item name="colorOnBackground">@color/dark_on_background</item>
+        <item name="colorSurface">@color/dark_surface</item>
+        <item name="colorOnSurface">@color/dark_on_surface</item>
+        <item name="colorSurfaceVariant">@color/dark_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/dark_on_surface_variant</item>
+        <item name="colorSurfaceContainerLowest">@color/dark_surface_container_low</item>
+        <item name="colorSurfaceContainerLow">@color/dark_surface_container_low</item>
+        <item name="colorSurfaceContainer">@color/dark_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/dark_surface_container_high</item>
+        <item name="colorSurfaceContainerHighest">@color/dark_surface_container_highest</item>
+
+        <!-- Outline and inverse -->
+        <item name="colorOutline">@color/dark_outline</item>
+        <item name="colorOutlineVariant">@color/dark_outline_variant</item>
+        <item name="colorInverseSurface">@color/dark_inverse_surface</item>
+        <item name="colorInverseOnSurface">@color/dark_inverse_on_surface</item>
+        <item name="colorInversePrimary">@color/dark_inverse_primary</item>
+
+        <!-- Status and navigation bar -->
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+
+        <!-- Text appearances -->
+        <item name="android:textColorPrimary">@color/dark_text_primary</item>
+        <item name="android:textColorSecondary">@color/dark_text_secondary</item>
+        <item name="android:textColorHint">@color/dark_text_hint</item>
+
+        <!-- Ripple & selection -->
+        <item name="colorControlHighlight">@color/ripple_dark</item>
+        <item name="colorControlActivated">@color/dark_primary</item>
+        <item name="colorControlNormal">@color/dark_outline</item>
+
+        <!-- Window settings -->
+        <item name="android:windowBackground">@color/dark_background</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- Animation -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+
+        <!-- Material 3 specific -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.UltimateRecovery.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.UltimateRecovery.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.UltimateRecovery.LargeComponent</item>
+    </style>
+
+    <!-- ==================== PREVIEW THEME (Immersive, No ActionBar) ==================== -->
+    <style name="Theme.UltimateRecoveryPro.Preview" parent="Theme.UltimateRecoveryPro">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/semi_transparent_black</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- ==================== SPLASH THEME ==================== -->
+    <style name="Theme.UltimateRecoveryPro.Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <!-- ==================== WINDOW ANIMATIONS ==================== -->
+    <style name="WindowAnimationTransition" parent="android:Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <!-- ==================== SHAPE APPEARANCES (Material 3) ==================== -->
+    <style name="ShapeAppearance.UltimateRecovery.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.UltimateRecovery.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.UltimateRecovery.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- ==================== COMPONENT STYLES ==================== -->
+
+    <!-- Toolbar / ActionBar -->
+    <style name="Widget.UltimateRecovery.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextColor">@color/on_surface</item>
+        <item name="subtitleTextColor">@color/text_secondary</item>
+        <item name="navigationIconTint">@color/on_surface</item>
+        <item name="android:background">@color/surface</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <!-- Primary Button -->
+    <style name="Widget.UltimateRecovery.Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <!-- Secondary / Outlined Button -->
+    <style name="Widget.UltimateRecovery.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">@color/primary</item>
+        <item name="strokeColor">@color/outline</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Text Button -->
+    <style name="Widget.UltimateRecovery.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/primary</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Tonal Button -->
+    <style name="Widget.UltimateRecovery.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:textColor">@color/on_primary_container</item>
+        <item name="backgroundTint">@color/primary_container</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Icon Button -->
+    <style name="Widget.UltimateRecovery.Button.Icon" parent="Widget.Material3.Button.Icon">
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="Widget.UltimateRecovery.Card.Elevated" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="Widget.UltimateRecovery.Card.Filled" parent="Widget.Material3.CardView.Filled">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardBackgroundColor">@color/surface_container</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="Widget.UltimateRecovery.Card.Outlined" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="strokeColor">@color/outline_variant</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <!-- Chip Styles -->
+    <style name="Widget.UltimateRecovery.Chip.Filter" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/primary_container</item>
+        <item name="android:textColor">@color/on_primary_container</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="chipCornerRadius">8dp</item>
+    </style>
+
+    <style name="Widget.UltimateRecovery.Chip.Suggestion" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/surface_container</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="chipStrokeColor">@color/outline_variant</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipCornerRadius">8dp</item>
+    </style>
+
+    <!-- Input / EditText -->
+    <style name="Widget.UltimateRecovery.TextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxBackgroundColor">@color/surface_container</item>
+        <item name="hintTextColor">@color/primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <style name="Widget.UltimateRecovery.TextInputLayout.Outlined" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxStrokeColor">@color/primary</item>
+        <item name="hintTextColor">@color/primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <!-- Bottom Navigation -->
+    <style name="Widget.UltimateRecovery.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@color/surface</item>
+        <item name="itemIconTint">@color/primary</item>
+        <item name="itemTextColor">@color/primary</item>
+        <item name="itemRippleColor">@color/ripple</item>
+        <item name="elevation">8dp</item>
+    </style>
+
+    <!-- Navigation Drawer -->
+    <style name="Widget.UltimateRecovery.NavigationView" parent="Widget.Material3.NavigationView">
+        <item name="android:background">@color/surface</item>
+        <item name="itemIconTint">@color/on_surface</item>
+        <item name="itemTextColor">@color/on_surface</item>
+        <item name="itemShapeFillColor">@color/primary_container</item>
+    </style>
+
+    <!-- Navigation Rail -->
+    <style name="Widget.UltimateRecovery.NavigationRailView" parent="Widget.Material3.NavigationRailView">
+        <item name="android:background">@color/surface</item>
+        <item name="itemIconTint">@color/primary</item>
+        <item name="itemTextColor">@color/primary</item>
+    </style>
+
+    <!-- Switch / Toggle -->
+    <style name="Widget.UltimateRecovery.Switch" parent="Widget.Material3.CompoundButton.Switch">
+        <item name="thumbTint">@color/primary</item>
+        <item name="trackTint">@color/primary_container</item>
+    </style>
+
+    <!-- Slider -->
+    <style name="Widget.UltimateRecovery.Slider" parent="Widget.Material3.Slider">
+        <item name="thumbColor">@color/primary</item>
+        <item name="trackColorActive">@color/primary</item>
+        <item name="trackColorInactive">@color/primary_container</item>
+    </style>
+
+    <!-- Progress Indicator -->
+    <style name="Widget.UltimateRecovery.LinearProgressIndicator" parent="Widget.Material3.LinearProgressIndicator">
+        <item name="trackColor">@color/scan_progress_background</item>
+        <item name="indicatorColor">@color/scan_progress</item>
+        <item name="trackCornerRadius">4dp</item>
+        <item name="trackHeight">8dp</item>
+    </style>
+
+    <style name="Widget.UltimateRecovery.CircularProgressIndicator" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="indicatorColor">@color/primary</item>
+        <item name="trackColor">@color/scan_progress_background</item>
+        <item name="trackThickness">4dp</item>
+    </style>
+
+    <!-- Floating Action Button -->
+    <style name="Widget.UltimateRecovery.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="tint">@color/on_primary</item>
+        <item name="fabCustomSize">56dp</item>
+        <item name="elevation">6dp</item>
+    </style>
+
+    <!-- Snackbar -->
+    <style name="Widget.UltimateRecovery.Snackbar" parent="Widget.Material3.Snackbar">
+        <item name="android:background">@color/inverse_surface</item>
+        <item name="actionTextColor">@color/inverse_primary</item>
+    </style>
+
+    <!-- Tab Layout -->
+    <style name="Widget.UltimateRecovery.TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="tabIndicatorColor">@color/primary</item>
+        <item name="tabSelectedTextColor">@color/primary</item>
+        <item name="tabTextColor">@color/on_surface_variant</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabMode">scrollable</item>
+    </style>
+
+    <!-- Dialog -->
+    <style name="ThemeOverlay.UltimateRecovery.Dialog" parent="ThemeOverlay.Material3.Dialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="android:background">@color/surface</item>
+    </style>
+
+    <style name="ThemeOverlay.UltimateRecovery.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+    </style>
+
+    <!-- Bottom Sheet -->
+    <style name="Widget.UltimateRecovery.BottomSheet" parent="Widget.Material3.BottomSheet">
+        <item name="backgroundTint">@color/surface</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.UltimateRecovery.LargeComponent</item>
+    </style>
+
+    <!-- Search Bar -->
+    <style name="Widget.UltimateRecovery.SearchBar" parent="Widget.Material3.SearchBar">
+        <item name="backgroundTint">@color/surface_container</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <!-- Search View -->
+    <style name="Widget.UltimateRecovery.SearchView" parent="Widget.Material3.SearchView">
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <!-- Divider -->
+    <style name="Widget.UltimateRecovery.Divider" parent="Widget.Material3.MaterialDivider">
+        <item name="dividerColor">@color/divider</item>
+        <item name="dividerThickness">1dp</item>
+    </style>
+
+    <!-- List Item -->
+    <style name="Widget.UltimateRecovery.ListItem" parent="Widget.Material3.ListItem">
+        <item name="android:textColor">@color/on_surface</item>
+    </style>
+
+    <!-- Popup Menu -->
+    <style name="Widget.UltimateRecovery.PopupMenu" parent="Widget.Material3.PopupMenu">
+        <item name="android:popupBackground">@color/surface</item>
+    </style>
+
+</resources>

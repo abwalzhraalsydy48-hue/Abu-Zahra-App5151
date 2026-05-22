@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Pressed state - accent color stroke -->
+    <item android:state_pressed="true"
+        android:color="@color/accent_blue" />
+
+    <!-- Focused state - accent color stroke -->
+    <item android:state_focused="true"
+        android:color="@color/accent_blue" />
+
+    <!-- Selected state - primary color stroke -->
+    <item android:state_selected="true"
+        android:color="@color/primary" />
+
+    <!-- Activated state - secondary color stroke -->
+    <item android:state_activated="true"
+        android:color="@color/secondary" />
+
+    <!-- Hovered state - light accent stroke -->
+    <item android:state_hovered="true"
+        android:color="@color/accent_blue_light" />
+
+    <!-- Checked state - accent stroke -->
+    <item android:state_checked="true"
+        android:color="@color/accent_green" />
+
+    <!-- Default state - subtle border -->
+    <item android:color="@color/stroke_default" />
+
+</selector>

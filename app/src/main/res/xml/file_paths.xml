@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- External storage root -->
+    <external-path
+        name="external_storage"
+        path="." />
+
+    <!-- External files directory (app-specific) -->
+    <external-files-path
+        name="external_files"
+        path="." />
+
+    <!-- External cache directory -->
+    <external-cache-path
+        name="external_cache"
+        path="." />
+
+    <!-- Internal files directory -->
+    <files-path
+        name="internal_files"
+        path="." />
+
+    <!-- Internal cache directory -->
+    <cache-path
+        name="internal_cache"
+        path="." />
+
+    <!-- Recovery output directory -->
+    <external-files-path
+        name="recovery_output"
+        path="Recovery/Recovered/" />
+
+    <!-- Backup directory -->
+    <external-files-path
+        name="backup_files"
+        path="Recovery/Backups/" />
+
+    <!-- Temp directory -->
+    <external-files-path
+        name="temp_files"
+        path="Recovery/Temp/" />
+
+    <!-- Log directory -->
+    <external-files-path
+        name="log_files"
+        path="Recovery/Logs/" />
+
+    <!-- Recycle bin directory -->
+    <external-files-path
+        name="recycle_bin"
+        path="Recovery/RecycleBin/" />
+
+    <!-- Export directory -->
+    <external-files-path
+        name="export_files"
+        path="Recovery/Exports/" />
+
+    <!-- Download directory -->
+    <external-path
+        name="downloads"
+        path="Download/" />
+
+    <!-- DCIM directory (camera photos) -->
+    <external-path
+        name="dcim"
+        path="DCIM/" />
+
+    <!-- Pictures directory -->
+    <external-path
+        name="pictures"
+        path="Pictures/" />
+
+    <!-- Movies directory -->
+    <external-path
+        name="movies"
+        path="Movies/" />
+
+    <!-- Music directory -->
+    <external-path
+        name="music"
+        path="Music/" />
+
+    <!-- Documents directory -->
+    <external-path
+        name="documents"
+        path="Documents/" />
+
+    <!-- SD Card root (secondary external storage) -->
+    <external-path
+        name="sd_card"
+        path="" />
+
+</paths>

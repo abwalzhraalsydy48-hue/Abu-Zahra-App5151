@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ==================== PRIMARY PALETTE ==================== -->
+    <color name="primary">#1565C0</color>                   <!-- Deep Blue -->
+    <color name="primary_variant">#0D47A1</color>            <!-- Darker Deep Blue -->
+    <color name="on_primary">#FFFFFF</color>                 <!-- White on Primary -->
+    <color name="primary_container">#BBDEFB</color>          <!-- Light Blue Container -->
+    <color name="on_primary_container">#0A3D7A</color>       <!-- Dark Blue on Container -->
+
+    <!-- ==================== SECONDARY PALETTE ==================== -->
+    <color name="secondary">#00897B</color>                  <!-- Teal -->
+    <color name="secondary_variant">#00695C</color>          <!-- Dark Teal -->
+    <color name="on_secondary">#FFFFFF</color>               <!-- White on Secondary -->
+    <color name="secondary_container">#B2DFDB</color>        <!-- Light Teal Container -->
+    <color name="on_secondary_container">#004D40</color>     <!-- Dark Teal on Container -->
+
+    <!-- ==================== TERTIARY / ACCENT PALETTE ==================== -->
+    <color name="tertiary">#7B1FA2</color>                   <!-- Purple -->
+    <color name="tertiary_variant">#4A148C</color>           <!-- Dark Purple -->
+    <color name="on_tertiary">#FFFFFF</color>                <!-- White on Tertiary -->
+    <color name="tertiary_container">#E1BEE7</color>         <!-- Light Purple Container -->
+    <color name="on_tertiary_container">#38006B</color>      <!-- Dark Purple on Container -->
+
+    <!-- ==================== ERROR PALETTE ==================== -->
+    <color name="error">#D32F2F</color>                      <!-- Red -->
+    <color name="error_variant">#B71C1C</color>              <!-- Dark Red -->
+    <color name="on_error">#FFFFFF</color>                   <!-- White on Error -->
+    <color name="error_container">#FFCDD2</color>            <!-- Light Red Container -->
+    <color name="on_error_container">#690005</color>         <!-- Dark Red on Container -->
+
+    <!-- ==================== SUCCESS PALETTE ==================== -->
+    <color name="success">#2E7D32</color>                    <!-- Green -->
+    <color name="success_light">#A5D6A7</color>              <!-- Light Green -->
+    <color name="on_success">#FFFFFF</color>                 <!-- White on Success -->
+
+    <!-- ==================== WARNING PALETTE ==================== -->
+    <color name="warning">#F57F17</color>                    <!-- Amber -->
+    <color name="warning_light">#FFE082</color>              <!-- Light Amber -->
+    <color name="on_warning">#000000</color>                 <!-- Black on Warning -->
+
+    <!-- ==================== INFO PALETTE ==================== -->
+    <color name="info">#0288D1</color>                       <!-- Light Blue -->
+    <color name="info_light">#B3E5FC</color>                 <!-- Very Light Blue -->
+    <color name="on_info">#FFFFFF</color>                    <!-- White on Info -->
+
+    <!-- ==================== LIGHT THEME SURFACE COLORS ==================== -->
+    <color name="background">#FAFAFA</color>                 <!-- Near White Background -->
+    <color name="on_background">#1C1B1F</color>              <!-- Near Black on Background -->
+    <color name="surface">#FFFFFF</color>                    <!-- White Surface -->
+    <color name="on_surface">#1C1B1F</color>                 <!-- Near Black on Surface -->
+    <color name="surface_variant">#E7E0EC</color>            <!-- Light Grey Variant -->
+    <color name="on_surface_variant">#49454F</color>         <!-- Dark Grey on Variant -->
+    <color name="surface_container">#F3EDF7</color>          <!-- Very Light Purple Container -->
+    <color name="surface_container_low">#F7F2FA</color>      <!-- Lightest Container -->
+    <color name="surface_container_high">#ECE6F0</color>     <!-- Slightly Darker Container -->
+    <color name="surface_container_highest">#E6E0E9</color>  <!-- Darkest Light Container -->
+    <color name="outline">#79747E</color>                    <!-- Medium Grey Outline -->
+    <color name="outline_variant">#CAC4D0</color>            <!-- Light Grey Outline -->
+    <color name="inverse_surface">#313033</color>            <!-- Dark Inverse Surface -->
+    <color name="inverse_on_surface">#F4EFF4</color>         <!-- Light on Inverse Surface -->
+    <color name="inverse_primary">#90CAF9</color>            <!-- Light Blue Inverse Primary -->
+    <color name="scrim">#000000</color>                      <!-- Black Scrim -->
+    <color name="shadow">#000000</color>                     <!-- Black Shadow -->
+
+    <!-- ==================== DARK THEME SURFACE COLORS ==================== -->
+    <color name="dark_background">#1C1B1F</color>            <!-- Dark Background -->
+    <color name="dark_on_background">#E6E1E5</color>         <!-- Light on Dark Background -->
+    <color name="dark_surface">#1C1B1F</color>               <!-- Dark Surface -->
+    <color name="dark_on_surface">#E6E1E5</color>            <!-- Light on Dark Surface -->
+    <color name="dark_surface_variant">#49454F</color>       <!-- Dark Grey Variant -->
+    <color name="dark_on_surface_variant">#CAC4D0</color>    <!-- Light Grey on Dark Variant -->
+    <color name="dark_surface_container">#211F26</color>     <!-- Dark Container -->
+    <color name="dark_surface_container_low">#1D1B20</color> <!-- Darkest Container -->
+    <color name="dark_surface_container_high">#2B2930</color><!-- Slightly Lighter Dark Container -->
+    <color name="dark_surface_container_highest">#36343B</color><!-- Lightest Dark Container -->
+    <color name="dark_outline">#938F99</color>               <!-- Light Grey Outline Dark -->
+    <color name="dark_outline_variant">#49454F</color>       <!-- Dark Grey Outline Dark -->
+    <color name="dark_inverse_surface">#E6E1E5</color>       <!-- Light Inverse Surface -->
+    <color name="dark_inverse_on_surface">#313033</color>    <!-- Dark on Inverse Surface -->
+    <color name="dark_inverse_primary">#1565C0</color>       <!-- Blue Inverse Primary Dark -->
+    <color name="dark_scrim">#000000</color>                 <!-- Black Scrim Dark -->
+
+    <!-- ==================== DARK THEME PRIMARY ==================== -->
+    <color name="dark_primary">#90CAF9</color>               <!-- Light Blue -->
+    <color name="dark_primary_variant">#42A5F5</color>       <!-- Medium Blue -->
+    <color name="dark_on_primary">#003258</color>             <!-- Dark Blue on Primary -->
+    <color name="dark_primary_container">#0D47A1</color>      <!-- Dark Blue Container -->
+    <color name="dark_on_primary_container">#BBDEFB</color>   <!-- Light Blue on Container -->
+
+    <!-- ==================== DARK THEME SECONDARY ==================== -->
+    <color name="dark_secondary">#80CBC4</color>              <!-- Light Teal -->
+    <color name="dark_secondary_variant">#4DB6AC</color>      <!-- Medium Teal -->
+    <color name="dark_on_secondary">#003731</color>           <!-- Dark Teal on Secondary -->
+    <color name="dark_secondary_container">#004D40</color>    <!-- Dark Teal Container -->
+    <color name="dark_on_secondary_container">#B2DFDB</color> <!-- Light Teal on Container -->
+
+    <!-- ==================== DARK THEME TERTIARY ==================== -->
+    <color name="dark_tertiary">#CE93D8</color>               <!-- Light Purple -->
+    <color name="dark_tertiary_variant">#AB47BC</color>       <!-- Medium Purple -->
+    <color name="dark_on_tertiary">#4A0072</color>            <!-- Dark Purple on Tertiary -->
+    <color name="dark_tertiary_container">#6A1B9A</color>     <!-- Dark Purple Container -->
+    <color name="dark_on_tertiary_container">#F3E5F5</color>  <!-- Light Purple on Container -->
+
+    <!-- ==================== DARK THEME ERROR ==================== -->
+    <color name="dark_error">#EF9A9A</color>                  <!-- Light Red -->
+    <color name="dark_error_variant">#E57373</color>          <!-- Medium Red -->
+    <color name="dark_on_error">#690005</color>               <!-- Dark Red on Error -->
+    <color name="dark_error_container">#93000A</color>        <!-- Dark Red Container -->
+    <color name="dark_on_error_container">#FFDAD6</color>     <!-- Light Red on Container -->
+
+    <!-- ==================== UTILITY COLORS ==================== -->
+    <color name="transparent">#00000000</color>               <!-- Fully Transparent -->
+    <color name="semi_transparent_black">#80000000</color>    <!-- 50% Black -->
+    <color name="semi_transparent_white">#80FFFFFF</color>    <!-- 50% White -->
+    <color name="light_transparent_black">#33000000</color>   <!-- 20% Black -->
+    <color name="light_transparent_white">#33FFFFFF</color>   <!-- 20% White -->
+
+    <!-- ==================== TEXT COLORS ==================== -->
+    <color name="text_primary">#1C1B1F</color>               <!-- Primary text (dark) -->
+    <color name="text_secondary">#49454F</color>              <!-- Secondary text -->
+    <color name="text_disabled">#9E9E9E</color>               <!-- Disabled text -->
+    <color name="text_hint">#9E9E9E</color>                   <!-- Hint text -->
+    <color name="text_inverse">#FFFFFF</color>                <!-- Inverse text (white) -->
+
+    <color name="dark_text_primary">#E6E1E5</color>           <!-- Primary text (light) -->
+    <color name="dark_text_secondary">#CAC4D0</color>         <!-- Secondary text dark theme -->
+    <color name="dark_text_disabled">#6B6B6B</color>          <!-- Disabled text dark theme -->
+    <color name="dark_text_hint">#6B6B6B</color>              <!-- Hint text dark theme -->
+    <color name="dark_text_inverse">#1C1B1F</color>           <!-- Inverse text dark theme -->
+
+    <!-- ==================== DIVIDER & SEPARATOR ==================== -->
+    <color name="divider">#1F000000</color>                   <!-- 12% Black Divider -->
+    <color name="divider_dark">#1FFFFFFF</color>              <!-- 12% White Divider -->
+
+    <!-- ==================== RIPPLE & OVERLAY ==================== -->
+    <color name="ripple">#1F1565C0</color>                    <!-- 12% Primary Ripple -->
+    <color name="ripple_dark">#1F90CAF9</color>               <!-- 12% Light Primary Ripple -->
+    <color name="overlay_dark">#99000000</color>              <!-- 60% Black Overlay -->
+    <color name="overlay_light">#99FFFFFF</color>             <!-- 60% White Overlay -->
+
+    <!-- ==================== SCAN / PROGRESS COLORS ==================== -->
+    <color name="scan_progress">#1565C0</color>               <!-- Blue Progress -->
+    <color name="scan_progress_background">#E0E0E0</color>    <!-- Grey Background -->
+    <color name="recovery_high">#4CAF50</color>               <!-- Green - High chance -->
+    <color name="recovery_medium">#FF9800</color>             <!-- Orange - Medium chance -->
+    <color name="recovery_low">#F44336</color>                <!-- Red - Low chance -->
+    <color name="recovery_damaged">#9E9E9E</color>            <!-- Grey - Damaged -->
+
+    <!-- ==================== CATEGORY COLORS ==================== -->
+    <color name="category_photo">#E91E63</color>              <!-- Pink - Photos -->
+    <color name="category_video">#9C27B0</color>              <!-- Purple - Videos -->
+    <color name="category_document">#2196F3</color>           <!-- Blue - Documents -->
+    <color name="category_audio">#FF9800</color>              <!-- Orange - Audio -->
+    <color name="category_sms">#4CAF50</color>                <!-- Green - SMS -->
+    <color name="category_call">#00BCD4</color>               <!-- Cyan - Call Logs -->
+    <color name="category_contact">#FF5722</color>            <!-- Deep Orange - Contacts -->
+    <color name="category_app">#607D8B</color>                <!-- Blue Grey - App Data -->
+    <color name="category_archive">#795548</color>            <!-- Brown - Archives -->
+    <color name="category_apk">#8BC34A</color>                <!-- Light Green - APKs -->
+
+    <!-- ==================== GRADIENT COLORS ==================== -->
+    <color name="gradient_start">#1565C0</color>              <!-- Blue Gradient Start -->
+    <color name="gradient_end">#00897B</color>                <!-- Teal Gradient End -->
+    <color name="gradient_dark_start">#0D47A1</color>         <!-- Dark Blue Gradient Start -->
+    <color name="gradient_dark_end">#00695C</color>           <!-- Dark Teal Gradient End -->
+    <color name="gradient_accent_start">#7B1FA2</color>       <!-- Purple Accent Start -->
+    <color name="gradient_accent_end">#E91E63</color>         <!-- Pink Accent End -->
+
+    <!-- ==================== SCAN PROGRESS VIEW COLORS ==================== -->
+    <color name="scan_progress_background">#E0E0E0</color>    <!-- Grey ring background -->
+    <color name="scan_progress_start">#1565C0</color>          <!-- Blue gradient start -->
+    <color name="scan_progress_end">#00897B</color>            <!-- Teal gradient end -->
+    <color name="scan_progress_text">#1C1B1F</color>           <!-- Percentage text color -->
+    <color name="scan_progress_file_count">#49454F</color>      <!-- File count text color -->
+    <color name="scan_progress_type_label">#79747E</color>     <!-- Scan type label color -->
+    <color name="scan_progress_glow">#1565C0</color>           <!-- Glow effect color -->
+    <color name="scan_progress_dot">#00897B</color>             <!-- Endpoint dot color -->
+
+    <!-- ==================== STORAGE INFO VIEW COLORS ==================== -->
+    <color name="storage_donut_background">#E0E0E0</color>     <!-- Donut background ring -->
+    <color name="storage_center_text">#1C1B1F</color>          <!-- Center percentage text -->
+    <color name="storage_center_sub_text">#79747E</color>      <!-- Center sub label text -->
+    <color name="storage_label_text">#49454F</color>           <!-- Category label text -->
+    <color name="storage_label_value">#1C1B1F</color>         <!-- Category value text -->
+    <color name="storage_detail_text">#79747E</color>          <!-- Detail text color -->
+    <color name="storage_used_color">#1565C0</color>           <!-- Used storage color -->
+    <color name="storage_free_color">#4CAF50</color>           <!-- Free storage color -->
+    <color name="storage_total_color">#607D8B</color>          <!-- Total storage color -->
+
+</resources>

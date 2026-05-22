@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Breadcrumb HorizontalScrollView -->
+    <HorizontalScrollView
+        android:id="@+id/scrollBreadcrumb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingHorizontal="@dimen/margin_screen_horizontal"
+        android:paddingVertical="@dimen/spacing_sm">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupBreadcrumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:chipSpacingHorizontal="@dimen/spacing_2xs">
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Internal"
+                app:chipIcon="@drawable/ic_storage"
+                style="@style/Widget.Material3.Chip.Suggestion" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DCIM"
+                style="@style/Widget.Material3.Chip.Suggestion" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Camera"
+                style="@style/Widget.Material3.Chip.Suggestion" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <!-- Storage Selector -->
+    <com.google.android.material.togglebutton.MaterialButtonToggleGroup
+        android:id="@+id/toggleStorage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_screen_horizontal"
+        android:layout_marginBottom="@dimen/spacing_sm"
+        app:singleSelection="true"
+        app:selectionRequired="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnInternal"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight="1"
+            android:text="@string/scan_location_internal"
+            app:icon="@drawable/ic_phone"
+            style="@style/Widget.Material3.Button.OutlinedButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSdCard"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight="1"
+            android:text="@string/scan_location_sd_card"
+            app:icon="@drawable/ic_sd_card"
+            style="@style/Widget.Material3.Button.OutlinedButton" />
+
+    </com.google.android.material.togglebutton.MaterialButtonToggleGroup>
+
+    <!-- Sort/Filter Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:paddingHorizontal="@dimen/margin_screen_horizontal"
+        android:paddingBottom="@dimen/spacing_sm">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSort"
+            android:layout_width="@dimen/button_height_small"
+            android:layout_height="@dimen/button_height_small"
+            app:icon="@drawable/ic_sort"
+            style="@style/Widget.Material3.Button.IconButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFilter"
+            android:layout_width="@dimen/button_height_small"
+            android:layout_height="@dimen/button_height_small"
+            app:icon="@drawable/ic_filter"
+            style="@style/Widget.Material3.Button.IconButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGridView"
+            android:layout_width="@dimen/button_height_small"
+            android:layout_height="@dimen/button_height_small"
+            app:icon="@drawable/ic_grid_view"
+            style="@style/Widget.Material3.Button.IconButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnListView"
+            android:layout_width="@dimen/button_height_small"
+            android:layout_height="@dimen/button_height_small"
+            app:icon="@drawable/ic_list_view"
+            style="@style/Widget.Material3.Button.IconButton" />
+
+    </LinearLayout>
+
+    <!-- File List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerFiles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/margin_screen_horizontal"
+        android:paddingBottom="@dimen/spacing_9xl"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_file_entry"
+        tools:itemCount="8" />
+
+    <!-- New File/Folder FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/file_manager_new_folder"
+        app:icon="@drawable/ic_add"
+        app:backgroundTint="@color/primary"
+        app:tint="@color/on_primary"
+        app:fabSize="normal"
+        app:elevation="@dimen/fab_elevation" />
+
+</LinearLayout>

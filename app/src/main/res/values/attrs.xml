@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ==================== ScanProgressView Custom Attributes ==================== -->
+    <declare-styleable name="ScanProgressView">
+        <attr name="progressColorStart" format="color" />
+        <attr name="progressColorEnd" format="color" />
+        <attr name="glowColor" format="color" />
+        <attr name="dotColor" format="color" />
+    </declare-styleable>
+
+    <!-- ==================== StorageInfoView Custom Attributes ==================== -->
+    <declare-styleable name="StorageInfoView">
+        <attr name="donutBackgroundColor" format="color" />
+        <attr name="centerTextColor" format="color" />
+        <attr name="centerSubTextColor" format="color" />
+    </declare-styleable>
+</resources>

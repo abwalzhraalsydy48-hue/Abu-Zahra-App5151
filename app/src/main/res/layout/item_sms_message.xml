@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/spacing_2xs"
+    app:cardCornerRadius="@dimen/card_corner_radius_small"
+    app:cardElevation="@dimen/elevation_none"
+    app:strokeWidth="@dimen/card_stroke_width"
+    app:strokeColor="@color/outline_variant"
+    android:id="@+id/cardSms">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/card_padding_small">
+
+        <!-- Sender & Date Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textSender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:textColor="@color/primary"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="John Doe" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:textColor="@color/on_surface_variant"
+                tools:text="Jan 15, 10:30 AM" />
+
+        </LinearLayout>
+
+        <!-- Message Body (Chat Bubble Style) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_2xs"
+            app:cardCornerRadius="@dimen/corner_radius_medium"
+            app:cardElevation="@dimen/elevation_none"
+            app:cardBackgroundColor="@color/primary_container"
+            app:strokeWidth="0dp"
+            android:id="@+id/cardBubble">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="280dp"
+                android:paddingHorizontal="@dimen/spacing_md"
+                android:paddingVertical="@dimen/spacing_sm"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/on_primary_container"
+                tools:text="Hey, did you see the photos from yesterday's event? They were amazing!" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Type Badge -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_2xs"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:textColor="@color/on_surface_variant"
+            tools:text="SMS • +1 (555) 123-4567" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

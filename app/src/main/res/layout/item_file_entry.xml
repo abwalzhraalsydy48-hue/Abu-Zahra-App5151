@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="@dimen/list_item_padding_horizontal"
+    android:paddingVertical="@dimen/list_item_padding_vertical"
+    android:minHeight="@dimen/list_item_height"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- File/Folder Icon -->
+    <ImageView
+        android:id="@+id/imageIcon"
+        android:layout_width="@dimen/file_item_thumbnail_size"
+        android:layout_height="@dimen/file_item_thumbnail_size"
+        android:src="@drawable/ic_document"
+        android:contentDescription="File icon"
+        app:tint="@color/on_surface_variant"
+        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+    <!-- File Name, Size, Date -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textFileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="Documents" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_2xs">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textFileSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant"
+                tools:text="2.4 MB" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" • "
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textFileDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant"
+                tools:text="Jan 15, 2025" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- More Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMore"
+        android:layout_width="@dimen/button_height_small"
+        android:layout_height="@dimen/button_height_small"
+        app:icon="@drawable/ic_more_vert"
+        app:iconSize="@dimen/icon_size_medium"
+        app:iconTint="@color/on_surface_variant"
+        style="@style/Widget.Material3.Button.IconButton" />
+
+</LinearLayout>

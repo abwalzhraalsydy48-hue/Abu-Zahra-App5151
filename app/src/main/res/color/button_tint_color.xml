@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Disabled state - muted/gray tint -->
+    <item android:state_enabled="false"
+        android:color="@color/button_disabled" />
+
+    <!-- Pressed state - darker primary -->
+    <item android:state_pressed="true"
+        android:color="@color/primary_dark" />
+
+    <!-- Focused state - primary variant -->
+    <item android:state_focused="true"
+        android:color="@color/primary_variant" />
+
+    <!-- Selected state - accent blue -->
+    <item android:state_selected="true"
+        android:color="@color/accent_blue" />
+
+    <!-- Hovered state - primary light -->
+    <item android:state_hovered="true"
+        android:color="@color/primary_light" />
+
+    <!-- Activated state - accent green -->
+    <item android:state_activated="true"
+        android:color="@color/accent_green" />
+
+    <!-- Checked state - accent blue -->
+    <item android:state_checked="true"
+        android:color="@color/accent_blue" />
+
+    <!-- Default state - primary -->
+    <item android:color="@color/primary" />
+
+</selector>

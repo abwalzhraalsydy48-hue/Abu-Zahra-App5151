@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/spacing_2xs"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation"
+    app:strokeWidth="0dp"
+    android:id="@+id/cardBackup">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/card_padding">
+
+        <!-- Top Row: Name & Cloud Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textBackupName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="Full Backup - Jan 15" />
+
+            <ImageView
+                android:id="@+id/imageCloudIcon"
+                android:layout_width="@dimen/icon_size_small"
+                android:layout_height="@dimen/icon_size_small"
+                android:src="@drawable/ic_cloud"
+                android:contentDescription="Cloud"
+                app:tint="@color/primary"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <!-- Info Row: Date, Size, Type -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_2xs">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textBackupDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant"
+                tools:text="Jan 15, 2025" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textBackupSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant"
+                tools:text="2.4 GB" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipBackupType"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/chip_height_small"
+                app:chipMinHeight="@dimen/chip_height_small"
+                app:textEndPadding="@dimen/spacing_sm"
+                app:textStartPadding="@dimen/spacing_sm"
+                app:chipIconVisible="false"
+                app:closeIconVisible="false"
+                style="@style/Widget.Material3.Chip.Suggestion"
+                tools:text="Full" />
+
+        </LinearLayout>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="@dimen/spacing_sm">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height_small"
+                android:text="@string/action_delete"
+                android:textColor="@color/error"
+                app:icon="@drawable/ic_delete"
+                app:iconTint="@color/error"
+                style="@style/Widget.Material3.Button.TextButton" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRestore"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height_small"
+                android:text="@string/action_restore"
+                app:icon="@drawable/ic_restore"
+                style="@style/Widget.Material3.Button.FilledTonalButton" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

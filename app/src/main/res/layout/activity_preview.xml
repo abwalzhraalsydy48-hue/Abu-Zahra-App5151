@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.preview.PreviewActivity">
+
+    <!-- Image Preview -->
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/photoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
+
+    <!-- Video Preview -->
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:show_buffering="when_playing"
+        app:controller_layout_id="@layout/exo_player_control_view"
+        android:visibility="gone" />
+
+    <!-- Close Button Top-Start -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnClose"
+        android:layout_width="@dimen/fab_size_mini"
+        android:layout_height="@dimen/fab_size_mini"
+        android:layout_gravity="top|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:icon="@drawable/ic_close"
+        app:iconSize="@dimen/icon_size_medium"
+        app:iconTint="@color/text_inverse"
+        app:backgroundTint="@color/semi_transparent_black"
+        app:cornerRadius="@dimen/corner_radius_full"
+        app:strokeWidth="0dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp" />
+
+    <!-- File Info Overlay at Bottom -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardFileInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="@dimen/margin_screen_horizontal"
+        android:layout_marginBottom="@dimen/spacing_7xl"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation_high"
+        app:cardBackgroundColor="@color/semi_transparent_black"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/card_padding">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textFileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textColor="@color/text_inverse"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="IMG_20250101_120000.jpg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_2xs">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textFileSize"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="@color/semi_transparent_white"
+                    tools:text="2.4 MB" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textFileDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="@color/semi_transparent_white"
+                    tools:text="Jan 1, 2025" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textRecoveryChance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:textColor="@color/recovery_high"
+                    tools:text="High" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Recover FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRecover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/action_recover"
+        app:icon="@drawable/ic_recover"
+        app:backgroundTint="@color/primary"
+        app:tint="@color/on_primary"
+        app:fabSize="normal"
+        app:elevation="@dimen/fab_elevation" />
+
+    <!-- Share FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/spacing_9xl"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:contentDescription="@string/action_share"
+        app:icon="@drawable/ic_share"
+        app:backgroundTint="@color/surface"
+        app:tint="@color/on_surface"
+        app:fabSize="mini"
+        app:elevation="@dimen/fab_elevation" />
+
+</FrameLayout>

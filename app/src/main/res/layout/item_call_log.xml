@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="@dimen/list_item_padding_horizontal"
+    android:paddingVertical="@dimen/list_item_padding_vertical"
+    android:minHeight="@dimen/list_item_height_two_line"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Call Type Icon -->
+    <ImageView
+        android:id="@+id/imageCallType"
+        android:layout_width="@dimen/avatar_medium"
+        android:layout_height="@dimen/avatar_medium"
+        android:src="@drawable/ic_call_incoming"
+        android:contentDescription="Call type"
+        app:tint="@color/success"
+        android:padding="@dimen/spacing_sm"
+        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+    <!-- Name/Number & Duration -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="John Doe" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_2xs">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant"
+                tools:text="5:32" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" • "
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant"
+                tools:text="+1 (555) 123-4567" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Date -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+        android:textColor="@color/on_surface_variant"
+        android:layout_marginStart="@dimen/spacing_sm"
+        tools:text="Jan 15" />
+
+</LinearLayout>

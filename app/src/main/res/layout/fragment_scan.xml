@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_screen_horizontal">
+
+        <!-- Scan Type Toggle Group -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scan_title"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_marginBottom="@dimen/spacing_md" />
+
+        <com.google.android.material.togglebutton.MaterialButtonToggleGroup
+            android:id="@+id/toggleScanType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            android:layout_marginBottom="@dimen/spacing_lg">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnQuickScan"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_weight="1"
+                android:text="@string/scan_quick"
+                app:icon="@drawable/ic_quick_scan"
+                style="@style/Widget.Material3.Button.OutlinedButton" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeepScan"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_weight="1"
+                android:text="@string/scan_deep"
+                app:icon="@drawable/ic_deep_scan"
+                style="@style/Widget.Material3.Button.OutlinedButton" />
+
+        </com.google.android.material.togglebutton.MaterialButtonToggleGroup>
+
+        <!-- Category Filter Chips -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:singleSelection="false"
+            app:chipSpacingHorizontal="@dimen/chip_spacing"
+            android:layout_marginBottom="@dimen/spacing_lg">
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan_type_photos"
+                app:checkedIconVisible="true"
+                style="@style/Widget.Material3.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan_type_videos"
+                app:checkedIconVisible="true"
+                style="@style/Widget.Material3.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan_type_audio"
+                app:checkedIconVisible="true"
+                style="@style/Widget.Material3.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan_type_documents"
+                app:checkedIconVisible="true"
+                style="@style/Widget.Material3.Chip.Filter" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Scan Progress Section -->
+        <LinearLayout
+            android:id="@+id/layoutScanProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginVertical="@dimen/spacing_xl">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressScan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:indicatorSize="@dimen/progress_circle_size_large"
+                app:trackThickness="@dimen/progress_circle_stroke_width_large"
+                app:trackColor="@color/scan_progress_background"
+                app:indicatorColor="@color/scan_progress"
+                android:max="100"
+                tools:progress="45" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textProgressPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textColor="@color/primary"
+                tools:text="45%" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textFilesFound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2xs"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/on_surface_variant"
+                tools:text="234 files found" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressScanLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_lg"
+                app:trackHeight="@dimen/progress_bar_height"
+                app:trackCornerRadius="@dimen/corner_radius_small"
+                app:indicatorColor="@color/primary"
+                android:max="100"
+                tools:progress="45" />
+
+        </LinearLayout>
+
+        <!-- Start Scan Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartScan"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_large"
+            android:text="@string/scan_start"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            app:icon="@drawable/ic_scan"
+            app:iconGravity="textStart"
+            android:layout_marginVertical="@dimen/spacing_xl"
+            style="@style/Widget.Material3.Button.ElevatedButton" />
+
+        <!-- Recent Scans List -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_recent_scans"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_marginBottom="@dimen/spacing_md" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerRecentScans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_backup" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

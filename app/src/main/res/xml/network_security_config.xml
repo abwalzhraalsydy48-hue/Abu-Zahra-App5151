@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+
+    <!-- Base configuration for all connections - enforce HTTPS -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Cloud backup server configuration - allow specific domains -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">ultimaterecovery.pro</domain>
+        <domain includeSubdomains="true">api.ultimaterecovery.pro</domain>
+        <domain includeSubdomains="true">backup.ultimaterecovery.pro</domain>
+        <domain includeSubdomains="true">cloud.ultimaterecovery.pro</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+        <pin-set>
+            <pin digest="SHA-256">REPLACE_WITH_ACTUAL_PIN_HASH_1</pin>
+            <pin digest="SHA-256">REPLACE_WITH_ACTUAL_PIN_HASH_2</pin>
+        </pin-set>
+    </domain-config>
+
+    <!-- Google Cloud Storage for backup -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">storage.googleapis.com</domain>
+        <domain includeSubdomains="true">www.googleapis.com</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+
+    <!-- Dropbox API for backup integration -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">api.dropboxapi.com</domain>
+        <domain includeSubdomains="true">content.dropboxapi.com</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+
+    <!-- Local network for device-to-device backup -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">192.168.0.0</domain>
+        <domain includeSubdomains="true">10.0.0.0</domain>
+    </domain-config>
+
+    <!-- Debug-only configuration - allows cleartext for local testing -->
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </debug-overrides>
+
+</network-security-config>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- TabLayout for Categories -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_height"
+        app:tabMode="scrollable"
+        app:tabIndicatorHeight="@dimen/tab_indicator_height"
+        app:tabPaddingHorizontal="@dimen/tab_padding_horizontal"
+        app:tabTextAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:tabIndicatorColor="@color/primary"
+        app:tabSelectedTextColor="@color/primary">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/file_recovery_category_documents" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/file_recovery_category_spreadsheets" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/file_recovery_category_pdfs" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/file_recovery_category_archives" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/file_recovery_category_code" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/file_recovery_category_ebooks" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <!-- File List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerFiles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingVertical="@dimen/spacing_sm"
+        android:paddingBottom="@dimen/spacing_9xl"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_recovered_file"
+        tools:itemCount="5" />
+
+    <!-- Recover FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRecover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/action_recover"
+        app:icon="@drawable/ic_recover"
+        app:backgroundTint="@color/primary"
+        app:tint="@color/on_primary"
+        app:fabSize="normal"
+        app:elevation="@dimen/fab_elevation" />
+
+</LinearLayout>

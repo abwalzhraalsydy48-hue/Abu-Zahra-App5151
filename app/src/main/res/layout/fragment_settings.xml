@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_screen_horizontal">
+
+        <!-- General Settings Card -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_category_general"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/elevation_none"
+            app:strokeWidth="@dimen/card_stroke_width"
+            app:strokeColor="@color/outline_variant"
+            android:layout_marginBottom="@dimen/spacing_lg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/spacing_sm">
+
+                <!-- Language -->
+                <LinearLayout
+                    android:id="@+id/settingLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_language"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_language"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_language_desc"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_small"
+                        android:layout_height="@dimen/icon_size_small"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+                <!-- Scan Depth -->
+                <LinearLayout
+                    android:id="@+id/settingScanDepth"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_scan_depth"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_scan_depth"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textScanDepth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_scan_depth_normal"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_small"
+                        android:layout_height="@dimen/icon_size_small"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+                <!-- Auto Scan -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_auto_scan"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_auto_scan"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_auto_scan_desc"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchAutoScan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Appearance Settings Card -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_category_appearance"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/elevation_none"
+            app:strokeWidth="@dimen/card_stroke_width"
+            app:strokeColor="@color/outline_variant"
+            android:layout_marginBottom="@dimen/spacing_lg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/spacing_sm">
+
+                <!-- Theme -->
+                <LinearLayout
+                    android:id="@+id/settingTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_theme"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_theme"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textTheme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_theme_system"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_small"
+                        android:layout_height="@dimen/icon_size_small"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+                <!-- Accent Color -->
+                <LinearLayout
+                    android:id="@+id/settingAccentColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_palette"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_accent_color"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_accent_color_desc"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/viewAccentPreview"
+                        android:layout_width="@dimen/avatar_small"
+                        android:layout_height="@dimen/avatar_small"
+                        android:background="@color/primary"
+                        android:layout_marginEnd="@dimen/spacing_sm" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Security Settings Card -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_category_security"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/elevation_none"
+            app:strokeWidth="@dimen/card_stroke_width"
+            app:strokeColor="@color/outline_variant"
+            android:layout_marginBottom="@dimen/spacing_lg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/spacing_sm">
+
+                <!-- App Lock -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_lock"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_app_lock"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_app_lock_desc"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchAppLock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Lock Method -->
+                <LinearLayout
+                    android:id="@+id/settingLockMethod"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_fingerprint"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_lock_method"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textLockMethod"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_lock_pin"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_small"
+                        android:layout_height="@dimen/icon_size_small"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+                <!-- Lock Timeout -->
+                <LinearLayout
+                    android:id="@+id/settingLockTimeout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_timer"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_lock_timeout"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textLockTimeout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_lock_immediately"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_small"
+                        android:layout_height="@dimen/icon_size_small"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Storage Settings Card -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_category_storage"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/elevation_none"
+            app:strokeWidth="@dimen/card_stroke_width"
+            app:strokeColor="@color/outline_variant"
+            android:layout_marginBottom="@dimen/spacing_lg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/spacing_sm">
+
+                <!-- Recovery Location -->
+                <LinearLayout
+                    android:id="@+id/settingRecoveryLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_folder"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_recovery_location"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/textRecoveryLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_default_recovery"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_small"
+                        android:layout_height="@dimen/icon_size_small"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+                <!-- Keep Original Path -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_folder_open"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_keep_original"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_keep_original_desc"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchKeepOriginal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Recycle Bin -->
+                <LinearLayout
+                    android:id="@+id/settingRecycleBin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_recycle_bin"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_recycle_bin"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_recycle_bin_desc"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_small"
+                        android:layout_height="@dimen/icon_size_small"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Notifications Settings Card -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_category_notifications"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/elevation_none"
+            app:strokeWidth="@dimen/card_stroke_width"
+            app:strokeColor="@color/outline_variant"
+            android:layout_marginBottom="@dimen/spacing_lg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/spacing_sm">
+
+                <!-- Scan Notifications -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_notification_scan"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/settings_notifications_scan"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchNotificationScan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+
+                </LinearLayout>
+
+                <!-- Backup Notifications -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_notification_backup"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/settings_notifications_backup"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchNotificationBackup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+
+                </LinearLayout>
+
+                <!-- Recovery Notifications -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_notification_recovery"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/settings_notifications_recovery"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchNotificationRecovery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Advanced Settings Card -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_category_advanced"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/elevation_none"
+            app:strokeWidth="@dimen/card_stroke_width"
+            app:strokeColor="@color/outline_variant"
+            android:layout_marginBottom="@dimen/spacing_lg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/spacing_sm">
+
+                <!-- Battery Optimization -->
+                <LinearLayout
+                    android:id="@+id/settingBatteryOptimization"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_battery"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_battery_optimization"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_battery_optimization_desc"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Debug Mode -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_debug"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_debug_mode"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_debug_mode_desc"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                        android:id="@+id/switchDebugMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Clear Cache -->
+                <LinearLayout
+                    android:id="@+id/settingClearCache"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_clear_cache"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_clear_cache"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_clear_cache_desc"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- About Card -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_category_about"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/elevation_none"
+            app:strokeWidth="@dimen/card_stroke_width"
+            app:strokeColor="@color/outline_variant"
+            android:layout_marginBottom="@dimen/spacing_5xl">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/spacing_sm">
+
+                <LinearLayout
+                    android:id="@+id/settingAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/card_padding"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_info"
+                        app:tint="@color/on_surface_variant"
+                        android:layout_marginEnd="@dimen/list_item_icon_margin_end" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/title_about"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_small"
+                        android:layout_height="@dimen/icon_size_small"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/on_surface_variant" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

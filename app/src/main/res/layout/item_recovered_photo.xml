@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/spacing_2xs"
+    app:cardCornerRadius="@dimen/thumbnail_corner_radius"
+    app:cardElevation="@dimen/elevation_none"
+    app:strokeWidth="0dp"
+    android:checkable="true"
+    android:id="@+id/cardPhoto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Thumbnail -->
+        <ImageView
+            android:id="@+id/imageThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thumbnail_grid"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/photo_recovery_title"
+            tools:background="@color/surface_variant"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <!-- Selection Highlight Overlay -->
+        <View
+            android:id="@+id/viewSelectionHighlight"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thumbnail_grid"
+            android:background="@color/semi_transparent_primary"
+            android:visibility="gone" />
+
+        <!-- Checkbox Overlay -->
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="@dimen/file_item_checkbox_margin"
+            app:buttonTint="@color/primary"
+            android:backgroundTint="@color/semi_transparent_white"
+            android:clickable="false"
+            android:focusable="false" />
+
+    </FrameLayout>
+
+</com.google.android.material.card.MaterialCardView>

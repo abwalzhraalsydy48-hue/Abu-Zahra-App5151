@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/HomeFragment">
+
+    <!-- ==================== FRAGMENTS ==================== -->
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.ultimaterecovery.pro.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_HomeFragment_to_ScanFragment"
+            app:destination="@id/ScanFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_PhotoRecoveryFragment"
+            app:destination="@id/PhotoRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_VideoRecoveryFragment"
+            app:destination="@id/VideoRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_FileRecoveryFragment"
+            app:destination="@id/FileRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_SmsRecoveryFragment"
+            app:destination="@id/SmsRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_CallLogRecoveryFragment"
+            app:destination="@id/CallLogRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_AppDataRecoveryFragment"
+            app:destination="@id/AppDataRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_BackupFragment"
+            app:destination="@id/BackupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_RecycleBinFragment"
+            app:destination="@id/RecycleBinFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_FileManagerFragment"
+            app:destination="@id/FileManagerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_HomeFragment_to_AccountRecoveryFragment"
+            app:destination="@id/AccountRecoveryFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_bottom" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ScanFragment"
+        android:name="com.ultimaterecovery.pro.ui.scan.ScanFragment"
+        android:label="Scan"
+        tools:layout="@layout/fragment_scan">
+        <argument
+            android:name="scanType"
+            app:argType="string"
+            android:defaultValue="full" />
+        <action
+            android:id="@+id/action_ScanFragment_to_PhotoRecoveryFragment"
+            app:destination="@id/PhotoRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_ScanFragment_to_VideoRecoveryFragment"
+            app:destination="@id/VideoRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_ScanFragment_to_FileRecoveryFragment"
+            app:destination="@id/FileRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_ScanFragment_to_PreviewActivity"
+            app:destination="@id/PreviewActivity"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/PhotoRecoveryFragment"
+        android:name="com.ultimaterecovery.pro.ui.recovery.PhotoRecoveryFragment"
+        android:label="Photo Recovery"
+        tools:layout="@layout/fragment_photo_recovery">
+        <argument
+            android:name="scanMode"
+            app:argType="string"
+            android:defaultValue="deep" />
+        <action
+            android:id="@+id/action_PhotoRecoveryFragment_to_PreviewActivity"
+            app:destination="@id/PreviewActivity"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_PhotoRecoveryFragment_to_BackupFragment"
+            app:destination="@id/BackupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/VideoRecoveryFragment"
+        android:name="com.ultimaterecovery.pro.ui.recovery.VideoRecoveryFragment"
+        android:label="Video Recovery"
+        tools:layout="@layout/fragment_video_recovery">
+        <argument
+            android:name="scanMode"
+            app:argType="string"
+            android:defaultValue="deep" />
+        <action
+            android:id="@+id/action_VideoRecoveryFragment_to_PreviewActivity"
+            app:destination="@id/PreviewActivity"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_VideoRecoveryFragment_to_BackupFragment"
+            app:destination="@id/BackupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/FileRecoveryFragment"
+        android:name="com.ultimaterecovery.pro.ui.recovery.FileRecoveryFragment"
+        android:label="File Recovery"
+        tools:layout="@layout/fragment_file_recovery">
+        <argument
+            android:name="fileType"
+            app:argType="string"
+            android:defaultValue="all" />
+        <action
+            android:id="@+id/action_FileRecoveryFragment_to_PreviewActivity"
+            app:destination="@id/PreviewActivity"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_FileRecoveryFragment_to_FileManagerFragment"
+            app:destination="@id/FileManagerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SmsRecoveryFragment"
+        android:name="com.ultimaterecovery.pro.ui.recovery.SmsRecoveryFragment"
+        android:label="SMS Recovery"
+        tools:layout="@layout/fragment_sms_recovery">
+        <argument
+            android:name="contactFilter"
+            app:argType="string"
+            android:defaultValue="all" />
+        <action
+            android:id="@+id/action_SmsRecoveryFragment_to_BackupFragment"
+            app:destination="@id/BackupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/CallLogRecoveryFragment"
+        android:name="com.ultimaterecovery.pro.ui.recovery.CallLogRecoveryFragment"
+        android:label="Call Log Recovery"
+        tools:layout="@layout/fragment_call_log_recovery">
+        <argument
+            android:name="callType"
+            app:argType="string"
+            android:defaultValue="all" />
+        <action
+            android:id="@+id/action_CallLogRecoveryFragment_to_BackupFragment"
+            app:destination="@id/BackupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AppDataRecoveryFragment"
+        android:name="com.ultimaterecovery.pro.ui.recovery.AppDataRecoveryFragment"
+        android:label="App Data Recovery"
+        tools:layout="@layout/fragment_app_data_recovery">
+        <argument
+            android:name="packageName"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_AppDataRecoveryFragment_to_BackupFragment"
+            app:destination="@id/BackupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/BackupFragment"
+        android:name="com.ultimaterecovery.pro.ui.backup.BackupFragment"
+        android:label="Backup"
+        tools:layout="@layout/fragment_backup">
+        <argument
+            android:name="backupType"
+            app:argType="string"
+            android:defaultValue="local" />
+        <action
+            android:id="@+id/action_BackupFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/RecycleBinFragment"
+        android:name="com.ultimaterecovery.pro.ui.recyclebin.RecycleBinFragment"
+        android:label="Recycle Bin"
+        tools:layout="@layout/fragment_recycle_bin">
+        <argument
+            android:name="sortBy"
+            app:argType="string"
+            android:defaultValue="date" />
+        <action
+            android:id="@+id/action_RecycleBinFragment_to_PreviewActivity"
+            app:destination="@id/PreviewActivity"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_RecycleBinFragment_to_FileManagerFragment"
+            app:destination="@id/FileManagerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/FileManagerFragment"
+        android:name="com.ultimaterecovery.pro.ui.filemanager.FileManagerFragment"
+        android:label="File Manager"
+        tools:layout="@layout/fragment_file_manager">
+        <argument
+            android:name="rootPath"
+            app:argType="string"
+            android:defaultValue="/storage/emulated/0" />
+        <action
+            android:id="@+id/action_FileManagerFragment_to_PreviewActivity"
+            app:destination="@id/PreviewActivity"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_FileManagerFragment_to_BackupFragment"
+            app:destination="@id/BackupFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_bottom" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.ultimaterecovery.pro.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_SettingsFragment_to_AccountRecoveryFragment"
+            app:destination="@id/AccountRecoveryFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_bottom" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AccountRecoveryFragment"
+        android:name="com.ultimaterecovery.pro.ui.recovery.AccountRecoveryFragment"
+        android:label="Account Recovery"
+        tools:layout="@layout/fragment_account_recovery">
+        <argument
+            android:name="accountType"
+            app:argType="string"
+            android:defaultValue="google" />
+        <action
+            android:id="@+id/action_AccountRecoveryFragment_to_BackupFragment"
+            app:destination="@id/BackupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <!-- ==================== ACTIVITY DESTINATIONS ==================== -->
+
+    <activity
+        android:id="@+id/ScanActivity"
+        android:name="com.ultimaterecovery.pro.ui.scan.ScanActivity"
+        android:label="Scan Activity"
+        tools:layout="@layout/activity_scan">
+        <argument
+            android:name="scanType"
+            app:argType="string"
+            android:defaultValue="full" />
+        <argument
+            android:name="deepScan"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </activity>
+
+    <activity
+        android:id="@+id/PreviewActivity"
+        android:name="com.ultimaterecovery.pro.ui.preview.PreviewActivity"
+        android:label="Preview"
+        tools:layout="@layout/activity_preview">
+        <argument
+            android:name="filePath"
+            app:argType="string" />
+        <argument
+            android:name="fileType"
+            app:argType="string"
+            android:defaultValue="image" />
+        <argument
+            android:name="isRecovered"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </activity>
+
+</navigation>

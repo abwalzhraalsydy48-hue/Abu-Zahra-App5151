@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- ==================== INCLUDE ==================== -->
+    <!-- Shared preferences (user settings) -->
+    <include
+        domain="sharedpref"
+        path="." />
+
+    <!-- Internal app files (database, settings) -->
+    <include
+        domain="file"
+        path="." />
+
+    <!-- Database files -->
+    <include
+        domain="database"
+        path="." />
+
+    <!-- External app-specific files (recovery output, backups) -->
+    <include
+        domain="external"
+        path="Recovery/" />
+
+    <!-- ==================== EXCLUDE ==================== -->
+    <!-- Exclude cache directories (no point backing up temp data) -->
+    <exclude
+        domain="cache"
+        path="." />
+
+    <exclude
+        domain="external"
+        path="Recovery/Temp/" />
+
+    <exclude
+        domain="external"
+        path="Recovery/Cache/" />
+
+    <!-- Exclude log files (regenerated) -->
+    <exclude
+        domain="external"
+        path="Recovery/Logs/" />
+
+    <!-- Exclude debug and crash logs -->
+    <exclude
+        domain="file"
+        path="debug/" />
+
+    <exclude
+        domain="file"
+        path="crash/" />
+
+    <!-- Exclude downloaded scan databases (can be re-downloaded) -->
+    <exclude
+        domain="external"
+        path="Recovery/ScanData/" />
+
+    <!-- Exclude temporary recovery sessions -->
+    <exclude
+        domain="external"
+        path="Recovery/Sessions/" />
+
+    <!-- Exclude notification related files -->
+    <exclude
+        domain="file"
+        path="notifications/" />
+
+    <!-- Exclude biometric related keys (security) -->
+    <exclude
+        domain="sharedpref"
+        path="biometric_prefs.xml" />
+
+    <!-- Exclude encryption keys (security) -->
+    <exclude
+        domain="sharedpref"
+        path="encryption_prefs.xml" />
+
+    <!-- Exclude lock PIN/pattern data (security) -->
+    <exclude
+        domain="sharedpref"
+        path="lock_prefs.xml" />
+
+    <!-- Exclude authentication tokens -->
+    <exclude
+        domain="sharedpref"
+        path="auth_prefs.xml" />
+
+    <!-- Exclude large backup files that can be recreated -->
+    <exclude
+        domain="external"
+        path="Recovery/Backups/" />
+
+</full-backup-content>

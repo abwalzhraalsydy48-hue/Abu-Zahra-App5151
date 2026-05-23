@@ -81,4 +81,30 @@
         app:iconTint="@color/on_surface_variant"
         style="@style/Widget.Material3.Button.IconButton" />
 
+
+    <android.widget.CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivFileIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFileDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFileSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 </LinearLayout>

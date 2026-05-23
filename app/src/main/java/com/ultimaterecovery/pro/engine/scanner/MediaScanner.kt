@@ -12,8 +12,13 @@ import com.ultimaterecovery.pro.engine.recovery.RecoveryConfidence
 import com.ultimaterecovery.pro.engine.signatures.FileSignatures
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
 import java.io.File
@@ -122,7 +127,7 @@ class MediaScanner @Inject constructor(
 
             val mediaDirs = getMediaDirectories()
             for (dir in mediaDirs) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
                 scanMediaDirectory(dir, foundFiles, targetCategories, maxDepth = 5)
             }
 
@@ -138,7 +143,7 @@ class MediaScanner @Inject constructor(
 
             val messagingDirs = getMessagingAppDirectories()
             for (dir in messagingDirs) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
                 scanMediaDirectory(
                     dir, foundFiles, targetCategories,
                     maxDepth = 5,
@@ -158,7 +163,7 @@ class MediaScanner @Inject constructor(
 
             val cacheDirs = getMediaCacheDirectories()
             for (dir in cacheDirs) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
                 scanMediaDirectory(
                     dir, foundFiles, targetCategories,
                     maxDepth = 4,
@@ -178,7 +183,7 @@ class MediaScanner @Inject constructor(
 
             val thumbnailDirs = getThumbnailDirectories()
             for (dir in thumbnailDirs) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
                 scanThumbnailsDirectory(dir, foundFiles)
             }
 
@@ -194,7 +199,7 @@ class MediaScanner @Inject constructor(
 
             val trashDirs = getTrashDirectories()
             for (dir in trashDirs) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
                 scanMediaDirectory(
                     dir, foundFiles, targetCategories,
                     maxDepth = 4,
@@ -297,7 +302,7 @@ class MediaScanner @Inject constructor(
      * @param isLikelyDeleted هل الملفات يرجح أنها محذوفة
      * @param isAppSpecific هل الدليل خاص بتطبيق
      */
-    private fun scanMediaDirectory(
+    private suspend fun scanMediaDirectory(
         directory: File,
         foundFiles: MutableList<FoundFileInfo>,
         categories: List<FileCategory>,
@@ -311,7 +316,7 @@ class MediaScanner @Inject constructor(
 
         try {
             directory.listFiles()?.forEach { file ->
-                if (!isActive) return
+                if (!currentCoroutineContext().isActive) return
 
                 try {
                     if (file.isDirectory) {
@@ -364,7 +369,7 @@ class MediaScanner @Inject constructor(
      * @param directory دليل الصور المصغرة
      * @param foundFiles قائمة النتائج
      */
-    private fun scanThumbnailsDirectory(
+    private suspend fun scanThumbnailsDirectory(
         directory: File,
         foundFiles: MutableList<FoundFileInfo>
     ) {
@@ -372,7 +377,7 @@ class MediaScanner @Inject constructor(
 
         try {
             directory.listFiles()?.forEach { file ->
-                if (!isActive) return
+                if (!currentCoroutineContext().isActive) return
 
                 try {
                     if (file.isFile && file.length() >= MIN_IMAGE_SIZE) {
@@ -512,10 +517,11 @@ class MediaScanner @Inject constructor(
                 metadata["orientation"] = orientation.toString()
 
                 // GPS
-                val latLong = exif.latLong
-                if (latLong != null) {
-                    metadata["gps_latitude"] = latLong[0].toString()
-                    metadata["gps_longitude"] = latLong[1].toString()
+                val latLongArray = FloatArray(2)
+                val hasLatLong = exif.getLatLong(latLongArray)
+                if (hasLatLong) {
+                    metadata["gps_latitude"] = latLongArray[0].toString()
+                    metadata["gps_longitude"] = latLongArray[1].toString()
                 }
 
                 // حجم الصورة الأصلي

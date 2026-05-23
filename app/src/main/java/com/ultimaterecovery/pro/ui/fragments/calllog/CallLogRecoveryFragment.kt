@@ -128,9 +128,13 @@ class CallLogRecoveryFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun setupSearch() {
-        binding.searchView.doOnTextChanged { text, _, _, _ ->
-            viewModel.search(text?.toString().orEmpty())
-        }
+        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.search(newText.orEmpty())
+                return true
+            }
+        })
     }
 
     // ──────────────────────────────────────────
@@ -182,13 +186,13 @@ class CallLogRecoveryFragment : Fragment() {
 
     private fun renderState(state: CallLogRecoveryUiState) {
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
-            binding.recyclerViewCallLogs.visibility = View.GONE
+            binding.recyclerViewCallLogs?.visibility = View.GONE
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
-            binding.recyclerViewCallLogs.visibility = View.VISIBLE
+            binding.recyclerViewCallLogs?.visibility = View.VISIBLE
         }
 
         callLogAdapter.submitList(state.filteredCallLogs)
@@ -201,25 +205,25 @@ class CallLogRecoveryFragment : Fragment() {
 
         val selectedCount = state.selectedLogIds.size
         if (selectedCount > 0) {
-            binding.layoutSelectionBar.visibility = View.VISIBLE
+            binding.layoutSelectionBar?.visibility = View.VISIBLE
             binding.tvSelectedCount.text = getString(R.string.selected_count, selectedCount)
-            binding.fabRecover.visibility = View.VISIBLE
+            binding.fabRecover?.visibility = View.VISIBLE
         } else {
-            binding.layoutSelectionBar.visibility = View.GONE
-            binding.fabRecover.visibility = View.GONE
+            binding.layoutSelectionBar?.visibility = View.GONE
+            binding.fabRecover?.visibility = View.GONE
         }
 
         if (state.filteredCallLogs.isEmpty() && !state.isLoading) {
-            binding.layoutEmptyState.visibility = View.VISIBLE
-            binding.recyclerViewCallLogs.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.VISIBLE
+            binding.recyclerViewCallLogs?.visibility = View.GONE
         } else {
-            binding.layoutEmptyState.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.GONE
         }
 
         if (state.isExporting) {
-            binding.progressExport.visibility = View.VISIBLE
+            binding.progressExport?.visibility = View.VISIBLE
         } else {
-            binding.progressExport.visibility = View.GONE
+            binding.progressExport?.visibility = View.GONE
         }
 
         state.exportPath?.let { path ->
@@ -311,7 +315,7 @@ class CallLogRecoveryFragment : Fragment() {
                     CallType.OUTGOING -> {
                         binding.ivCallType.setImageResource(R.drawable.ic_call_outgoing)
                         binding.ivCallType.setColorFilter(
-                            androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.md_theme_light_secondary)
+                            androidx.core.content.ContextCompat.getColor(binding.root.context, R.color.secondary)
                         )
                     }
                     CallType.MISSED -> {
@@ -326,15 +330,16 @@ class CallLogRecoveryFragment : Fragment() {
                             androidx.core.content.ContextCompat.getColor(binding.root.context, android.R.color.holo_orange_dark)
                         )
                     }
+                    else -> ""
                 }
 
                 // Contact / Number
                 binding.tvContactName.text = log.contactName ?: log.number
                 if (log.contactName != null) {
                     binding.tvNumber.text = log.number
-                    binding.tvNumber.visibility = View.VISIBLE
+                    binding.tvNumber?.visibility = View.VISIBLE
                 } else {
-                    binding.tvNumber.visibility = View.GONE
+                    binding.tvNumber?.visibility = View.GONE
                 }
 
                 // Date

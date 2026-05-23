@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.ultimaterecovery.pro.data.local.entity.SmsMessageEntity
 import com.ultimaterecovery.pro.data.local.converter.EnumTypeConverters
 
 /**

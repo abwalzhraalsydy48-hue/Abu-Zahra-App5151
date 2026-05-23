@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <!-- System/User Toggle -->
-    <com.google.android.material.togglebutton.MaterialButtonToggleGroup
+    <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggleAppType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,16 +33,26 @@
             android:text="System Apps"
             style="@style/Widget.Material3.Button.OutlinedButton" />
 
-    </com.google.android.material.togglebutton.MaterialButtonToggleGroup>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <!-- Root Required Warning -->
-    <com.google.android.material.banner.Banner
+    <!-- Root Required Warning - replaced Banner with CardView since Banner is not available -->
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/bannerRootRequired"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_screen_horizontal"
         android:visibility="gone"
-        app:bannerText="@string/app_data_root_required" />
+        app:cardBackgroundColor="@color/error_container"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="0dp">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvBannerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/card_padding"
+            android:text="@string/app_data_root_required"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- App Data List -->
     <androidx.recyclerview.widget.RecyclerView
@@ -57,5 +67,139 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_app_data"
         tools:itemCount="5" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeselectAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelectAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <android.widget.CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipAllApps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipSystemApps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipUserApps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRecover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivAppIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <android.widget.LinearLayout
+        android:id="@+id/layoutEmptyState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <android.widget.LinearLayout
+        android:id="@+id/layoutSelectionBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <android.widget.ProgressBar
+        android:id="@+id/progressRecovery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAppData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDataSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDataType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvPackageName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvRecoveryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSelectedCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSystemBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+
+    <!-- Auto-added missing views -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewApps"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>

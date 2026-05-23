@@ -19,13 +19,21 @@ import androidx.core.app.NotificationCompat
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.isActive
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
@@ -365,7 +373,7 @@ class FileMonitorService : Service() {
     private fun startPeriodicScan() {
         scanJob?.cancel()
         scanJob = serviceScope.launch {
-            while (isActive) {
+            while (currentCoroutineContext().isActive) {
                 delay(SCAN_INTERVAL_MS)
                 // The periodic scan could compare a cached file list
                 // against the current filesystem to detect deletions
@@ -410,10 +418,11 @@ class FileMonitorService : Service() {
                 mountFile.bufferedReader().use { reader ->
                     var line: String?
                     while (reader.readLine().also { line = it } != null) {
-                        if (line.contains("sdcard1") || line.contains("external_sd") ||
-                            line.contains("extSdCard") || line.contains("microsd")
+                        val currentLine = line!!
+                        if (currentLine.contains("sdcard1") || currentLine.contains("external_sd") ||
+                            currentLine.contains("extSdCard") || currentLine.contains("microsd")
                         ) {
-                            val parts = line.split("\\s+".toRegex())
+                            val parts = currentLine.split("\\s+".toRegex())
                             if (parts.size >= 2) {
                                 val mountPoint = parts[1]
                                 if (File(mountPoint).exists()) {
@@ -490,7 +499,7 @@ class FileMonitorService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Ultimate Recovery Pro")
             .setContentText("Monitoring files for recycle bin protection")
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.ic_notification_scan)
             .setOngoing(true)
             .setSilent(true)
             .addAction(
@@ -551,6 +560,9 @@ class RecursiveFileObserver(
                 FileObserver.MOVED_FROM or
                 FileObserver.CREATE or
                 FileObserver.MOVED_TO
+
+        /** Maximum number of child observers to prevent resource exhaustion. */
+        private const val MAX_CHILD_OBSERVERS = 200
     }
 
     /** Root observer. */
@@ -652,11 +664,6 @@ class RecursiveFileObserver(
         } catch (e: Exception) {
             Log.e(TAG, "Failed to create observer for: $path", e)
         }
-    }
-
-    companion object {
-        /** Maximum number of child observers to prevent resource exhaustion. */
-        private const val MAX_CHILD_OBSERVERS = 200
     }
 }
 

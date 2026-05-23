@@ -140,6 +140,13 @@ dependencies {
     // Gson
     implementation("com.google.code.gson:gson:2.10.1")
 
+    // Timber Logging
+    implementation("com.jakewharton.timber:timber:5.0.1")
+
+    // Hilt WorkManager Integration
+    implementation("androidx.hilt:hilt-work:1.1.0")
+    kapt("androidx.hilt:hilt-compiler:1.1.0")
+
     // Lottie Animations
     implementation("com.airbnb.android:lottie:6.3.0")
 

@@ -1,10 +1,13 @@
 package com.ultimaterecovery.pro.engine.root
 
-import com.topjohnwu.libsu.Shell
-import com.topjohnwu.libsu.SuFile
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
 import javax.inject.Inject
@@ -92,7 +95,7 @@ class RootScanner @Inject constructor(
         var processed = 0
 
         for (dirName in dataDirs) {
-            if (!isActive) break
+            if (!currentCoroutineContext().isActive) break
 
             val dirPath = "/data/$dirName"
             val scanEntry = scanDirectoryEntry(dirPath)
@@ -140,7 +143,7 @@ class RootScanner @Inject constructor(
         var processed = 0
 
         for (pkg in packages) {
-            if (!isActive) break
+            if (!currentCoroutineContext().isActive) break
 
             val pkgPath = "$APP_DATA_PATH/$pkg"
             val result = scanPackageData(pkg, pkgPath)
@@ -183,7 +186,7 @@ class RootScanner @Inject constructor(
         // Scan /data/system
         val systemDbs = scanForDatabases(SYSTEM_DB_PATH)
         for (db in systemDbs) {
-            if (!isActive) break
+            if (!currentCoroutineContext().isActive) break
             emit(SystemDbScanResult.Database(
                 name = db.name,
                 path = db.path,
@@ -201,7 +204,7 @@ class RootScanner @Inject constructor(
         if (rootManager.fileExistsAsRoot(systemCePath)) {
             val ceDbs = scanForDatabases(systemCePath)
             for (db in ceDbs) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
                 emit(SystemDbScanResult.Database(
                     name = db.name,
                     path = db.path,
@@ -221,7 +224,7 @@ class RootScanner @Inject constructor(
         if (rootManager.fileExistsAsRoot(systemDePath)) {
             val deDbs = scanForDatabases(systemDePath)
             for (db in deDbs) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
                 emit(SystemDbScanResult.Database(
                     name = db.name,
                     path = db.path,
@@ -283,7 +286,7 @@ class RootScanner @Inject constructor(
         var currentOffset = offset
         var bytesScanned = 0L
 
-        while (currentOffset < offset + bytesToScan && isActive) {
+        while (currentOffset < offset + bytesToScan && currentCoroutineContext().isActive) {
             val readSize = minOf(chunkSize, offset + bytesToScan - currentOffset)
             val skipBlocks = currentOffset / DD_BLOCK_SIZE
 
@@ -415,7 +418,7 @@ class RootScanner @Inject constructor(
     /**
      * Scan a directory entry and return metadata
      */
-    private fun scanDirectoryEntry(path: String): DataScanResult? {
+    private suspend fun scanDirectoryEntry(path: String): DataScanResult? {
         return try {
             val result = rootManager.executeCommandWithOutput(
                 "ls -ld '$path' 2>/dev/null"

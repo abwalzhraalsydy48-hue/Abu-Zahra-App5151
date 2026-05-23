@@ -6,11 +6,17 @@ import android.net.Uri
 import android.os.Environment
 import android.os.StatFs
 import android.webkit.MimeTypeMap
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
 import com.ultimaterecovery.pro.data.repository.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
 import java.io.BufferedInputStream
@@ -483,7 +489,7 @@ class FileManager @Inject constructor(
         if (!dest.exists()) dest.mkdirs()
 
         for ((index, srcPath) in sources.withIndex()) {
-            if (!isActive) break
+            if (!currentCoroutineContext().isActive) break
 
             val source = File(srcPath)
             val destination = File(dest, source.name)
@@ -517,7 +523,7 @@ class FileManager @Inject constructor(
         if (!dest.exists()) dest.mkdirs()
 
         for ((index, srcPath) in sources.withIndex()) {
-            if (!isActive) break
+            if (!currentCoroutineContext().isActive) break
 
             val source = File(srcPath)
             val destination = File(dest, source.name)
@@ -553,7 +559,7 @@ class FileManager @Inject constructor(
      */
     fun batchDelete(paths: List<String>): Flow<BatchProgress> = flow {
         for ((index, path) in paths.withIndex()) {
-            if (!isActive) break
+            if (!currentCoroutineContext().isActive) break
 
             val file = File(path)
             try {
@@ -604,11 +610,11 @@ class FileManager @Inject constructor(
         val stack = Stack<Pair<File, Int>>()
         stack.push(Pair(rootDir, 0))
 
-        while (stack.isNotEmpty() && isActive) {
+        while (stack.isNotEmpty() && currentCoroutineContext().isActive) {
             val (dir, depth) = stack.pop()
 
             dir.listFiles()?.forEach { file ->
-                if (!isActive) return@forEach
+                if (!currentCoroutineContext().isActive) return@forEach
 
                 val nameMatch = file.name.lowercase().contains(lowerQuery)
                 val extMatch = extensionFilter == null ||
@@ -721,7 +727,7 @@ class FileManager @Inject constructor(
             var processed = 0
 
             for (srcPath in files) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
 
                 val source = File(srcPath)
                 if (!source.exists()) continue
@@ -775,7 +781,7 @@ class FileManager @Inject constructor(
         ZipInputStream(BufferedInputStream(FileInputStream(zipFile))).use { zipIn ->
             var entry: ZipEntry?
             while (zipIn.nextEntry.also { entry = it } != null) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
 
                 val currentEntry = entry!!
                 val outFile = File(outDir, currentEntry.name)

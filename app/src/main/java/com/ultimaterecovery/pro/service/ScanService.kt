@@ -18,7 +18,7 @@ import com.ultimaterecovery.pro.engine.recovery.FoundFileInfo
 import com.ultimaterecovery.pro.engine.scanner.IScanEngine
 import com.ultimaterecovery.pro.engine.scanner.ScanEngine
 import com.ultimaterecovery.pro.engine.scanner.ScanState
-import com.ultimaterecovery.pro.ui.scan.ScanActivity
+import com.ultimaterecovery.pro.ui.activities.ScanActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -489,7 +489,7 @@ class ScanService : Service() {
                     progress = 1f,
                     storagePath = state.results.firstOrNull()?.path ?: ""
                 )
-                scanSessionRepository.insertSession(session)
+                scanSessionRepository.createSession(session)
                 Timber.d("Scan session saved to database")
             } catch (e: Exception) {
                 Timber.w(e, "Failed to save scan session")

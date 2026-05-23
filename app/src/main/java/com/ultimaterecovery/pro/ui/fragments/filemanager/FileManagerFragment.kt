@@ -19,6 +19,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.databinding.FragmentFileManagerBinding
 import com.ultimaterecovery.pro.databinding.ItemFileEntryBinding
@@ -213,13 +214,13 @@ class FileManagerFragment : Fragment() {
     private fun renderState(state: FileManagerUiState) {
         // Loading
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
-            binding.recyclerViewFiles.visibility = View.GONE
+            binding.recyclerViewFiles?.visibility = View.GONE
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
-            binding.recyclerViewFiles.visibility = View.VISIBLE
+            binding.recyclerViewFiles?.visibility = View.VISIBLE
         }
 
         // Files list or search results
@@ -235,28 +236,28 @@ class FileManagerFragment : Fragment() {
         // Selection
         val selectedCount = state.selectedFileIds.size
         if (selectedCount > 0) {
-            binding.layoutSelectionBar.visibility = View.VISIBLE
+            binding.layoutSelectionBar?.visibility = View.VISIBLE
             binding.tvSelectedCount.text = getString(R.string.selected_count, selectedCount)
         } else {
-            binding.layoutSelectionBar.visibility = View.GONE
+            binding.layoutSelectionBar?.visibility = View.GONE
         }
 
         // Empty state
         if (displayList.isEmpty() && !state.isLoading) {
-            binding.layoutEmptyState.visibility = View.VISIBLE
-            binding.recyclerViewFiles.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.VISIBLE
+            binding.recyclerViewFiles?.visibility = View.GONE
         } else {
-            binding.layoutEmptyState.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.GONE
         }
 
         // Batch operation progress
         state.batchProgress?.let { progress ->
-            binding.layoutBatchProgress.visibility = View.VISIBLE
+            binding.layoutBatchProgress?.visibility = View.VISIBLE
             val percent = if (progress.total > 0) (progress.processed * 100 / progress.total) else 0
             binding.progressBatch.progress = percent
             binding.tvBatchProgress.text = getString(R.string.batch_progress, progress.processed, progress.total)
         } ?: run {
-            binding.layoutBatchProgress.visibility = View.GONE
+            binding.layoutBatchProgress?.visibility = View.GONE
         }
 
         // Success message
@@ -388,8 +389,8 @@ class FileManagerFragment : Fragment() {
             appendLine("Size: ${formatFileSize(fileItem.size)}")
             appendLine("Type: ${if (fileItem.isDirectory) "Directory" else "File"}")
             appendLine("Modified: ${DateFormat.getDateTimeInstance().format(Date(fileItem.lastModified))}")
-            appendLine("Readable: ${fileItem.canRead}")
-            appendLine("Writable: ${fileItem.canWrite}")
+            appendLine("Readable: ${fileItem.file.canRead()}")
+            appendLine("Writable: ${fileItem.file.canWrite()}")
         }
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.file_details)
@@ -423,10 +424,10 @@ class FileManagerFragment : Fragment() {
         val volumes = viewModel.uiState.value.storageVolumes
         if (volumes.isEmpty()) return
 
-        val names = volumes.map { it.displayName }.toTypedArray()
+        val names = volumes.map { it.label }.toTypedArray()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.select_storage)
-            .setItems(names) { _, which ->
+            .setItems(names as Array<CharSequence>) { _, which ->
                 val volume = volumes[which]
                 viewModel.browseDirectory(volume.path)
             }

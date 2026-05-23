@@ -62,7 +62,7 @@ interface ScanSessionDao {
     @Query(
         """
         SELECT * FROM ${ScanSessionEntity.TABLE_NAME}
-        WHERE ${ScanSessionEntity.COLUMN_STATUS} IN (${ScanStatus.RUNNING.ordinal}, ${ScanStatus.PAUSED.ordinal})
+        WHERE ${ScanSessionEntity.COLUMN_STATUS} IN (0, 1)
         ORDER BY ${ScanSessionEntity.COLUMN_START_TIME} DESC
         LIMIT 1
         """
@@ -72,7 +72,7 @@ interface ScanSessionDao {
     @Query(
         """
         SELECT * FROM ${ScanSessionEntity.TABLE_NAME}
-        WHERE ${ScanSessionEntity.COLUMN_STATUS} = ${ScanStatus.COMPLETED.ordinal}
+        WHERE ${ScanSessionEntity.COLUMN_STATUS} = 2
         ORDER BY ${ScanSessionEntity.COLUMN_END_TIME} DESC
         """
     )
@@ -112,7 +112,7 @@ interface ScanSessionDao {
     @Query(
         """
         UPDATE ${ScanSessionEntity.TABLE_NAME}
-        SET ${ScanSessionEntity.COLUMN_STATUS} = ${ScanStatus.COMPLETED.ordinal},
+        SET ${ScanSessionEntity.COLUMN_STATUS} = 2,
             ${ScanSessionEntity.COLUMN_END_TIME} = :endTime,
             ${ScanSessionEntity.COLUMN_PROGRESS} = 1.0
         WHERE ${ScanSessionEntity.COLUMN_ID} = :id
@@ -123,7 +123,7 @@ interface ScanSessionDao {
     @Query(
         """
         UPDATE ${ScanSessionEntity.TABLE_NAME}
-        SET ${ScanSessionEntity.COLUMN_STATUS} = ${ScanStatus.CANCELLED.ordinal},
+        SET ${ScanSessionEntity.COLUMN_STATUS} = 3,
             ${ScanSessionEntity.COLUMN_END_TIME} = :endTime
         WHERE ${ScanSessionEntity.COLUMN_ID} = :id
         """

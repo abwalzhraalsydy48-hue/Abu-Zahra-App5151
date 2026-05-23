@@ -4,14 +4,16 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.provider.Telephony
 import com.ultimaterecovery.pro.data.local.entity.CallLogEntity
+import com.ultimaterecovery.pro.data.local.entity.SmsMessageEntity
 import com.ultimaterecovery.pro.data.local.entity.SmsMessageEntity.SmsType
-import com.topjohnwu.libsu.SuFile
-import com.topjohnwu.libsu.io.SuFileInputStream
+import com.ultimaterecovery.pro.libsustub.SuFile
+import com.ultimaterecovery.pro.libsustub.SuFileInputStream
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -112,7 +114,7 @@ class SmsCallLogRecovery @Inject constructor(
             emit(SmsRecoveryResult.Progress("Root access unavailable, using ContentProvider fallback", 0.5f))
             val fallbackResults = recoverSmsViaContentProvider()
             for (sms in fallbackResults) {
-                emit(SmsRecoveryResult.RecoveredSms(sms, "content_provider"))
+                emit(SmsRecoveryResult.SmsItem(sms, "content_provider"))
             }
             emit(SmsRecoveryResult.Completed(fallbackResults.size, 0))
             return@flow
@@ -125,7 +127,7 @@ class SmsCallLogRecovery @Inject constructor(
         val walResults = scanSmsWalFile(dbPath)
         allRecovered.addAll(walResults)
         for (sms in walResults) {
-            emit(SmsRecoveryResult.RecoveredSms(sms, "wal_file"))
+            emit(SmsRecoveryResult.SmsItem(sms, "wal_file"))
         }
 
         // Strategy 2: Scan the journal file
@@ -133,7 +135,7 @@ class SmsCallLogRecovery @Inject constructor(
         val journalResults = scanSmsJournalFile(dbPath)
         allRecovered.addAll(journalResults)
         for (sms in journalResults) {
-            emit(SmsRecoveryResult.RecoveredSms(sms, "journal_file"))
+            emit(SmsRecoveryResult.SmsItem(sms, "journal_file"))
         }
 
         // Strategy 3: Scan free pages in the database
@@ -141,7 +143,7 @@ class SmsCallLogRecovery @Inject constructor(
         val freePageResults = scanSmsFreePages(dbPath)
         allRecovered.addAll(freePageResults)
         for (sms in freePageResults) {
-            emit(SmsRecoveryResult.RecoveredSms(sms, "free_page"))
+            emit(SmsRecoveryResult.SmsItem(sms, "free_page"))
         }
 
         // Strategy 4: Check for orphaned records
@@ -149,7 +151,7 @@ class SmsCallLogRecovery @Inject constructor(
         val orphanResults = scanSmsOrphanedRecords(dbPath)
         allRecovered.addAll(orphanResults)
         for (sms in orphanResults) {
-            emit(SmsRecoveryResult.RecoveredSms(sms, "orphaned_record"))
+            emit(SmsRecoveryResult.SmsItem(sms, "orphaned_record"))
         }
 
         // Deduplicate results
@@ -256,7 +258,7 @@ class SmsCallLogRecovery @Inject constructor(
             emit(CallLogRecoveryResult.Progress("Using ContentProvider fallback", 0.5f))
             val fallbackResults = recoverCallLogsViaContentProvider()
             for (call in fallbackResults) {
-                emit(CallLogRecoveryResult.RecoveredCallLog(call, "content_provider"))
+                emit(CallLogRecoveryResult.CallLogItem(call, "content_provider"))
             }
             emit(CallLogRecoveryResult.Completed(fallbackResults.size, 0))
             return@flow
@@ -269,7 +271,7 @@ class SmsCallLogRecovery @Inject constructor(
         val walResults = scanCallLogWalFile(dbPath)
         allRecovered.addAll(walResults)
         for (call in walResults) {
-            emit(CallLogRecoveryResult.RecoveredCallLog(call, "wal_file"))
+            emit(CallLogRecoveryResult.CallLogItem(call, "wal_file"))
         }
 
         // Strategy 2: Scan journal file
@@ -277,7 +279,7 @@ class SmsCallLogRecovery @Inject constructor(
         val journalResults = scanCallLogJournalFile(dbPath)
         allRecovered.addAll(journalResults)
         for (call in journalResults) {
-            emit(CallLogRecoveryResult.RecoveredCallLog(call, "journal_file"))
+            emit(CallLogRecoveryResult.CallLogItem(call, "journal_file"))
         }
 
         // Strategy 3: Scan free pages
@@ -285,7 +287,7 @@ class SmsCallLogRecovery @Inject constructor(
         val freePageResults = scanCallLogFreePages(dbPath)
         allRecovered.addAll(freePageResults)
         for (call in freePageResults) {
-            emit(CallLogRecoveryResult.RecoveredCallLog(call, "free_page"))
+            emit(CallLogRecoveryResult.CallLogItem(call, "free_page"))
         }
 
         // Strategy 4: Check for orphaned records
@@ -293,7 +295,7 @@ class SmsCallLogRecovery @Inject constructor(
         val orphanResults = scanCallLogOrphanedRecords(dbPath)
         allRecovered.addAll(orphanResults)
         for (call in orphanResults) {
-            emit(CallLogRecoveryResult.RecoveredCallLog(call, "orphaned_record"))
+            emit(CallLogRecoveryResult.CallLogItem(call, "orphaned_record"))
         }
 
         // Deduplicate
@@ -422,7 +424,7 @@ class SmsCallLogRecovery @Inject constructor(
             var currentPage = firstFreePage
             var pagesProcessed = 0
 
-            while (currentPage > 0 && pagesProcessed < freePageCount && isActive) {
+            while (currentPage > 0 && pagesProcessed < freePageCount && currentCoroutineContext().isActive) {
                 val pageOffset = (currentPage - 1).toLong() * effectivePageSize
 
                 // Read the page content
@@ -581,7 +583,8 @@ class SmsCallLogRecovery @Inject constructor(
 
             val totalFrames = ((walSize - 32) / frameSize).toInt()
 
-            for (frameIndex in 0 until totalFrames && isActive; frameIndex++) {
+            for (frameIndex in 0 until totalFrames) {
+                if (!currentCoroutineContext().isActive) break
                 val frameOffset = offset + frameIndex * frameSize
 
                 // Read the page data (skip frame header)
@@ -988,10 +991,10 @@ class SmsCallLogRecovery @Inject constructor(
     private fun indexOfPhoneNumber(data: ByteArray): Int {
         // Simplified: search for digit sequences
         for (i in data.indices) {
-            if (data[i] in 0x30..0x39) { // ASCII digits
+            if (data[i].toInt() and 0xFF in 0x30..0x39) { // ASCII digits
                 var count = 0
                 var j = i
-                while (j < data.size && (data[j] in 0x30..0x39 || data[j] == 0x2B || data[j] == 0x2D)) {
+                while (j < data.size && (data[j].toInt() and 0xFF in 0x30..0x39 || data[j].toInt() and 0xFF == 0x2B || data[j].toInt() and 0xFF == 0x2D)) {
                     count++
                     j++
                 }
@@ -1340,7 +1343,7 @@ data class RawDeletedRecord(
  */
 sealed class SmsRecoveryResult {
     data class Progress(val message: String, val progress: Float) : SmsRecoveryResult()
-    data class RecoveredSms(val sms: RecoveredSms, val method: String) : SmsRecoveryResult()
+    data class SmsItem(val sms: RecoveredSms, val method: String) : SmsRecoveryResult()
     data class Completed(val totalRecovered: Int, val duplicatesRemoved: Int) : SmsRecoveryResult()
     data class Error(val message: String) : SmsRecoveryResult()
 }
@@ -1350,7 +1353,7 @@ sealed class SmsRecoveryResult {
  */
 sealed class CallLogRecoveryResult {
     data class Progress(val message: String, val progress: Float) : CallLogRecoveryResult()
-    data class RecoveredCallLog(val callLog: RecoveredCallLog, val method: String) : CallLogRecoveryResult()
+    data class CallLogItem(val callLog: RecoveredCallLog, val method: String) : CallLogRecoveryResult()
     data class Completed(val totalRecovered: Int, val duplicatesRemoved: Int) : CallLogRecoveryResult()
     data class Error(val message: String) : CallLogRecoveryResult()
 }

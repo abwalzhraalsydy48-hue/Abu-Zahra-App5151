@@ -13,6 +13,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,7 +27,7 @@ import javax.inject.Singleton
 @Singleton
 class CallLogRepository @Inject constructor(
     private val callLogDao: CallLogDao,
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) {
 
     // ──────────────────────────────────────────────
@@ -153,7 +154,7 @@ class CallLogRepository @Inject constructor(
      *
      * @return [Resource] with the absolute path of the generated file.
      */
-    suspend fun exportToPdf(callLogs: List<CallLogEntity], fileName: String = "call_log_export.pdf"): Resource<String> =
+    suspend fun exportToPdf(callLogs: List<CallLogEntity>, fileName: String = "call_log_export.pdf"): Resource<String> =
         try {
             withContext(Dispatchers.IO) {
                 val exportDir = File(context.getExternalFilesDir(null), "exports")

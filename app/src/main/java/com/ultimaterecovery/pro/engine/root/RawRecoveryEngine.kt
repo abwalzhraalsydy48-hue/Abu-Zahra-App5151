@@ -1,3 +1,5 @@
+@file:OptIn(kotlin.ExperimentalStdlibApi::class)
+
 package com.ultimaterecovery.pro.engine.root
 
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
@@ -5,11 +7,17 @@ import com.ultimaterecovery.pro.engine.recovery.FoundFileInfo
 import com.ultimaterecovery.pro.engine.recovery.RecoveryConfidence
 import com.ultimaterecovery.pro.engine.signatures.FileSignatures
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.isActive
 import java.io.File
 import java.io.FileOutputStream
 import java.nio.ByteBuffer
@@ -160,7 +168,7 @@ class RawRecoveryEngine @Inject constructor(
 
         var currentOffset = startOffset
 
-        while (currentOffset < startOffset + scanSize && isActive) {
+        while (currentOffset < startOffset + scanSize && currentCoroutineContext().isActive) {
             // Read a chunk of raw data
             val readSize = minOf(READ_BUFFER_SIZE.toLong(), startOffset + scanSize - currentOffset)
             val tempFile = "$TEMP_DIR/chunk_${currentOffset.toHexString()}"
@@ -184,7 +192,7 @@ class RawRecoveryEngine @Inject constructor(
 
             // Scan every block within the chunk
             for (blockIndex in 0 until (readSize / blockSize).toInt()) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
 
                 val blockOffset = currentOffset + blockIndex * blockSize
 
@@ -301,7 +309,7 @@ class RawRecoveryEngine @Inject constructor(
 
         emit(CarveResult.Progress("Starting file carving", 0f, 0))
 
-        while (currentOffset < carveEnd && isActive) {
+        while (currentOffset < carveEnd && currentCoroutineContext().isActive) {
             // Read a chunk for signature scanning
             val readSize = minOf(READ_BUFFER_SIZE.toLong(), carveEnd - currentOffset)
             val xxdResult = rootManager.executeCommandWithOutput(
@@ -430,7 +438,8 @@ class RawRecoveryEngine @Inject constructor(
         // Parse block group descriptors to find inode table locations
         val bgdtData = hexToByteArray(bgdtResult.stdout.replace("\\s".toRegex(), ""))
 
-        for (bgIndex in 0 until blockGroups.toInt() && isActive; bgIndex++) {
+        for (bgIndex in 0 until blockGroups.toInt()) {
+            if (!currentCoroutineContext().isActive) break
             val bgdtEntryOffset = bgIndex * EXT4_BGDT_ENTRY_SIZE
 
             if (bgdtEntryOffset + EXT4_BGDT_ENTRY_SIZE > bgdtData.size) break
@@ -447,7 +456,8 @@ class RawRecoveryEngine @Inject constructor(
                 superblock.inodeCount - bgIndex.toLong() * inodesPerGroup
             )
 
-            for (inodeIndex in 0 until inodesToScan && isActive; inodeIndex++) {
+            for (inodeIndex in 0 until inodesToScan) {
+                if (!currentCoroutineContext().isActive) break
                 val inodeOffset = inodeTableOffset + inodeIndex * inodeSize
 
                 // Read the inode's dtime and nlink fields
@@ -602,7 +612,7 @@ class RawRecoveryEngine @Inject constructor(
         // Parse journal superblock
         // Offset 0: magic (0xC03B3998), 4: block type, 8: block size
         val journalMagic = ByteBuffer.wrap(journalSbData, 0, 4).order(ByteOrder.BIG_ENDIAN).int
-        if (journalMagic != 0xC03B3998) {
+        if (journalMagic != 0xC03B3998.toInt()) {
             emit(JournalRecoveryResult.Error("Invalid journal magic number"))
             return@flow
         }
@@ -619,7 +629,8 @@ class RawRecoveryEngine @Inject constructor(
         var entriesFound = 0
         var blocksScanned = 0
 
-        for (blockIndex in 1 until minOf(journalTotalBlocks, MAX_JOURNAL_ENTRIES) && isActive; blockIndex++) {
+        for (blockIndex in 1 until minOf(journalTotalBlocks, MAX_JOURNAL_ENTRIES)) {
+            if (!currentCoroutineContext().isActive) break
             if (blockIndex >= blockPointers.size) break
 
             val blockOffset = blockPointers[blockIndex]
@@ -730,7 +741,8 @@ class RawRecoveryEngine @Inject constructor(
         // Read block group descriptor table
         val bgdtOffset = (EXT4_SUPER_OFFSET / superblock.blockSize + 1) * superblock.blockSize
 
-        for (bgIndex in 0 until blockGroups.toInt() && isActive; bgIndex++) {
+        for (bgIndex in 0 until blockGroups.toInt()) {
+            if (!currentCoroutineContext().isActive) break
             val bgdtEntryOffset = bgdtOffset + bgIndex * EXT4_BGDT_ENTRY_SIZE.toLong()
 
             // Read block bitmap location from BGDT
@@ -765,7 +777,8 @@ class RawRecoveryEngine @Inject constructor(
                 superblock.blockCount - bgIndex.toLong() * superblock.blocksPerGroup
             ).toInt()
 
-            for (blockBit in 0 until blocksInThisGroup && isActive; blockBit++) {
+            for (blockBit in 0 until blocksInThisGroup) {
+                if (!currentCoroutineContext().isActive) break
                 val byteIndex = blockBit / 8
                 val bitIndex = blockBit % 8
 
@@ -1028,7 +1041,7 @@ class RawRecoveryEngine @Inject constructor(
         val maxSearch = minOf(startOffset + 100L * 1024 * 1024, partitionSize) // 100MB max
         var currentOffset = startOffset + 256 // Skip past header
 
-        while (currentOffset < maxSearch && isActive) {
+        while (currentOffset < maxSearch && currentCoroutineContext().isActive) {
             val readSize = minOf(READ_BUFFER_SIZE.toLong(), maxSearch - currentOffset)
             val skipBlocks = currentOffset / 4096
 
@@ -1137,7 +1150,7 @@ class RawRecoveryEngine @Inject constructor(
         var offset = 0L
         val stepSize = DEFAULT_BLOCK_SIZE.toLong() * 64 // Skip every 64 blocks for speed
 
-        while (offset < partitionSize && isActive) {
+        while (offset < partitionSize && currentCoroutineContext().isActive) {
             val xxdResult = rootManager.executeCommandWithOutput(
                 "dd if='$partitionPath' bs=1 skip=$offset count=32 2>/dev/null | xxd -p"
             )

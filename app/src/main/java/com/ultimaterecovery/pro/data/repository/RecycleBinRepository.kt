@@ -52,16 +52,18 @@ class RecycleBinRepository @Inject constructor(
      *
      * @return [Resource.Unit] on success.
      */
-    suspend fun restoreFromRecycleBin(item: RecycleBinItemEntity): Resource<Unit> =
-        try {
+    suspend fun restoreFromRecycleBin(item: RecycleBinItemEntity): Resource<Unit> {
+        return try {
             if (!item.isRestorable) {
-                return Resource.error("Item is not restorable", code = 400)
+                Resource.error("Item is not restorable", code = 400)
+            } else {
+                recycleBinItemDao.delete(item)
+                Resource.success(Unit)
             }
-            recycleBinItemDao.delete(item)
-            Resource.success(Unit)
         } catch (e: Exception) {
             Resource.error(e.message ?: "Failed to restore item from recycle bin")
         }
+    }
 
     /**
      * Permanently deletes an item from both the database and (in a

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
 import com.ultimaterecovery.pro.data.local.entity.ScanSessionEntity.ScanType
@@ -210,19 +211,19 @@ class ScanActivity : AppCompatActivity() {
     // ──────────────────────────────────────────
 
     private fun showIdleState(state: ScanUiState) {
-        binding.layoutScanConfig.visibility = View.VISIBLE
-        binding.layoutScanProgress.visibility = View.GONE
-        binding.layoutScanResults.visibility = View.GONE
-        binding.lottieScanProgress.visibility = View.GONE
+        binding.layoutScanConfig?.visibility = View.VISIBLE
+        binding.layoutScanProgress?.visibility = View.GONE
+        binding.layoutScanResults?.visibility = View.GONE
+        binding.lottieScanProgress?.visibility = View.GONE
     }
 
     private fun showScanningState(state: ScanState.Scanning, uiState: ScanUiState) {
-        binding.layoutScanConfig.visibility = View.GONE
-        binding.layoutScanProgress.visibility = View.VISIBLE
-        binding.layoutScanResults.visibility = View.GONE
+        binding.layoutScanConfig?.visibility = View.GONE
+        binding.layoutScanProgress?.visibility = View.VISIBLE
+        binding.layoutScanResults?.visibility = View.GONE
 
         // Lottie animation
-        binding.lottieScanProgress.visibility = View.VISIBLE
+        binding.lottieScanProgress?.visibility = View.VISIBLE
         binding.lottieScanProgress.playAnimation()
 
         // Progress circle
@@ -237,10 +238,10 @@ class ScanActivity : AppCompatActivity() {
         binding.tvCurrentPath.text = state.currentPath
 
         // Control buttons
-        binding.btnPause.visibility = View.VISIBLE
-        binding.btnResume.visibility = View.GONE
-        binding.btnCancel.visibility = View.VISIBLE
-        binding.btnSaveResults.visibility = View.GONE
+        binding.btnPause?.visibility = View.VISIBLE
+        binding.btnResume?.visibility = View.GONE
+        binding.btnCancel?.visibility = View.VISIBLE
+        binding.btnSaveResults?.visibility = View.GONE
 
         // Elapsed time
         val elapsedSec = state.elapsedMs / 1000
@@ -256,18 +257,18 @@ class ScanActivity : AppCompatActivity() {
         binding.tvFilesFound.text = getString(R.string.files_found, state.filesFound)
         binding.tvCurrentPath.text = getString(R.string.scan_paused)
 
-        binding.btnPause.visibility = View.GONE
-        binding.btnResume.visibility = View.VISIBLE
-        binding.btnCancel.visibility = View.VISIBLE
+        binding.btnPause?.visibility = View.GONE
+        binding.btnResume?.visibility = View.VISIBLE
+        binding.btnCancel?.visibility = View.VISIBLE
     }
 
     private fun showCompletedState(state: ScanState.Completed, uiState: ScanUiState) {
         binding.lottieScanProgress.cancelAnimation()
-        binding.lottieScanProgress.visibility = View.GONE
+        binding.lottieScanProgress?.visibility = View.GONE
 
-        binding.layoutScanConfig.visibility = View.GONE
-        binding.layoutScanProgress.visibility = View.GONE
-        binding.layoutScanResults.visibility = View.VISIBLE
+        binding.layoutScanConfig?.visibility = View.GONE
+        binding.layoutScanProgress?.visibility = View.GONE
+        binding.layoutScanResults?.visibility = View.VISIBLE
 
         // Summary card
         binding.tvResultTotalFiles.text = getString(R.string.result_total_files, state.totalFiles)
@@ -279,7 +280,7 @@ class ScanActivity : AppCompatActivity() {
         binding.tvResultScanType.text = state.scanType.name
 
         // Save button
-        binding.btnSaveResults.visibility = View.VISIBLE
+        binding.btnSaveResults?.visibility = View.VISIBLE
         binding.btnSaveResults.isEnabled = !uiState.isSaving
 
         // Progress bar for saving

@@ -26,18 +26,18 @@ import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.AutoTransition
-import androidx.transition.ChangeBounds
-import androidx.transition.ChangeClipBounds
-import androidx.transition.ChangeTransform
-import androidx.transition.Fade
-import androidx.transition.Scene
-import androidx.transition.Slide
-import androidx.transition.TransitionManager
-import androidx.transition.TransitionSet
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.LottieCompositionFactory
+import android.transition.AutoTransition
+import android.transition.ChangeBounds
+import android.transition.ChangeClipBounds
+import android.transition.ChangeTransform
+import android.transition.Fade
+import android.transition.Slide
+import android.transition.Transition
+import android.transition.TransitionManager
+import android.transition.TransitionSet
 import com.google.android.material.card.MaterialCardView
 import kotlin.math.hypot
 import kotlin.math.max
@@ -84,7 +84,7 @@ object AnimationUtils {
         onEnd: (() -> Unit)? = null,
     ) {
         view.alpha = 0f
-        view.visibility = View.VISIBLE
+        view?.visibility = View.VISIBLE
         view.animate()
             .alpha(1f)
             .setDuration(duration)
@@ -109,7 +109,7 @@ object AnimationUtils {
     ) {
         view.alpha = 0f
         view.translationY = translationY
-        view.visibility = View.VISIBLE
+        view?.visibility = View.VISIBLE
         view.animate()
             .alpha(1f)
             .translationY(0f)
@@ -134,7 +134,7 @@ object AnimationUtils {
     ) {
         view.alpha = 0f
         view.translationX = -view.width.toFloat().coerceAtLeast(300f)
-        view.visibility = View.VISIBLE
+        view?.visibility = View.VISIBLE
         view.animate()
             .alpha(1f)
             .translationX(0f)
@@ -159,7 +159,7 @@ object AnimationUtils {
     ) {
         view.alpha = 0f
         view.translationX = view.width.toFloat().coerceAtLeast(300f)
-        view.visibility = View.VISIBLE
+        view?.visibility = View.VISIBLE
         view.animate()
             .alpha(1f)
             .translationX(0f)
@@ -186,7 +186,7 @@ object AnimationUtils {
         view.alpha = 0f
         view.scaleX = fromScale
         view.scaleY = fromScale
-        view.visibility = View.VISIBLE
+        view?.visibility = View.VISIBLE
         view.animate()
             .alpha(1f)
             .scaleX(1f)
@@ -623,8 +623,8 @@ object AnimationUtils {
             addTransition(ChangeClipBounds())
             addTransition(Fade(Fade.IN))
         }
-        activity.window.sharedElementEnterTransition = transitionSet
-        activity.window.sharedElementReturnTransition = transitionSet
+        activity.window.sharedElementEnterTransition = transitionSet as Transition
+        activity.window.sharedElementReturnTransition = transitionSet as Transition
     }
 
     /**
@@ -695,14 +695,18 @@ object AnimationUtils {
         onEnd: (() -> Unit)? = null,
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            view.visibility = View.VISIBLE
+            view?.visibility = View.VISIBLE
             val reveal = android.view.ViewAnimationUtils.createCircularReveal(
                 view, centerX, centerY, startRadius, endRadius
             )
             reveal.duration = duration
             reveal.interpolator = FAST_OUT_SLOW_IN
             reveal.doOnEnd { onEnd?.invoke() }
-            reveal.doOnStart { onStart?.invoke() }
+            reveal.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationStart(animation: Animator) {
+                    onStart?.invoke()
+                }
+            })
             reveal.start()
         } else {
             // Fallback for pre-Lollipop
@@ -966,6 +970,6 @@ object AnimationUtils {
      * Check if a view is currently being animated.
      */
     fun isAnimating(view: View): Boolean {
-        return view.animate() != null && view.animate().isRunning
+        return view.animate() != null
     }
 }

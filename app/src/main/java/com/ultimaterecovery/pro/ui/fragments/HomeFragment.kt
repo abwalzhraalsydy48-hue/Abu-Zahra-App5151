@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
 import com.ultimaterecovery.pro.data.local.entity.ScanSessionEntity.ScanType
@@ -145,13 +146,13 @@ class HomeFragment : Fragment() {
     private fun renderState(state: MainUiState) {
         // Shimmer loading
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
-            binding.nestedScrollView.visibility = View.GONE
+            binding.nestedScrollView?.visibility = View.GONE
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
-            binding.nestedScrollView.visibility = View.VISIBLE
+            binding.nestedScrollView?.visibility = View.VISIBLE
         }
 
         // Swipe refresh
@@ -169,9 +170,9 @@ class HomeFragment : Fragment() {
             binding.tvLastScanDate.text = DateFormat.getDateTimeInstance()
                 .format(Date(timestamp))
             binding.tvLastScanType.text = state.lastScanType?.name ?: ""
-            binding.layoutLastScan.visibility = View.VISIBLE
+            binding.layoutLastScan?.visibility = View.VISIBLE
         } ?: run {
-            binding.layoutLastScan.visibility = View.GONE
+            binding.layoutLastScan?.visibility = View.GONE
         }
 
         // Category counts
@@ -187,35 +188,35 @@ class HomeFragment : Fragment() {
 
     private fun renderStorageUsage(storageInfo: List<StorageInfo>) {
         if (storageInfo.isEmpty()) {
-            binding.cardStorageUsage.visibility = View.GONE
+            binding.cardStorageUsage?.visibility = View.GONE
             return
         }
 
-        binding.cardStorageUsage.visibility = View.VISIBLE
+        binding.cardStorageUsage?.visibility = View.VISIBLE
 
         val primary = storageInfo.firstOrNull() ?: return
-        val usedPercent = if (primary.totalBytes > 0) {
-            ((primary.usedBytes.toFloat() / primary.totalBytes) * 100).toInt()
+        val usedPercent = if (primary.totalSpace > 0) {
+            ((primary.usedSpace.toFloat() / primary.totalSpace) * 100).toInt()
         } else 0
 
         binding.progressStorage.progress = usedPercent
         binding.tvStorageUsedPercent.text = getString(R.string.storage_percent, usedPercent)
-        binding.tvStorageUsed.text = formatFileSize(primary.usedBytes)
-        binding.tvStorageTotal.text = formatFileSize(primary.totalBytes)
-        binding.tvStorageAvailable.text = formatFileSize(primary.availableBytes)
+        binding.tvStorageUsed.text = formatFileSize(primary.usedSpace)
+        binding.tvStorageTotal.text = formatFileSize(primary.totalSpace)
+        binding.tvStorageAvailable.text = formatFileSize(primary.freeSpace)
 
         // Secondary storage (SD card)
         if (storageInfo.size > 1) {
             val secondary = storageInfo[1]
-            binding.layoutSecondaryStorage.visibility = View.VISIBLE
-            val secPercent = if (secondary.totalBytes > 0) {
-                ((secondary.usedBytes.toFloat() / secondary.totalBytes) * 100).toInt()
+            binding.layoutSecondaryStorage?.visibility = View.VISIBLE
+            val secPercent = if (secondary.totalSpace > 0) {
+                ((secondary.usedSpace.toFloat() / secondary.totalSpace) * 100).toInt()
             } else 0
             binding.progressSecondaryStorage.progress = secPercent
             binding.tvSecondaryStorageUsedPercent.text = getString(R.string.storage_percent, secPercent)
-            binding.tvSecondaryStorageLabel.text = secondary.displayName
+            binding.tvSecondaryStorageLabel.text = secondary.label
         } else {
-            binding.layoutSecondaryStorage.visibility = View.GONE
+            binding.layoutSecondaryStorage?.visibility = View.GONE
         }
     }
 
@@ -237,22 +238,28 @@ class HomeFragment : Fragment() {
     private fun renderRootBanner(rootState: RootState, isRootAvailable: Boolean) {
         when (rootState) {
             is RootState.Granted -> {
-                binding.cardRootBanner.visibility = View.VISIBLE
+                binding.cardRootBanner?.visibility = View.VISIBLE
                 binding.tvRootBannerTitle.text = getString(R.string.root_access_granted)
                 binding.tvRootBannerDescription.text = getString(R.string.root_granted_desc)
                 binding.ivRootIcon.setImageResource(R.drawable.ic_check_circle)
             }
             is RootState.Available -> {
-                binding.cardRootBanner.visibility = View.VISIBLE
+                binding.cardRootBanner?.visibility = View.VISIBLE
                 binding.tvRootBannerTitle.text = getString(R.string.root_available)
                 binding.tvRootBannerDescription.text = getString(R.string.root_available_desc)
                 binding.ivRootIcon.setImageResource(R.drawable.ic_warning)
             }
-            is RootState.Unavailable -> {
-                binding.cardRootBanner.visibility = View.GONE
+            is RootState.NotAvailable -> {
+                binding.cardRootBanner?.visibility = View.GONE
             }
             RootState.Unknown -> {
-                binding.cardRootBanner.visibility = View.GONE
+                binding.cardRootBanner?.visibility = View.GONE
+            }
+            is RootState.Denied -> {
+                binding.cardRootBanner?.visibility = View.GONE
+            }
+            is RootState.Revoked -> {
+                binding.cardRootBanner?.visibility = View.GONE
             }
         }
     }

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.RecycleBinItemEntity
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
@@ -130,9 +131,13 @@ class RecycleBinFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun setupSearch() {
-        binding.searchView.doOnTextChanged { text, _, _, _ ->
-            viewModel.search(text?.toString().orEmpty())
-        }
+        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.search(newText.orEmpty())
+                return true
+            }
+        })
     }
 
     // ──────────────────────────────────────────
@@ -177,13 +182,13 @@ class RecycleBinFragment : Fragment() {
 
     private fun renderState(state: RecycleBinUiState) {
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
-            binding.recyclerViewItems.visibility = View.GONE
+            binding.recyclerViewItems?.visibility = View.GONE
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
-            binding.recyclerViewItems.visibility = View.VISIBLE
+            binding.recyclerViewItems?.visibility = View.VISIBLE
         }
 
         recycleBinAdapter.submitList(state.filteredItems)
@@ -195,22 +200,22 @@ class RecycleBinFragment : Fragment() {
         // Selection
         val selectedCount = state.selectedIds.size
         if (selectedCount > 0) {
-            binding.layoutSelectionBar.visibility = View.VISIBLE
+            binding.layoutSelectionBar?.visibility = View.VISIBLE
             binding.tvSelectedCount.text = getString(R.string.selected_count, selectedCount)
-            binding.fabRestore.visibility = View.VISIBLE
-            binding.fabDelete.visibility = View.VISIBLE
+            binding.fabRestore?.visibility = View.VISIBLE
+            binding.fabDelete?.visibility = View.VISIBLE
         } else {
-            binding.layoutSelectionBar.visibility = View.GONE
-            binding.fabRestore.visibility = View.GONE
-            binding.fabDelete.visibility = View.GONE
+            binding.layoutSelectionBar?.visibility = View.GONE
+            binding.fabRestore?.visibility = View.GONE
+            binding.fabDelete?.visibility = View.GONE
         }
 
         // Empty state
         if (state.filteredItems.isEmpty() && !state.isLoading) {
-            binding.layoutEmptyState.visibility = View.VISIBLE
-            binding.recyclerViewItems.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.VISIBLE
+            binding.recyclerViewItems?.visibility = View.GONE
         } else {
-            binding.layoutEmptyState.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.GONE
         }
 
         // Operation progress
@@ -314,7 +319,7 @@ class RecycleBinFragment : Fragment() {
 
                 // Thumbnail
                 Glide.with(binding.root.context)
-                    .load(File(item.filePath))
+                    .load(File(item.originalPath))
                     .placeholder(R.drawable.ic_file)
                     .error(iconForCategory(item.category))
                     .centerCrop()
@@ -344,9 +349,8 @@ class RecycleBinFragment : Fragment() {
                 binding.checkboxOverlay.isChecked = isSelected
                 binding.viewSelectionDim.visibility = if (isSelected) View.VISIBLE else View.GONE
 
-                // Action buttons
-                binding.btnRestore.setOnClickListener { onRestore(item) }
-                binding.btnDelete.setOnClickListener { onDelete(item) }
+                // Action buttons - handled via fragment-level FABs
+                // btnRestore/btnDelete are in fragment layout, not item layout
 
                 // Click handlers
                 binding.root.setOnClickListener { onClick(item) }

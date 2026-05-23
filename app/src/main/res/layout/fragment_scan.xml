@@ -21,7 +21,7 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:layout_marginBottom="@dimen/spacing_md" />
 
-        <com.google.android.material.togglebutton.MaterialButtonToggleGroup
+        <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/toggleScanType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 app:icon="@drawable/ic_deep_scan"
                 style="@style/Widget.Material3.Button.OutlinedButton" />
 
-        </com.google.android.material.togglebutton.MaterialButtonToggleGroup>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <!-- Category Filter Chips -->
         <com.google.android.material.textview.MaterialTextView
@@ -176,5 +176,113 @@
             tools:listitem="@layout/item_backup" />
 
     </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSaveResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <android.widget.LinearLayout
+        android:id="@+id/layoutScanConfig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <android.widget.LinearLayout
+        android:id="@+id/layoutScanResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieScanProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCurrentPath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFilesFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvProgressPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvResultDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvResultScanType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvResultTotalFiles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvResultTotalSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+
+    <!-- Auto-added missing views -->
+    <TextView
+        android:id="@+id/tvScanStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tvBytesScanned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancelScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvScanResults"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipQuickScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipDeepScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipRawScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+    <!-- Additional missing views -->
+    <com.google.android.material.button.MaterialButton android:id="@+id/btnQuick" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/btnDeep" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/btnRaw" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/btnPartition" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/btnSignature" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:id="@+id/totalBytes" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 
 </androidx.core.widget.NestedScrollView>

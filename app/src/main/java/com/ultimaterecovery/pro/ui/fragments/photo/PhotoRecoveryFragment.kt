@@ -21,11 +21,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity
 import com.ultimaterecovery.pro.databinding.FragmentPhotoRecoveryBinding
 import com.ultimaterecovery.pro.databinding.ItemPhotoGridBinding
-import com.ultimaterecovery.pro.databinding BottomSheetPhotoFilterBinding
+import com.ultimaterecovery.pro.databinding.BottomSheetPhotoFilterBinding
 import com.ultimaterecovery.pro.engine.recovery.RecoveryProgress
 import com.ultimaterecovery.pro.ui.activities.PreviewActivity
 import com.ultimaterecovery.pro.ui.viewmodel.PhotoFilter
@@ -200,13 +201,13 @@ class PhotoRecoveryFragment : Fragment() {
 
         // Loading
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
-            binding.recyclerViewPhotos.visibility = View.GONE
+            binding.recyclerViewPhotos?.visibility = View.GONE
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
-            binding.recyclerViewPhotos.visibility = View.VISIBLE
+            binding.recyclerViewPhotos?.visibility = View.VISIBLE
         }
 
         // Photos list
@@ -215,32 +216,32 @@ class PhotoRecoveryFragment : Fragment() {
         // Selection
         val selectedCount = state.selectedPhotoIds.size
         if (selectedCount > 0) {
-            binding.layoutSelectionBar.visibility = View.VISIBLE
+            binding.layoutSelectionBar?.visibility = View.VISIBLE
             binding.tvSelectedCount.text = getString(R.string.selected_count, selectedCount)
-            binding.fabRecover.visibility = View.VISIBLE
+            binding.fabRecover?.visibility = View.VISIBLE
         } else {
-            binding.layoutSelectionBar.visibility = View.GONE
-            binding.fabRecover.visibility = View.GONE
+            binding.layoutSelectionBar?.visibility = View.GONE
+            binding.fabRecover?.visibility = View.GONE
         }
 
         // Empty state
         if (state.filteredPhotos.isEmpty() && !state.isLoading) {
-            binding.layoutEmptyState.visibility = View.VISIBLE
-            binding.recyclerViewPhotos.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.VISIBLE
+            binding.recyclerViewPhotos?.visibility = View.GONE
         } else {
-            binding.layoutEmptyState.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.GONE
         }
 
         // Recovery progress
         state.recoveryProgress?.let { progress ->
-            binding.layoutRecoveryProgress.visibility = View.VISIBLE
+            binding.layoutRecoveryProgress?.visibility = View.VISIBLE
             val percent = if (progress.totalFiles > 0) {
                 (progress.processedFiles * 100 / progress.totalFiles)
             } else 0
             binding.progressRecovery.progress = percent
             binding.tvRecoveryProgress.text = getString(R.string.recovery_progress, percent)
         } ?: run {
-            binding.layoutRecoveryProgress.visibility = View.GONE
+            binding.layoutRecoveryProgress?.visibility = View.GONE
         }
 
         // Error

@@ -92,31 +92,35 @@ class ScanSessionRepository @Inject constructor(
      * The caller should first obtain the current entity (e.g. via
      * [getSessionById]) and pass the modified copy here.
      */
-    suspend fun pauseSession(session: ScanSessionEntity): Resource<Unit> =
-        try {
+    suspend fun pauseSession(session: ScanSessionEntity): Resource<Unit> {
+        return try {
             if (session.status != ScanStatus.RUNNING) {
-                return Resource.error("Only running sessions can be paused", code = 400)
+                Resource.error("Only running sessions can be paused", code = 400)
+            } else {
+                scanSessionDao.update(session.copy(status = ScanStatus.PAUSED))
+                Resource.success(Unit)
             }
-            scanSessionDao.update(session.copy(status = ScanStatus.PAUSED))
-            Resource.success(Unit)
         } catch (e: Exception) {
             Resource.error(e.message ?: "Failed to pause scan session")
         }
+    }
 
     /**
      * Resumes a paused session by setting its status back to
      * [ScanStatus.RUNNING] via a full entity update.
      */
-    suspend fun resumeSession(session: ScanSessionEntity): Resource<Unit> =
-        try {
+    suspend fun resumeSession(session: ScanSessionEntity): Resource<Unit> {
+        return try {
             if (session.status != ScanStatus.PAUSED) {
-                return Resource.error("Only paused sessions can be resumed", code = 400)
+                Resource.error("Only paused sessions can be resumed", code = 400)
+            } else {
+                scanSessionDao.update(session.copy(status = ScanStatus.RUNNING))
+                Resource.success(Unit)
             }
-            scanSessionDao.update(session.copy(status = ScanStatus.RUNNING))
-            Resource.success(Unit)
         } catch (e: Exception) {
             Resource.error(e.message ?: "Failed to resume scan session")
         }
+    }
 
     // ──────────────────────────────────────────────
     // Reactive queries

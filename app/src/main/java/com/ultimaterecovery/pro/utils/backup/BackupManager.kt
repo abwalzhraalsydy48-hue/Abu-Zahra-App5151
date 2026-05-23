@@ -18,8 +18,13 @@ import com.ultimaterecovery.pro.data.repository.BackupRepository
 import com.ultimaterecovery.pro.data.repository.Resource
 import com.ultimaterecovery.pro.utils.crypto.CryptoManager
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
 import java.io.BufferedInputStream
@@ -40,6 +45,7 @@ import javax.crypto.CipherInputStream
 import javax.crypto.CipherOutputStream
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -80,7 +86,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class BackupManager @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val backupRepository: BackupRepository,
     private val backupDao: BackupDao,
     private val cryptoManager: CryptoManager
@@ -247,7 +253,7 @@ class BackupManager @Inject constructor(
         val backupId = when (createResult) {
             is Resource.Success -> createResult.data
             is Resource.Error -> {
-                emit(BackupProgress(Phase = BackupProgress.Phase.FAILED))
+                emit(BackupProgress(phase = BackupProgress.Phase.FAILED))
                 return@flow
             }
             is Resource.Loading -> 0L
@@ -262,7 +268,7 @@ class BackupManager @Inject constructor(
         val sourceFiles = collectFilesForType(config.backupType)
         if (sourceFiles.isEmpty()) {
             backupRepository.updateStatus(backupId, BackupStatus.FAILED)
-            emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+            emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
             return@flow
         }
 
@@ -302,7 +308,7 @@ class BackupManager @Inject constructor(
 
                 // Write each source file
                 for (sourceFile in sourceFiles) {
-                    if (!isActive) break
+                    if (!currentCoroutineContext().isActive) break
 
                     val entryName = getRelativePath(sourceFile, config.backupType)
                     zipOut.putNextEntry(ZipEntry(entryName))
@@ -332,7 +338,7 @@ class BackupManager @Inject constructor(
             }
         } catch (e: Exception) {
             backupRepository.updateStatus(backupId, BackupStatus.FAILED)
-            emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+            emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
             return@flow
         }
 
@@ -340,7 +346,7 @@ class BackupManager @Inject constructor(
 
         // ── Phase 4: Optional encryption ───────────────
         if (config.enableEncryption && config.password != null) {
-            emit(BackupProgress(Phase = BackupProgress.Phase.ENCRYPTING, backupId = backupId))
+            emit(BackupProgress(phase = BackupProgress.Phase.ENCRYPTING, backupId = backupId))
 
             val encryptedFile = File(backupDir, "$BACKUP_FILE_PREFIX$timestamp$BACKUP_ENCRYPTED_EXTENSION")
             try {
@@ -349,7 +355,7 @@ class BackupManager @Inject constructor(
                 finalArchive = encryptedFile
             } catch (e: Exception) {
                 backupRepository.updateStatus(backupId, BackupStatus.FAILED)
-                emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+                emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
                 return@flow
             }
         }
@@ -370,7 +376,7 @@ class BackupManager @Inject constructor(
 
         // ── Phase 6: Optional cloud upload ─────────────
         if (config.cloudProvider != CloudProvider.LOCAL) {
-            emit(BackupProgress(Phase = BackupProgress.Phase.UPLOADING, backupId = backupId))
+            emit(BackupProgress(phase = BackupProgress.Phase.UPLOADING, backupId = backupId))
             uploadToCloud(backupId, config.cloudProvider)
         }
 
@@ -404,7 +410,7 @@ class BackupManager @Inject constructor(
 
         val backupEntity = getBackupEntityById(backupId)
         if (backupEntity == null) {
-            emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+            emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
             return@flow
         }
 
@@ -413,19 +419,19 @@ class BackupManager @Inject constructor(
         if (!archiveFile.exists() && backupEntity.cloudProvider != CloudProvider.LOCAL) {
             val downloadResult = downloadFromCloud(backupId, backupEntity.cloudProvider)
             if (downloadResult is Resource.Error) {
-                emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+                emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
                 return@flow
             }
             // Refresh entity after download
             val refreshed = getBackupEntityById(backupId) ?: run {
-                emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+                emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
                 return@flow
             }
             archiveFile = File(refreshed.backupPath)
         }
 
         if (!archiveFile.exists()) {
-            emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+            emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
             return@flow
         }
 
@@ -437,11 +443,11 @@ class BackupManager @Inject constructor(
                 decryptFile(archiveFile, decryptedFile, password)
                 zipFile = decryptedFile
             } catch (e: Exception) {
-                emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+                emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
                 return@flow
             }
         } else if (backupEntity.isEncrypted && password == null) {
-            emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+            emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
             return@flow
         }
 
@@ -488,7 +494,7 @@ class BackupManager @Inject constructor(
                 }
             }
         } catch (e: Exception) {
-            emit(BackupProgress(Phase = BackupProgress.Phase.FAILED, backupId = backupId))
+            emit(BackupProgress(phase = BackupProgress.Phase.FAILED, backupId = backupId))
             return@flow
         } finally {
             // Clean up temporary decrypted file
@@ -500,7 +506,7 @@ class BackupManager @Inject constructor(
         backupRepository.restoreBackup(backupId)
 
         // ── Verify integrity ───────────────────────────
-        emit(BackupProgress(Phase = BackupProgress.Phase.VERIFYING, backupId = backupId))
+        emit(BackupProgress(phase = BackupProgress.Phase.VERIFYING, backupId = backupId))
 
         emit(BackupProgress(
             phase = BackupProgress.Phase.COMPLETED,
@@ -1166,5 +1172,5 @@ class BackupWorker(
  * Stub import for Environment — used by restoreBackup default output path.
  */
 private object Environment {
-    const val DIRECTORY_DOWNLOADS = android.os.Environment.DIRECTORY_DOWNLOADS
+    val DIRECTORY_DOWNLOADS = android.os.Environment.DIRECTORY_DOWNLOADS
 }

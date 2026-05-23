@@ -127,28 +127,40 @@ class MainActivity : AppCompatActivity() {
      * Updates the root-status indicator chip in the toolbar.
      */
     private fun updateRootIndicator(isRootAvailable: Boolean, rootState: RootState) {
-        binding.chipRootStatus.visibility = View.VISIBLE
+        binding.chipRootStatus?.visibility = View.VISIBLE
         when (rootState) {
             is RootState.Granted -> {
                 binding.chipRootStatus.text = getString(R.string.root_granted)
                 binding.chipRootStatus.setChipIconResource(R.drawable.ic_check_circle)
                 binding.chipRootStatus.chipBackgroundColor =
-                    ContextCompat.getColorStateList(this, R.color.md_theme_light_primaryContainer)
+                    ContextCompat.getColorStateList(this, R.color.primary_container)
             }
             is RootState.Available -> {
                 binding.chipRootStatus.text = getString(R.string.root_available)
                 binding.chipRootStatus.setChipIconResource(R.drawable.ic_warning)
                 binding.chipRootStatus.chipBackgroundColor =
-                    ContextCompat.getColorStateList(this, R.color.md_theme_light_secondaryContainer)
+                    ContextCompat.getColorStateList(this, R.color.secondary_container)
             }
-            is RootState.Unavailable -> {
+            is RootState.NotAvailable -> {
                 binding.chipRootStatus.text = getString(R.string.root_unavailable)
                 binding.chipRootStatus.setChipIconResource(R.drawable.ic_close)
                 binding.chipRootStatus.chipBackgroundColor =
-                    ContextCompat.getColorStateList(this, R.color.md_theme_light_surfaceVariant)
+                    ContextCompat.getColorStateList(this, R.color.surface_variant)
             }
             RootState.Unknown -> {
-                binding.chipRootStatus.visibility = View.GONE
+                binding.chipRootStatus?.visibility = View.GONE
+            }
+            is RootState.Denied -> {
+                binding.chipRootStatus.text = getString(R.string.root_unavailable)
+                binding.chipRootStatus.setChipIconResource(R.drawable.ic_close)
+                binding.chipRootStatus.chipBackgroundColor =
+                    ContextCompat.getColorStateList(this, R.color.surface_variant)
+            }
+            is RootState.Revoked -> {
+                binding.chipRootStatus.text = getString(R.string.root_unavailable)
+                binding.chipRootStatus.setChipIconResource(R.drawable.ic_close)
+                binding.chipRootStatus.chipBackgroundColor =
+                    ContextCompat.getColorStateList(this, R.color.surface_variant)
             }
         }
     }
@@ -159,7 +171,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNavigation() {
         val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            .findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
         // Connect BottomNavigationView with NavController
@@ -168,8 +180,8 @@ class MainActivity : AppCompatActivity() {
         // Hide bottom nav on certain destinations (e.g. preview, lock)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val hideNavDestinations = setOf(
-                R.id.previewFragment,
-                R.id.lockFragment
+                R.id.previewActivity,
+                R.id.lockActivity
             )
             binding.bottomNav.visibility = if (destination.id in hideNavDestinations) {
                 View.GONE
@@ -249,7 +261,7 @@ class MainActivity : AppCompatActivity() {
             }
             is MainNavigationEvent.NavigateToRecovery -> {
                 navController.navigate(
-                    R.id.recoveryFragment,
+                    R.id.fileRecoveryFragment,
                     Bundle().apply {
                         putString("category", event.category.name)
                     }

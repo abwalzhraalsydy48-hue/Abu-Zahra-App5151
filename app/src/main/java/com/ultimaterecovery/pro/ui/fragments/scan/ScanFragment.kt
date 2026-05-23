@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
 import com.ultimaterecovery.pro.data.local.entity.ScanSessionEntity.ScanType
@@ -79,18 +80,14 @@ class ScanFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun setupScanTypeSelector() {
-        binding.toggleScanType.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            if (!isChecked) return@addOnButtonCheckedListener
-            val scanType = when (checkedId) {
-                R.id.btnQuick      -> ScanType.QUICK
-                R.id.btnDeep       -> ScanType.DEEP
-                R.id.btnSignature  -> ScanType.SIGNATURE
-                R.id.btnRaw        -> ScanType.RAW
-                R.id.btnPartition  -> ScanType.PARTITION
-                else               -> ScanType.QUICK
-            }
-            viewModel.selectScanType(scanType)
-        }
+        // Quick/Deep scan button listeners
+        binding.btnQuickScan.setOnClickListener { viewModel.selectScanType(ScanType.QUICK) }
+        binding.btnDeepScan.setOnClickListener { viewModel.selectScanType(ScanType.DEEP) }
+
+        // Additional scan type buttons
+        binding.btnSignature.setOnClickListener { viewModel.selectScanType(ScanType.SIGNATURE) }
+        binding.btnRaw.setOnClickListener { viewModel.selectScanType(ScanType.RAW) }
+        binding.btnPartition.setOnClickListener { viewModel.selectScanType(ScanType.PARTITION) }
     }
 
     // ──────────────────────────────────────────
@@ -169,18 +166,18 @@ class ScanFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun showIdleState() {
-        binding.layoutScanConfig.visibility = View.VISIBLE
-        binding.layoutScanProgress.visibility = View.GONE
-        binding.layoutScanResults.visibility = View.GONE
-        binding.lottieScanProgress.visibility = View.GONE
+        binding.layoutScanConfig?.visibility = View.VISIBLE
+        binding.layoutScanProgress?.visibility = View.GONE
+        binding.layoutScanResults?.visibility = View.GONE
+        binding.lottieScanProgress?.visibility = View.GONE
     }
 
     private fun showScanningState(state: ScanState.Scanning) {
-        binding.layoutScanConfig.visibility = View.GONE
-        binding.layoutScanProgress.visibility = View.VISIBLE
-        binding.layoutScanResults.visibility = View.GONE
+        binding.layoutScanConfig?.visibility = View.GONE
+        binding.layoutScanProgress?.visibility = View.VISIBLE
+        binding.layoutScanResults?.visibility = View.GONE
 
-        binding.lottieScanProgress.visibility = View.VISIBLE
+        binding.lottieScanProgress?.visibility = View.VISIBLE
         binding.lottieScanProgress.playAnimation()
 
         val progressPercent = (state.progress * 100).toInt()
@@ -201,11 +198,11 @@ class ScanFragment : Fragment() {
 
     private fun showCompletedState(state: ScanState.Completed) {
         binding.lottieScanProgress.cancelAnimation()
-        binding.lottieScanProgress.visibility = View.GONE
+        binding.lottieScanProgress?.visibility = View.GONE
 
-        binding.layoutScanConfig.visibility = View.GONE
-        binding.layoutScanProgress.visibility = View.GONE
-        binding.layoutScanResults.visibility = View.VISIBLE
+        binding.layoutScanConfig?.visibility = View.GONE
+        binding.layoutScanProgress?.visibility = View.GONE
+        binding.layoutScanResults?.visibility = View.VISIBLE
 
         binding.tvResultTotalFiles.text = getString(R.string.result_total_files, state.totalFiles)
         binding.tvResultTotalSize.text = formatFileSize(state.totalSize)

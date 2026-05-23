@@ -48,4 +48,12 @@
 
     </FrameLayout>
 
+
+
+    <!-- Additional missing views -->
+    <View android:id="@+id/viewSelectionDim" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <CheckBox android:id="@+id/checkboxOverlay" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <ImageView android:id="@+id/ivPhotoThumbnail" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" />
+    <TextView android:id="@+id/tvFileName" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
 </com.google.android.material.card.MaterialCardView>

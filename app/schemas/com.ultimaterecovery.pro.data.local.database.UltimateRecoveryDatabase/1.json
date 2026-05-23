@@ -1,0 +1,1346 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "e891d143318037770fd10c595be587f3",
+    "entities": [
+      {
+        "tableName": "recovered_files",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `file_path` TEXT NOT NULL, `file_name` TEXT NOT NULL, `file_size` INTEGER NOT NULL, `file_extension` TEXT NOT NULL, `mime_type` TEXT NOT NULL, `recovery_date` INTEGER NOT NULL, `original_date` INTEGER NOT NULL, `scan_session_id` INTEGER NOT NULL, `category` INTEGER NOT NULL, `recovery_status` INTEGER NOT NULL, `thumbnail_path` TEXT, `is_root_accessed` INTEGER NOT NULL, `source_path` TEXT NOT NULL, `md5_hash` TEXT, `is_favorite` INTEGER NOT NULL, `is_exported` INTEGER NOT NULL, `export_path` TEXT, FOREIGN KEY(`scan_session_id`) REFERENCES `scan_sessions`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "filePath",
+            "columnName": "file_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fileName",
+            "columnName": "file_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fileSize",
+            "columnName": "file_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fileExtension",
+            "columnName": "file_extension",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mimeType",
+            "columnName": "mime_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recoveryDate",
+            "columnName": "recovery_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "originalDate",
+            "columnName": "original_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scanSessionId",
+            "columnName": "scan_session_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recoveryStatus",
+            "columnName": "recovery_status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailPath",
+            "columnName": "thumbnail_path",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isRootAccessed",
+            "columnName": "is_root_accessed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourcePath",
+            "columnName": "source_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "md5Hash",
+            "columnName": "md5_hash",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "is_favorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isExported",
+            "columnName": "is_exported",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exportPath",
+            "columnName": "export_path",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_recovered_files_scan_session_id",
+            "unique": false,
+            "columnNames": [
+              "scan_session_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovered_files_scan_session_id` ON `${TABLE_NAME}` (`scan_session_id`)"
+          },
+          {
+            "name": "index_recovered_files_file_path",
+            "unique": false,
+            "columnNames": [
+              "file_path"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovered_files_file_path` ON `${TABLE_NAME}` (`file_path`)"
+          },
+          {
+            "name": "index_recovered_files_category",
+            "unique": false,
+            "columnNames": [
+              "category"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovered_files_category` ON `${TABLE_NAME}` (`category`)"
+          },
+          {
+            "name": "index_recovered_files_recovery_status",
+            "unique": false,
+            "columnNames": [
+              "recovery_status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovered_files_recovery_status` ON `${TABLE_NAME}` (`recovery_status`)"
+          },
+          {
+            "name": "index_recovered_files_md5_hash",
+            "unique": false,
+            "columnNames": [
+              "md5_hash"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovered_files_md5_hash` ON `${TABLE_NAME}` (`md5_hash`)"
+          },
+          {
+            "name": "index_recovered_files_file_extension",
+            "unique": false,
+            "columnNames": [
+              "file_extension"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovered_files_file_extension` ON `${TABLE_NAME}` (`file_extension`)"
+          },
+          {
+            "name": "index_recovered_files_is_favorite",
+            "unique": false,
+            "columnNames": [
+              "is_favorite"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovered_files_is_favorite` ON `${TABLE_NAME}` (`is_favorite`)"
+          },
+          {
+            "name": "index_recovered_files_recovery_date",
+            "unique": false,
+            "columnNames": [
+              "recovery_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovered_files_recovery_date` ON `${TABLE_NAME}` (`recovery_date`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "scan_sessions",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "scan_session_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "scan_sessions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `start_time` INTEGER NOT NULL, `end_time` INTEGER, `scan_type` INTEGER NOT NULL, `status` INTEGER NOT NULL, `total_files_found` INTEGER NOT NULL, `total_size_found` INTEGER NOT NULL, `progress` REAL NOT NULL, `storage_path` TEXT NOT NULL, `is_root_scan` INTEGER NOT NULL, `partition_name` TEXT, `sectors_scanned` INTEGER NOT NULL, `total_sectors` INTEGER NOT NULL, `error_message` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "start_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endTime",
+            "columnName": "end_time",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "scanType",
+            "columnName": "scan_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalFilesFound",
+            "columnName": "total_files_found",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalSizeFound",
+            "columnName": "total_size_found",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "progress",
+            "columnName": "progress",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "storagePath",
+            "columnName": "storage_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isRootScan",
+            "columnName": "is_root_scan",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "partitionName",
+            "columnName": "partition_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sectorsScanned",
+            "columnName": "sectors_scanned",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalSectors",
+            "columnName": "total_sectors",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "errorMessage",
+            "columnName": "error_message",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_scan_sessions_scan_type",
+            "unique": false,
+            "columnNames": [
+              "scan_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_scan_sessions_scan_type` ON `${TABLE_NAME}` (`scan_type`)"
+          },
+          {
+            "name": "index_scan_sessions_status",
+            "unique": false,
+            "columnNames": [
+              "status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_scan_sessions_status` ON `${TABLE_NAME}` (`status`)"
+          },
+          {
+            "name": "index_scan_sessions_start_time",
+            "unique": false,
+            "columnNames": [
+              "start_time"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_scan_sessions_start_time` ON `${TABLE_NAME}` (`start_time`)"
+          },
+          {
+            "name": "index_scan_sessions_storage_path",
+            "unique": false,
+            "columnNames": [
+              "storage_path"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_scan_sessions_storage_path` ON `${TABLE_NAME}` (`storage_path`)"
+          },
+          {
+            "name": "index_scan_sessions_partition_name",
+            "unique": false,
+            "columnNames": [
+              "partition_name"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_scan_sessions_partition_name` ON `${TABLE_NAME}` (`partition_name`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sms_messages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `address` TEXT NOT NULL, `body` TEXT NOT NULL, `date` INTEGER NOT NULL, `date_sent` INTEGER, `type` INTEGER NOT NULL, `thread_id` INTEGER NOT NULL, `read` INTEGER NOT NULL, `subject` TEXT, `service_center` TEXT, `is_recovered` INTEGER NOT NULL, `recovery_date` INTEGER NOT NULL, `contact_name` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "body",
+            "columnName": "body",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateSent",
+            "columnName": "date_sent",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "threadId",
+            "columnName": "thread_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "read",
+            "columnName": "read",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subject",
+            "columnName": "subject",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "serviceCenter",
+            "columnName": "service_center",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isRecovered",
+            "columnName": "is_recovered",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recoveryDate",
+            "columnName": "recovery_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contactName",
+            "columnName": "contact_name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_sms_messages_address",
+            "unique": false,
+            "columnNames": [
+              "address"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sms_messages_address` ON `${TABLE_NAME}` (`address`)"
+          },
+          {
+            "name": "index_sms_messages_date",
+            "unique": false,
+            "columnNames": [
+              "date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sms_messages_date` ON `${TABLE_NAME}` (`date`)"
+          },
+          {
+            "name": "index_sms_messages_type",
+            "unique": false,
+            "columnNames": [
+              "type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sms_messages_type` ON `${TABLE_NAME}` (`type`)"
+          },
+          {
+            "name": "index_sms_messages_thread_id",
+            "unique": false,
+            "columnNames": [
+              "thread_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sms_messages_thread_id` ON `${TABLE_NAME}` (`thread_id`)"
+          },
+          {
+            "name": "index_sms_messages_is_recovered",
+            "unique": false,
+            "columnNames": [
+              "is_recovered"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sms_messages_is_recovered` ON `${TABLE_NAME}` (`is_recovered`)"
+          },
+          {
+            "name": "index_sms_messages_contact_name",
+            "unique": false,
+            "columnNames": [
+              "contact_name"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sms_messages_contact_name` ON `${TABLE_NAME}` (`contact_name`)"
+          },
+          {
+            "name": "index_sms_messages_recovery_date",
+            "unique": false,
+            "columnNames": [
+              "recovery_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sms_messages_recovery_date` ON `${TABLE_NAME}` (`recovery_date`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "call_logs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `number` TEXT NOT NULL, `call_type` INTEGER NOT NULL, `date` INTEGER NOT NULL, `duration` INTEGER NOT NULL, `contact_name` TEXT, `phone_account_id` TEXT, `is_recovered` INTEGER NOT NULL, `recovery_date` INTEGER NOT NULL, `features` INTEGER NOT NULL, `data_usage` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "number",
+            "columnName": "number",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "callType",
+            "columnName": "call_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "duration",
+            "columnName": "duration",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contactName",
+            "columnName": "contact_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "phoneAccountId",
+            "columnName": "phone_account_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isRecovered",
+            "columnName": "is_recovered",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recoveryDate",
+            "columnName": "recovery_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "features",
+            "columnName": "features",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataUsage",
+            "columnName": "data_usage",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_call_logs_number",
+            "unique": false,
+            "columnNames": [
+              "number"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_call_logs_number` ON `${TABLE_NAME}` (`number`)"
+          },
+          {
+            "name": "index_call_logs_call_type",
+            "unique": false,
+            "columnNames": [
+              "call_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_call_logs_call_type` ON `${TABLE_NAME}` (`call_type`)"
+          },
+          {
+            "name": "index_call_logs_date",
+            "unique": false,
+            "columnNames": [
+              "date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_call_logs_date` ON `${TABLE_NAME}` (`date`)"
+          },
+          {
+            "name": "index_call_logs_contact_name",
+            "unique": false,
+            "columnNames": [
+              "contact_name"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_call_logs_contact_name` ON `${TABLE_NAME}` (`contact_name`)"
+          },
+          {
+            "name": "index_call_logs_is_recovered",
+            "unique": false,
+            "columnNames": [
+              "is_recovered"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_call_logs_is_recovered` ON `${TABLE_NAME}` (`is_recovered`)"
+          },
+          {
+            "name": "index_call_logs_recovery_date",
+            "unique": false,
+            "columnNames": [
+              "recovery_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_call_logs_recovery_date` ON `${TABLE_NAME}` (`recovery_date`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "app_data",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `package_name` TEXT NOT NULL, `app_name` TEXT NOT NULL, `app_icon_path` TEXT, `data_type` INTEGER NOT NULL, `file_path` TEXT NOT NULL, `file_size` INTEGER NOT NULL, `is_recovered` INTEGER NOT NULL, `recovery_date` INTEGER NOT NULL, `version_name` TEXT, `is_system_app` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packageName",
+            "columnName": "package_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appName",
+            "columnName": "app_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appIconPath",
+            "columnName": "app_icon_path",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataType",
+            "columnName": "data_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "filePath",
+            "columnName": "file_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fileSize",
+            "columnName": "file_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isRecovered",
+            "columnName": "is_recovered",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recoveryDate",
+            "columnName": "recovery_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "versionName",
+            "columnName": "version_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isSystemApp",
+            "columnName": "is_system_app",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_app_data_package_name",
+            "unique": false,
+            "columnNames": [
+              "package_name"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_app_data_package_name` ON `${TABLE_NAME}` (`package_name`)"
+          },
+          {
+            "name": "index_app_data_data_type",
+            "unique": false,
+            "columnNames": [
+              "data_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_app_data_data_type` ON `${TABLE_NAME}` (`data_type`)"
+          },
+          {
+            "name": "index_app_data_is_recovered",
+            "unique": false,
+            "columnNames": [
+              "is_recovered"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_app_data_is_recovered` ON `${TABLE_NAME}` (`is_recovered`)"
+          },
+          {
+            "name": "index_app_data_is_system_app",
+            "unique": false,
+            "columnNames": [
+              "is_system_app"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_app_data_is_system_app` ON `${TABLE_NAME}` (`is_system_app`)"
+          },
+          {
+            "name": "index_app_data_recovery_date",
+            "unique": false,
+            "columnNames": [
+              "recovery_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_app_data_recovery_date` ON `${TABLE_NAME}` (`recovery_date`)"
+          },
+          {
+            "name": "index_app_data_file_path",
+            "unique": false,
+            "columnNames": [
+              "file_path"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_app_data_file_path` ON `${TABLE_NAME}` (`file_path`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "account_data",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account_type` TEXT NOT NULL, `account_name` TEXT NOT NULL, `auth_token_type` TEXT, `data_path` TEXT NOT NULL, `data_size` INTEGER NOT NULL, `is_recovered` INTEGER NOT NULL, `recovery_date` INTEGER NOT NULL, `source` TEXT NOT NULL, `is_sensitive` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountType",
+            "columnName": "account_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountName",
+            "columnName": "account_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authTokenType",
+            "columnName": "auth_token_type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataPath",
+            "columnName": "data_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataSize",
+            "columnName": "data_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isRecovered",
+            "columnName": "is_recovered",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recoveryDate",
+            "columnName": "recovery_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSensitive",
+            "columnName": "is_sensitive",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_account_data_account_type",
+            "unique": false,
+            "columnNames": [
+              "account_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_account_data_account_type` ON `${TABLE_NAME}` (`account_type`)"
+          },
+          {
+            "name": "index_account_data_account_name",
+            "unique": false,
+            "columnNames": [
+              "account_name"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_account_data_account_name` ON `${TABLE_NAME}` (`account_name`)"
+          },
+          {
+            "name": "index_account_data_is_recovered",
+            "unique": false,
+            "columnNames": [
+              "is_recovered"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_account_data_is_recovered` ON `${TABLE_NAME}` (`is_recovered`)"
+          },
+          {
+            "name": "index_account_data_is_sensitive",
+            "unique": false,
+            "columnNames": [
+              "is_sensitive"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_account_data_is_sensitive` ON `${TABLE_NAME}` (`is_sensitive`)"
+          },
+          {
+            "name": "index_account_data_recovery_date",
+            "unique": false,
+            "columnNames": [
+              "recovery_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_account_data_recovery_date` ON `${TABLE_NAME}` (`recovery_date`)"
+          },
+          {
+            "name": "index_account_data_source",
+            "unique": false,
+            "columnNames": [
+              "source"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_account_data_source` ON `${TABLE_NAME}` (`source`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "backups",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `backup_name` TEXT NOT NULL, `backup_date` INTEGER NOT NULL, `backup_size` INTEGER NOT NULL, `backup_path` TEXT NOT NULL, `backup_type` INTEGER NOT NULL, `cloud_provider` INTEGER NOT NULL, `is_encrypted` INTEGER NOT NULL, `item_count` INTEGER NOT NULL, `status` INTEGER NOT NULL, `cloud_url` TEXT, `last_sync_date` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "backupName",
+            "columnName": "backup_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "backupDate",
+            "columnName": "backup_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "backupSize",
+            "columnName": "backup_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "backupPath",
+            "columnName": "backup_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "backupType",
+            "columnName": "backup_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cloudProvider",
+            "columnName": "cloud_provider",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isEncrypted",
+            "columnName": "is_encrypted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "itemCount",
+            "columnName": "item_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cloudUrl",
+            "columnName": "cloud_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastSyncDate",
+            "columnName": "last_sync_date",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_backups_backup_type",
+            "unique": false,
+            "columnNames": [
+              "backup_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_backups_backup_type` ON `${TABLE_NAME}` (`backup_type`)"
+          },
+          {
+            "name": "index_backups_cloud_provider",
+            "unique": false,
+            "columnNames": [
+              "cloud_provider"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_backups_cloud_provider` ON `${TABLE_NAME}` (`cloud_provider`)"
+          },
+          {
+            "name": "index_backups_status",
+            "unique": false,
+            "columnNames": [
+              "status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_backups_status` ON `${TABLE_NAME}` (`status`)"
+          },
+          {
+            "name": "index_backups_backup_date",
+            "unique": false,
+            "columnNames": [
+              "backup_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_backups_backup_date` ON `${TABLE_NAME}` (`backup_date`)"
+          },
+          {
+            "name": "index_backups_is_encrypted",
+            "unique": false,
+            "columnNames": [
+              "is_encrypted"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_backups_is_encrypted` ON `${TABLE_NAME}` (`is_encrypted`)"
+          },
+          {
+            "name": "index_backups_last_sync_date",
+            "unique": false,
+            "columnNames": [
+              "last_sync_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_backups_last_sync_date` ON `${TABLE_NAME}` (`last_sync_date`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "recycle_bin_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `original_path` TEXT NOT NULL, `file_name` TEXT NOT NULL, `file_size` INTEGER NOT NULL, `mime_type` TEXT NOT NULL, `deleted_date` INTEGER NOT NULL, `expiry_date` INTEGER NOT NULL, `thumbnail_path` TEXT, `category` INTEGER NOT NULL, `auto_delete_days` INTEGER NOT NULL, `is_restorable` INTEGER NOT NULL, `metadata` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "originalPath",
+            "columnName": "original_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fileName",
+            "columnName": "file_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fileSize",
+            "columnName": "file_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mimeType",
+            "columnName": "mime_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedDate",
+            "columnName": "deleted_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expiryDate",
+            "columnName": "expiry_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailPath",
+            "columnName": "thumbnail_path",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoDeleteDays",
+            "columnName": "auto_delete_days",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isRestorable",
+            "columnName": "is_restorable",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "metadata",
+            "columnName": "metadata",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_recycle_bin_items_original_path",
+            "unique": false,
+            "columnNames": [
+              "original_path"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recycle_bin_items_original_path` ON `${TABLE_NAME}` (`original_path`)"
+          },
+          {
+            "name": "index_recycle_bin_items_file_name",
+            "unique": false,
+            "columnNames": [
+              "file_name"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recycle_bin_items_file_name` ON `${TABLE_NAME}` (`file_name`)"
+          },
+          {
+            "name": "index_recycle_bin_items_category",
+            "unique": false,
+            "columnNames": [
+              "category"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recycle_bin_items_category` ON `${TABLE_NAME}` (`category`)"
+          },
+          {
+            "name": "index_recycle_bin_items_deleted_date",
+            "unique": false,
+            "columnNames": [
+              "deleted_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recycle_bin_items_deleted_date` ON `${TABLE_NAME}` (`deleted_date`)"
+          },
+          {
+            "name": "index_recycle_bin_items_expiry_date",
+            "unique": false,
+            "columnNames": [
+              "expiry_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recycle_bin_items_expiry_date` ON `${TABLE_NAME}` (`expiry_date`)"
+          },
+          {
+            "name": "index_recycle_bin_items_is_restorable",
+            "unique": false,
+            "columnNames": [
+              "is_restorable"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recycle_bin_items_is_restorable` ON `${TABLE_NAME}` (`is_restorable`)"
+          },
+          {
+            "name": "index_recycle_bin_items_mime_type",
+            "unique": false,
+            "columnNames": [
+              "mime_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recycle_bin_items_mime_type` ON `${TABLE_NAME}` (`mime_type`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "recovery_history",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `recovery_date` INTEGER NOT NULL, `file_type` TEXT NOT NULL, `file_count` INTEGER NOT NULL, `total_size` INTEGER NOT NULL, `source_path` TEXT NOT NULL, `destination_path` TEXT NOT NULL, `is_successful` INTEGER NOT NULL, `error_message` TEXT, `duration` INTEGER NOT NULL, `scan_type` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recoveryDate",
+            "columnName": "recovery_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fileType",
+            "columnName": "file_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fileCount",
+            "columnName": "file_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalSize",
+            "columnName": "total_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourcePath",
+            "columnName": "source_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "destinationPath",
+            "columnName": "destination_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSuccessful",
+            "columnName": "is_successful",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "errorMessage",
+            "columnName": "error_message",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "duration",
+            "columnName": "duration",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scanType",
+            "columnName": "scan_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_recovery_history_recovery_date",
+            "unique": false,
+            "columnNames": [
+              "recovery_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovery_history_recovery_date` ON `${TABLE_NAME}` (`recovery_date`)"
+          },
+          {
+            "name": "index_recovery_history_file_type",
+            "unique": false,
+            "columnNames": [
+              "file_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovery_history_file_type` ON `${TABLE_NAME}` (`file_type`)"
+          },
+          {
+            "name": "index_recovery_history_is_successful",
+            "unique": false,
+            "columnNames": [
+              "is_successful"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovery_history_is_successful` ON `${TABLE_NAME}` (`is_successful`)"
+          },
+          {
+            "name": "index_recovery_history_scan_type",
+            "unique": false,
+            "columnNames": [
+              "scan_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovery_history_scan_type` ON `${TABLE_NAME}` (`scan_type`)"
+          },
+          {
+            "name": "index_recovery_history_source_path",
+            "unique": false,
+            "columnNames": [
+              "source_path"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovery_history_source_path` ON `${TABLE_NAME}` (`source_path`)"
+          },
+          {
+            "name": "index_recovery_history_destination_path",
+            "unique": false,
+            "columnNames": [
+              "destination_path"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recovery_history_destination_path` ON `${TABLE_NAME}` (`destination_path`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e891d143318037770fd10c595be587f3')"
+    ]
+  }
+}

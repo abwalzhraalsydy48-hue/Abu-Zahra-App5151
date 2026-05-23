@@ -16,10 +16,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity
 import com.ultimaterecovery.pro.databinding.FragmentVideoRecoveryBinding
-import com.ultimaterecovery.pro.databinding.ItemVideoGridBinding
+import com.ultimaterecovery.pro.databinding.ItemRecoveredVideoBinding
 import com.ultimaterecovery.pro.ui.activities.PreviewActivity
 import com.ultimaterecovery.pro.ui.viewmodel.VideoRecoveryUiState
 import com.ultimaterecovery.pro.ui.viewmodel.VideoRecoveryViewModel
@@ -160,44 +161,44 @@ class VideoRecoveryFragment : Fragment() {
         binding.swipeRefresh.isRefreshing = false
 
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
-            binding.recyclerViewVideos.visibility = View.GONE
+            binding.recyclerViewVideos?.visibility = View.GONE
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
-            binding.recyclerViewVideos.visibility = View.VISIBLE
+            binding.recyclerViewVideos?.visibility = View.VISIBLE
         }
 
         videoAdapter.submitList(state.filteredVideos)
 
         val selectedCount = state.selectedVideoIds.size
         if (selectedCount > 0) {
-            binding.layoutSelectionBar.visibility = View.VISIBLE
+            binding.layoutSelectionBar?.visibility = View.VISIBLE
             binding.tvSelectedCount.text = getString(R.string.selected_count, selectedCount)
-            binding.fabRecover.visibility = View.VISIBLE
+            binding.fabRecover?.visibility = View.VISIBLE
         } else {
-            binding.layoutSelectionBar.visibility = View.GONE
-            binding.fabRecover.visibility = View.GONE
+            binding.layoutSelectionBar?.visibility = View.GONE
+            binding.fabRecover?.visibility = View.GONE
         }
 
         if (state.filteredVideos.isEmpty() && !state.isLoading) {
-            binding.layoutEmptyState.visibility = View.VISIBLE
-            binding.recyclerViewVideos.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.VISIBLE
+            binding.recyclerViewVideos?.visibility = View.GONE
         } else {
-            binding.layoutEmptyState.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.GONE
         }
 
         // Recovery progress
         state.recoveryProgress?.let { progress ->
-            binding.layoutRecoveryProgress.visibility = View.VISIBLE
+            binding.layoutRecoveryProgress?.visibility = View.VISIBLE
             val percent = if (progress.totalFiles > 0) {
                 (progress.processedFiles * 100 / progress.totalFiles)
             } else 0
             binding.progressRecovery.progress = percent
             binding.tvRecoveryProgress.text = getString(R.string.recovery_progress, percent)
         } ?: run {
-            binding.layoutRecoveryProgress.visibility = View.GONE
+            binding.layoutRecoveryProgress?.visibility = View.GONE
         }
 
         state.error?.let { error ->
@@ -266,7 +267,7 @@ class VideoRecoveryFragment : Fragment() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
-            val binding = ItemVideoGridBinding.inflate(
+            val binding = ItemRecoveredVideoBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
             return VideoViewHolder(binding)
@@ -279,7 +280,7 @@ class VideoRecoveryFragment : Fragment() {
         override fun getItemCount(): Int = items.size
 
         inner class VideoViewHolder(
-            private val binding: ItemVideoGridBinding
+            private val binding: ItemRecoveredVideoBinding
         ) : RecyclerView.ViewHolder(binding.root) {
 
             fun bind(video: RecoveredFileEntity) {
@@ -289,7 +290,7 @@ class VideoRecoveryFragment : Fragment() {
                 val thumbPath = video.thumbnailPath ?: video.filePath
                 Glide.with(binding.root.context)
                     .load(File(thumbPath))
-                    .placeholder(R.drawable.ic_video_placeholder)
+                    .placeholder(R.drawable.ic_photo_placeholder)
                     .error(R.drawable.ic_broken_image)
                     .centerCrop()
                     .into(binding.ivVideoThumbnail)
@@ -298,7 +299,7 @@ class VideoRecoveryFragment : Fragment() {
                 binding.ivPlayIcon.visibility = View.VISIBLE
 
                 // Duration overlay — placeholder; in production, extract from metadata
-                binding.tvDuration.visibility = View.VISIBLE
+                binding.tvDuration?.visibility = View.VISIBLE
                 binding.tvDuration.text = "0:00"
 
                 // File name

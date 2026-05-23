@@ -73,8 +73,8 @@ interface BackupDao {
     @Query(
         """
         SELECT * FROM ${BackupEntity.TABLE_NAME}
-        WHERE ${BackupEntity.COLUMN_STATUS} = ${BackupStatus.COMPLETED.ordinal}
-           OR ${BackupEntity.COLUMN_STATUS} = ${BackupStatus.UPLOADED.ordinal}
+        WHERE ${BackupEntity.COLUMN_STATUS} = 2
+           OR ${BackupEntity.COLUMN_STATUS} = 5
         ORDER BY ${BackupEntity.COLUMN_BACKUP_DATE} DESC
         """
     )
@@ -83,9 +83,9 @@ interface BackupDao {
     @Query(
         """
         SELECT * FROM ${BackupEntity.TABLE_NAME}
-        WHERE ${BackupEntity.COLUMN_STATUS} = ${BackupStatus.PENDING.ordinal}
-           OR ${BackupEntity.COLUMN_STATUS} = ${BackupStatus.IN_PROGRESS.ordinal}
-           OR ${BackupEntity.COLUMN_STATUS} = ${BackupStatus.UPLOADING.ordinal}
+        WHERE ${BackupEntity.COLUMN_STATUS} = 0
+           OR ${BackupEntity.COLUMN_STATUS} = 1
+           OR ${BackupEntity.COLUMN_STATUS} = 4
         ORDER BY ${BackupEntity.COLUMN_BACKUP_DATE} ASC
         """
     )

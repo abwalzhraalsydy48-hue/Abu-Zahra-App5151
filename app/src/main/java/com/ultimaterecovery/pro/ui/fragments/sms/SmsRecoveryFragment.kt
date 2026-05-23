@@ -125,9 +125,13 @@ class SmsRecoveryFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun setupSearch() {
-        binding.searchView.doOnTextChanged { text, _, _, _ ->
-            viewModel.search(text?.toString().orEmpty())
-        }
+        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.search(newText.orEmpty())
+                return true
+            }
+        })
     }
 
     // ──────────────────────────────────────────
@@ -176,13 +180,13 @@ class SmsRecoveryFragment : Fragment() {
 
     private fun renderState(state: SmsRecoveryUiState) {
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
-            binding.recyclerViewSms.visibility = View.GONE
+            binding.recyclerViewSms?.visibility = View.GONE
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
-            binding.recyclerViewSms.visibility = View.VISIBLE
+            binding.recyclerViewSms?.visibility = View.VISIBLE
         }
 
         smsAdapter.submitList(state.filteredMessages)
@@ -197,27 +201,27 @@ class SmsRecoveryFragment : Fragment() {
         // Selection
         val selectedCount = state.selectedMessageIds.size
         if (selectedCount > 0) {
-            binding.layoutSelectionBar.visibility = View.VISIBLE
+            binding.layoutSelectionBar?.visibility = View.VISIBLE
             binding.tvSelectedCount.text = getString(R.string.selected_count, selectedCount)
-            binding.fabRecover.visibility = View.VISIBLE
+            binding.fabRecover?.visibility = View.VISIBLE
         } else {
-            binding.layoutSelectionBar.visibility = View.GONE
-            binding.fabRecover.visibility = View.GONE
+            binding.layoutSelectionBar?.visibility = View.GONE
+            binding.fabRecover?.visibility = View.GONE
         }
 
         // Empty state
         if (state.filteredMessages.isEmpty() && !state.isLoading) {
-            binding.layoutEmptyState.visibility = View.VISIBLE
-            binding.recyclerViewSms.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.VISIBLE
+            binding.recyclerViewSms?.visibility = View.GONE
         } else {
-            binding.layoutEmptyState.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.GONE
         }
 
         // Export progress
         if (state.isExporting) {
-            binding.progressExport.visibility = View.VISIBLE
+            binding.progressExport?.visibility = View.VISIBLE
         } else {
-            binding.progressExport.visibility = View.GONE
+            binding.progressExport?.visibility = View.GONE
         }
 
         // Export result
@@ -335,6 +339,12 @@ class SmsRecoveryFragment : Fragment() {
                         binding.ivTypeIcon.setImageResource(R.drawable.ic_draft)
                     }
                     SmsType.OUTBOX -> {
+                        binding.ivTypeIcon.setImageResource(R.drawable.ic_outbox)
+                    }
+                    SmsType.FAILED -> {
+                        binding.ivTypeIcon.setImageResource(R.drawable.ic_sent)
+                    }
+                    SmsType.QUEUED -> {
                         binding.ivTypeIcon.setImageResource(R.drawable.ic_outbox)
                     }
                 }

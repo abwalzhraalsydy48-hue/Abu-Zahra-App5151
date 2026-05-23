@@ -1,153 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
+            <View android:layout_width="match_parent" android:layout_height="48dp" android:background="#1A000000"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
-        <FrameLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/title_photo_recovery" />
 
-            <!-- Shimmer Layout -->
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerLayout"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewPhotos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:padding="4dp" />
 
                 <LinearLayout
+                    android:id="@+id/layoutEmptyState"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/ic_photo_empty" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/photo_recovery_empty" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutRecoveryProgress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/margin_screen_horizontal">
+                    android:padding="16dp"
+                    android:visibility="gone">
 
-                    <include layout="@layout/shimmer_photo_grid" />
-                    <include layout="@layout/shimmer_photo_grid" />
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/progressRecovery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvRecoveryProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
+            </FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
+        <LinearLayout
+            android:id="@+id/layoutSelectionBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:visibility="gone">
 
-            <!-- Photo Grid -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerPhotos"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:padding="@dimen/spacing_sm"
-                android:paddingBottom="@dimen/spacing_9xl"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:spanCount="3"
-                tools:listitem="@layout/item_recovered_photo"
-                tools:itemCount="9" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSelectedCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-            <!-- Empty State -->
-            <LinearLayout
-                android:id="@+id/layoutEmpty"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="@dimen/spacing_5xl"
-                android:visibility="gone">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSelectAll"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_select_all" />
 
-                <ImageView
-                    android:layout_width="@dimen/icon_size_massive"
-                    android:layout_height="@dimen/icon_size_massive"
-                    android:src="@drawable/ic_photo_empty"
-                    android:contentDescription="@string/photo_recovery_empty"
-                    app:tint="@color/on_surface_variant"
-                    android:alpha="0.5" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeselectAll"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_deselect_all" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/photo_recovery_empty"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                    android:layout_marginTop="@dimen/spacing_lg" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSort"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_sort"
+                app:icon="@drawable/ic_sort" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/scan_no_results_hint"
-                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                    android:textColor="@color/on_surface_variant"
-                    android:layout_marginTop="@dimen/spacing_sm" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFilter"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_filter"
+                app:icon="@drawable/ic_filter" />
 
-            </LinearLayout>
-
-        </FrameLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <!-- Toolbar Actions Overlay -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end"
-        android:padding="@dimen/margin_screen_horizontal">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSort"
-            android:layout_width="@dimen/button_height_small"
-            android:layout_height="@dimen/button_height_small"
-            app:icon="@drawable/ic_sort"
-            app:iconSize="@dimen/icon_size_medium"
-            app:iconTint="@color/on_surface"
-            style="@style/Widget.Material3.Button.IconButton" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnFilter"
-            android:layout_width="@dimen/button_height_small"
-            android:layout_height="@dimen/button_height_small"
-            app:icon="@drawable/ic_filter"
-            app:iconSize="@dimen/icon_size_medium"
-            app:iconTint="@color/on_surface"
-            style="@style/Widget.Material3.Button.IconButton" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSelectAll"
-            android:layout_width="@dimen/button_height_small"
-            android:layout_height="@dimen/button_height_small"
-            app:icon="@drawable/ic_select_all"
-            app:iconSize="@dimen/icon_size_medium"
-            app:iconTint="@color/on_surface"
-            style="@style/Widget.Material3.Button.IconButton" />
-
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/fabRecover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_recover"
+                app:icon="@drawable/ic_recover" />
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Recover FAB with Badge -->
-    <FrameLayout
+    <View
+        android:id="@+id/viewSelectionDim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone" />
+
+    <android.widget.CheckBox
+        android:id="@+id/checkboxOverlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabRecover"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/action_recover"
-            app:icon="@drawable/ic_recover"
-            app:backgroundTint="@color/primary"
-            app:tint="@color/on_primary"
-            app:fabSize="normal"
-            app:elevation="@dimen/fab_elevation" />
-
-        <com.google.android.material.badge.BadgeDrawable
-            android:id="@+id/badgeRecover"
-            android:layout_gravity="top|end"
-            android:layout_marginTop="@dimen/badge_offset"
-            android:layout_marginEnd="@dimen/badge_offset" />
-
-    </FrameLayout>
-
+        android:visibility="gone" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPhotoThumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 </FrameLayout>

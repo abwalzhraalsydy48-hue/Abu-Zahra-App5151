@@ -179,3 +179,4 @@ api_keys.properties
 *~
 *.swp
 *.bak
+build/\n.gradle/\njdk-bin/

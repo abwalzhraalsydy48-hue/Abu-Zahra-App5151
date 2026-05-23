@@ -7,6 +7,7 @@ import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCatego
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.RecoveryStatus
 import com.ultimaterecovery.pro.engine.signatures.FileSignatures
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -21,6 +22,7 @@ import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -44,7 +46,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class FileRecoveryEngine @Inject constructor(
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) {
 
     companion object {
@@ -211,7 +213,7 @@ class FileRecoveryEngine @Inject constructor(
         val startTime = System.currentTimeMillis()
 
         for ((index, fileInfo) in files.withIndex()) {
-            if (!isActive) break
+            if (!currentCoroutineContext().isActive) break
 
             try {
                 // استعادة الملف الحالي
@@ -269,7 +271,7 @@ class FileRecoveryEngine @Inject constructor(
         val startTime = System.currentTimeMillis()
 
         for (fileInfo in files) {
-            if (!isActive) break
+            if (!currentCoroutineContext().isActive) break
 
             try {
                 var currentResult: RecoveryResult? = null
@@ -304,7 +306,7 @@ class FileRecoveryEngine @Inject constructor(
      * @param outputFile ملف الإخراج
      * @return هل نجحت العملية؟
      */
-    private fun recoverFromExistingFile(
+    private suspend fun recoverFromExistingFile(
         fileInfo: FoundFileInfo,
         outputFile: File
     ): Boolean {
@@ -324,7 +326,7 @@ class FileRecoveryEngine @Inject constructor(
                     var position = 0L
                     val size = sourceChannel.size()
 
-                    while (position < size && isActive) {
+                    while (position < size && currentCoroutineContext().isActive) {
                         val transferred = destChannel.transferFrom(
                             sourceChannel, position, COPY_BUFFER_SIZE.toLong()
                         )
@@ -356,7 +358,7 @@ class FileRecoveryEngine @Inject constructor(
      * @param outputFile ملف الإخراج
      * @return هل نجحت العملية؟
      */
-    private fun recoverFromRawOffset(
+    private suspend fun recoverFromRawOffset(
         fileInfo: FoundFileInfo,
         outputFile: File
     ): Boolean {
@@ -372,7 +374,7 @@ class FileRecoveryEngine @Inject constructor(
                         val buffer = ByteArray(COPY_BUFFER_SIZE)
                         var remaining = fileInfo.fileSize
 
-                        while (remaining > 0 && isActive) {
+                        while (remaining > 0 && currentCoroutineContext().isActive) {
                             val toRead = minOf(buffer.size.toLong(), remaining).toInt()
                             val bytesRead = raf.read(buffer, 0, toRead)
                             if (bytesRead <= 0) break
@@ -400,7 +402,7 @@ class FileRecoveryEngine @Inject constructor(
                     val buffer = ByteArray(COPY_BUFFER_SIZE)
                     var remaining = fileInfo.fileSize
 
-                    while (remaining > 0 && isActive) {
+                    while (remaining > 0 && currentCoroutineContext().isActive) {
                         val toRead = minOf(buffer.size.toLong(), remaining).toInt()
                         val bytesRead = input.read(buffer, 0, toRead)
                         if (bytesRead <= 0) break
@@ -422,14 +424,14 @@ class FileRecoveryEngine @Inject constructor(
     /**
      * نسخ ملف يدوياً (بديل عند فشل FileChannel)
      */
-    private fun copyFileManually(source: File, dest: File): Boolean {
+    private suspend fun copyFileManually(source: File, dest: File): Boolean {
         FileInputStream(source).use { fis ->
             FileOutputStream(dest).use { fos ->
                 val buffer = ByteArray(COPY_BUFFER_SIZE)
                 var totalWritten = 0L
                 val totalSize = source.length()
 
-                while (totalWritten < totalSize && isActive) {
+                while (totalWritten < totalSize && currentCoroutineContext().isActive) {
                     val bytesRead = fis.read(buffer)
                     if (bytesRead <= 0) break
 
@@ -728,7 +730,7 @@ class FileRecoveryEngine @Inject constructor(
             val iendChunk = byteArrayOf(
                 0x00, 0x00, 0x00, 0x00,  // Length = 0
                 0x49, 0x45, 0x4E, 0x44,  // "IEND"
-                0xAE.toByte(), 0x42, 0x60, 0x82  // CRC
+                0xAE.toByte(), 0x42.toByte(), 0x60.toByte(), 0x82.toByte()  // CRC
             )
 
             RandomAccessFile(file, "rw").use { raf ->

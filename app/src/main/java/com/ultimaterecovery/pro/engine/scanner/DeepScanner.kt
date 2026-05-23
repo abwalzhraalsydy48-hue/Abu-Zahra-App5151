@@ -1,3 +1,5 @@
+@file:OptIn(kotlin.ExperimentalStdlibApi::class)
+
 package com.ultimaterecovery.pro.engine.scanner
 
 import android.os.Environment
@@ -7,10 +9,11 @@ import com.ultimaterecovery.pro.engine.recovery.FoundFileInfo
 import com.ultimaterecovery.pro.engine.recovery.RecoveryConfidence
 import com.ultimaterecovery.pro.engine.signatures.FileSignatures
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.isActive
 import java.io.File
 import java.io.RandomAccessFile
 import java.nio.ByteBuffer
@@ -72,7 +75,7 @@ class DeepScanner @Inject constructor() {
      * @param categories فئات الملفات المراد البحث عنها
      * @return تدفق حالة المسح مع النتائج
      */
-    fun scan(
+    suspend fun scan(
         paths: List<String>,
         categories: List<FileCategory>
     ): Flow<ScanState> = flow {
@@ -87,7 +90,7 @@ class DeepScanner @Inject constructor() {
             val scanPaths = if (paths.isEmpty()) getDefaultDeepScanPaths() else paths
 
             for ((pathIndex, scanPath) in scanPaths.withIndex()) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
 
                 val file = File(scanPath)
 
@@ -176,11 +179,11 @@ class DeepScanner @Inject constructor() {
      * @param foundFiles قائمة النتائج
      * @param onBytesScanned دالة استدعاء عند قراءة بايتات جديدة
      */
-    private fun scanRawData(
+    private suspend fun scanRawData(
         path: String,
         categories: List<FileCategory>,
         foundFiles: MutableList<FoundFileInfo>,
-        onBytesScanned: (Long) -> Unit
+        onBytesScanned: suspend (Long) -> Unit
     ) {
         val file = File(path)
         if (!file.exists() || !file.canRead()) return
@@ -193,7 +196,7 @@ class DeepScanner @Inject constructor() {
             var position = 0L
             var lastSignatureEnd = -1L // لتجنب التداخل بين التوقيعات
 
-            while (position < fileSize && isActive) {
+            while (position < fileSize && currentCoroutineContext().isActive) {
                 val bytesToRead = minOf(buffer.size.toLong(), fileSize - position)
                 raf.seek(position)
                 val bytesRead = raf.read(buffer, 0, bytesToRead.toInt())
@@ -204,7 +207,7 @@ class DeepScanner @Inject constructor() {
 
                 // البحث عن توقيعات الملفات في المخزن المؤقت الحالي
                 for (offset in 0 until bytesRead - FileSignatures.MINIMUM_HEADER_SIZE) {
-                    if (!isActive) break
+                    if (!currentCoroutineContext().isActive) break
 
                     // تخطي المنطقة التي تم استخراج ملف منها بالفعل
                     if (position + offset < lastSignatureEnd) continue
@@ -225,7 +228,8 @@ class DeepScanner @Inject constructor() {
                             raf = raf,
                             startOffset = fileStartOffset,
                             signature = signature,
-                            fileSize = fileSize
+                            fileSize = fileSize,
+                            path = path
                         )
 
                         if (carvedFile != null && carvedFile.fileSize >= MIN_RECOVERABLE_FILE_SIZE) {
@@ -251,7 +255,7 @@ class DeepScanner @Inject constructor() {
      * @param foundFiles قائمة النتائج
      * @param onBytesScanned دالة استدعاء عند قراءة بايتات جديدة
      */
-    private fun scanRawDataWithRoot(
+    private suspend fun scanRawDataWithRoot(
         path: String,
         categories: List<FileCategory>,
         foundFiles: MutableList<FoundFileInfo>,
@@ -271,7 +275,7 @@ class DeepScanner @Inject constructor() {
             // قراءة حجم الجهاز
             val deviceSize = getDeviceSize(path)
 
-            while (isActive) {
+            while (currentCoroutineContext().isActive) {
                 val bytesRead = inputStream.read(buffer)
                 if (bytesRead <= 0) break
 
@@ -279,7 +283,7 @@ class DeepScanner @Inject constructor() {
 
                 // البحث عن التوقيعات بنفس طريقة scanRawData
                 for (offset in 0 until bytesRead - FileSignatures.MINIMUM_HEADER_SIZE) {
-                    if (!isActive) break
+                    if (!currentCoroutineContext().isActive) break
 
                     if (position + offset < lastSignatureEnd) continue
 
@@ -349,11 +353,12 @@ class DeepScanner @Inject constructor() {
      * @param fileSize الحجم الإجمالي للبيانات الخام
      * @return معلومات الملف المستخرج أو null
      */
-    private fun carveFileFromRawData(
+    private suspend fun carveFileFromRawData(
         raf: RandomAccessFile,
         startOffset: Long,
         signature: FileSignatures.FileSignature,
-        fileSize: Long
+        fileSize: Long,
+        path: String
     ): FoundFileInfo? {
         try {
             // ──────────────────────────────────────────
@@ -410,7 +415,7 @@ class DeepScanner @Inject constructor() {
             val fileName = "recovered_${signature.name}_${startOffset.toHexString()}.${signature.extensions.first()}"
 
             return FoundFileInfo(
-                path = raf.path ?: "raw_data",
+                path = path,
                 fileName = fileName,
                 fileSize = detectedSize,
                 extension = signature.extensions.first(),
@@ -421,7 +426,7 @@ class DeepScanner @Inject constructor() {
                 confidence = confidence,
                 isFragment = detectedSize != tryDetectFileSize(raf, startOffset, signature),
                 isRootRequired = true,
-                sourcePath = raf.path ?: "raw_data",
+                sourcePath = path,
                 metadata = mapOf(
                     "scan_method" to "deep_carving",
                     "block_offset" to startOffset.toString(),
@@ -514,7 +519,7 @@ class DeepScanner @Inject constructor() {
      * @param dataSize الحجم الإجمالي للبيانات
      * @return إزاحة نهاية الملف (بعد علامة النهاية) أو -1
      */
-    private fun findEndMarker(
+    private suspend fun findEndMarker(
         raf: RandomAccessFile,
         startOffset: Long,
         endMarker: ByteArray,
@@ -531,7 +536,7 @@ class DeepScanner @Inject constructor() {
             val searchBuffer = ByteArray(READ_BUFFER_SIZE)
             var searchPos = searchStart
 
-            while (searchPos < searchEnd && isActive) {
+            while (searchPos < searchEnd && currentCoroutineContext().isActive) {
                 raf.seek(searchPos)
                 val bytesRead = raf.read(searchBuffer)
                 if (bytesRead <= 0) break
@@ -713,7 +718,7 @@ class DeepScanner @Inject constructor() {
      * @param maxSearchBlocks أقصى عدد من الكتل للبحث فيها
      * @return قائمة إزاحات أجزاء الملف الإضافية
      */
-    private fun findFileFragments(
+    private suspend fun findFileFragments(
         raf: RandomAccessFile,
         currentPartEnd: Long,
         signature: FileSignatures.FileSignature,
@@ -725,7 +730,7 @@ class DeepScanner @Inject constructor() {
 
         // البحث عن كتل لا تحتوي على توقيعات ملفات أخرى
         // لكنها تبدو امتداداً للملف الحالي
-        while (searchPos < raf.length() && blocksSearched < maxSearchBlocks && isActive) {
+        while (searchPos < raf.length() && blocksSearched < maxSearchBlocks && currentCoroutineContext().isActive) {
             try {
                 raf.seek(searchPos)
                 val testBuffer = ByteArray(minOf(DEFAULT_BLOCK_SIZE, (raf.length() - searchPos).toInt()))

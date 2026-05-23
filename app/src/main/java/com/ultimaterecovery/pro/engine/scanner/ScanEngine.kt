@@ -4,6 +4,7 @@ import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCatego
 import com.ultimaterecovery.pro.data.local.entity.ScanSessionEntity.ScanType
 import com.ultimaterecovery.pro.engine.recovery.FoundFileInfo
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,7 +17,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageThumbnail"
+                android:id="@+id/ivThumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/thumbnail_medium"
                 android:scaleType="centerCrop"
@@ -32,7 +32,7 @@
 
             <!-- Expiry badge -->
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/textExpiry"
+                android:id="@+id/tvExpiry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|end"
@@ -55,7 +55,7 @@
             android:padding="@dimen/card_padding_small">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/textFileName"
+                android:id="@+id/tvFileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
@@ -64,7 +64,7 @@
                 tools:text="IMG_20250101.jpg" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/textOriginalPath"
+                android:id="@+id/tvOriginalPath"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
@@ -72,6 +72,26 @@
                 android:maxLines="1"
                 android:ellipsize="middle"
                 tools:text="/DCIM/Camera/" />
+
+            <TextView
+                android:id="@+id/tvDeletedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/on_surface_variant" />
+
+            <CheckBox
+                android:id="@+id/checkboxOverlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/viewSelectionDim"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#80000000"
+                android:visibility="gone" />
 
             <!-- Action Buttons -->
             <LinearLayout
@@ -82,7 +102,7 @@
                 android:layout_marginTop="@dimen/spacing_2xs">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDeletePermanent"
+                    android:id="@+id/btnDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/button_height_small"
                     android:text="@string/recycle_bin_delete_permanently"

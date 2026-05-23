@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
@@ -191,44 +192,44 @@ class FileRecoveryFragment : Fragment() {
         binding.swipeRefresh.isRefreshing = false
 
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
-            binding.recyclerViewFiles.visibility = View.GONE
+            binding.recyclerViewFiles?.visibility = View.GONE
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
-            binding.recyclerViewFiles.visibility = View.VISIBLE
+            binding.recyclerViewFiles?.visibility = View.VISIBLE
         }
 
         fileAdapter.submitList(state.filteredFiles)
 
         val selectedCount = state.selectedFileIds.size
         if (selectedCount > 0) {
-            binding.layoutSelectionBar.visibility = View.VISIBLE
+            binding.layoutSelectionBar?.visibility = View.VISIBLE
             binding.tvSelectedCount.text = getString(R.string.selected_count, selectedCount)
-            binding.fabRecover.visibility = View.VISIBLE
+            binding.fabRecover?.visibility = View.VISIBLE
         } else {
-            binding.layoutSelectionBar.visibility = View.GONE
-            binding.fabRecover.visibility = View.GONE
+            binding.layoutSelectionBar?.visibility = View.GONE
+            binding.fabRecover?.visibility = View.GONE
         }
 
         if (state.filteredFiles.isEmpty() && !state.isLoading) {
-            binding.layoutEmptyState.visibility = View.VISIBLE
-            binding.recyclerViewFiles.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.VISIBLE
+            binding.recyclerViewFiles?.visibility = View.GONE
         } else {
-            binding.layoutEmptyState.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.GONE
         }
 
         // Recovery progress
         state.recoveryProgress?.let { progress ->
-            binding.layoutRecoveryProgress.visibility = View.VISIBLE
+            binding.layoutRecoveryProgress?.visibility = View.VISIBLE
             val percent = if (progress.totalFiles > 0) {
                 (progress.processedFiles * 100 / progress.totalFiles)
             } else 0
             binding.progressRecovery.progress = percent
             binding.tvRecoveryProgress.text = getString(R.string.recovery_progress, percent)
         } ?: run {
-            binding.layoutRecoveryProgress.visibility = View.GONE
+            binding.layoutRecoveryProgress?.visibility = View.GONE
         }
 
         state.error?.let { error ->

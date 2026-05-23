@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.ui.StyledPlayerView
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.databinding.ActivityPreviewBinding
 import kotlinx.coroutines.launch
@@ -152,9 +153,9 @@ class PreviewActivity : AppCompatActivity() {
      * Loads an image using Glide with zoom/pan support via PhotoView.
      */
     private fun loadImagePreview() {
-        binding.photoView.visibility = View.VISIBLE
-        binding.playerView.visibility = View.GONE
-        binding.layoutGenericPreview.visibility = View.GONE
+        binding.photoView?.visibility = View.VISIBLE
+        binding.playerView?.visibility = View.GONE
+        binding.layoutGenericPreview?.visibility = View.GONE
 
         Glide.with(this)
             .load(File(filePath))
@@ -167,9 +168,9 @@ class PreviewActivity : AppCompatActivity() {
      * Sets up ExoPlayer for video playback.
      */
     private fun loadVideoPreview() {
-        binding.photoView.visibility = View.GONE
-        binding.playerView.visibility = View.VISIBLE
-        binding.layoutGenericPreview.visibility = View.GONE
+        binding.photoView?.visibility = View.GONE
+        binding.playerView?.visibility = View.VISIBLE
+        binding.layoutGenericPreview?.visibility = View.GONE
 
         initializePlayer()
         val mediaItem = MediaItem.fromUri(Uri.fromFile(File(filePath)))
@@ -182,9 +183,9 @@ class PreviewActivity : AppCompatActivity() {
      * Shows an audio visualization with player controls.
      */
     private fun loadAudioPreview() {
-        binding.photoView.visibility = View.GONE
-        binding.playerView.visibility = View.VISIBLE
-        binding.layoutGenericPreview.visibility = View.GONE
+        binding.photoView?.visibility = View.GONE
+        binding.playerView?.visibility = View.VISIBLE
+        binding.layoutGenericPreview?.visibility = View.GONE
 
         initializePlayer()
         val mediaItem = MediaItem.fromUri(Uri.fromFile(File(filePath)))
@@ -197,9 +198,9 @@ class PreviewActivity : AppCompatActivity() {
      * Shows a generic file type icon with file info.
      */
     private fun loadGenericPreview() {
-        binding.photoView.visibility = View.GONE
-        binding.playerView.visibility = View.GONE
-        binding.layoutGenericPreview.visibility = View.VISIBLE
+        binding.photoView?.visibility = View.GONE
+        binding.playerView?.visibility = View.GONE
+        binding.layoutGenericPreview?.visibility = View.VISIBLE
 
         val iconRes = when {
             mimeType.contains("pdf")   -> R.drawable.ic_pdf

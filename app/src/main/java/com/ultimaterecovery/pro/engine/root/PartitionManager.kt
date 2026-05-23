@@ -1,8 +1,7 @@
 package com.ultimaterecovery.pro.engine.root
 
-import com.topjohnwu.libsu.Shell
-import com.topjohnwu.libsu.SuFile
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -275,14 +274,14 @@ class PartitionManager @Inject constructor(
             if (!rootManager.executeCommand(ddCmd)) return@withContext 0L
 
             // Read the temp file in chunks and write to the output stream
-            val tempFile = SuFile(outputPath)
+            val tempFile = File(outputPath)
             if (!tempFile.exists()) return@withContext 0L
 
-            com.topjohnwu.libsu.io.SuFileInputStream.open(tempFile).use { input ->
+            tempFile.inputStream().use { input ->
                 val buffer = ByteArray(READ_BUFFER_SIZE)
                 var remaining = size
 
-                while (remaining > 0 && isActive) {
+                while (remaining > 0 && currentCoroutineContext().isActive) {
                     val toRead = minOf(buffer.size.toLong(), remaining).toInt()
                     val read = input.read(buffer, 0, toRead)
                     if (read <= 0) break
@@ -487,7 +486,7 @@ class PartitionManager @Inject constructor(
         val nameMap = mutableMapOf<String, String>()
 
         for (byNamePath in BY_NAME_PATHS) {
-            val dir = SuFile(byNamePath)
+            val dir = File(byNamePath)
             if (!dir.exists() || !dir.isDirectory) continue
 
             try {
@@ -513,7 +512,7 @@ class PartitionManager @Inject constructor(
      */
     private suspend fun enrichFromSysBlock(partitionMap: MutableMap<String, PartitionInfo>) {
         try {
-            val sysBlockDir = SuFile(SYS_BLOCK)
+            val sysBlockDir = File(SYS_BLOCK)
             if (!sysBlockDir.exists() || !sysBlockDir.isDirectory) return
 
             val blockDevices = rootManager.listFilesAsRoot(SYS_BLOCK)

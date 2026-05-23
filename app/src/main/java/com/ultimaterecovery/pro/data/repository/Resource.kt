@@ -67,7 +67,7 @@ sealed class Resource<out T> {
     /**
      * Returns the success data or [default] if this is not a [Success].
      */
-    fun getOrDefault(default: T): T = when (this) {
+    fun getOrDefault(default: @UnsafeVariance T): @UnsafeVariance T = when (this) {
         is Success -> data
         else       -> default
     }

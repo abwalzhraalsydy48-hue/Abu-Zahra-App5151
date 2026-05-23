@@ -9,8 +9,13 @@ import com.ultimaterecovery.pro.engine.recovery.RecoveryConfidence
 import com.ultimaterecovery.pro.engine.signatures.FileSignatures
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
 import java.io.File
@@ -54,7 +59,7 @@ class QuickScanner @Inject constructor(
             ".recently_deleted", "recently_deleted",
             ".recent", "recent",
             "Recently Deleted", "RecentlyDeleted",
-            ".Recycle", "Recycle", "$RECYCLE.BIN",
+            ".Recycle", "Recycle", "\$RECYCLE.BIN",
             ".Trash-1000", ".Trash-1001" // Linux trash directories
         )
 
@@ -120,7 +125,7 @@ class QuickScanner @Inject constructor(
             for (standardDir in getStandardMediaDirectories()) {
                 val dir = File(standardDir)
                 if (dir.exists() && dir.isDirectory) {
-                    scanDirectory(dir, foundFiles, scannedPaths, targetCategories, MAX_DEPTH = 5)
+                    scanDirectory(dir, foundFiles, scannedPaths, targetCategories, maxDepth = 5)
                     directoriesScanned++
                 }
             }
@@ -230,7 +235,7 @@ class QuickScanner @Inject constructor(
             for (path in scanPaths) {
                 val dir = File(path)
                 if (dir.exists() && dir.isDirectory && path !in scannedPaths) {
-                    scanDirectory(dir, foundFiles, scannedPaths, targetCategories, MAX_DEPTH = 6)
+                    scanDirectory(dir, foundFiles, scannedPaths, targetCategories, maxDepth = 6)
                     directoriesScanned++
                 }
             }
@@ -297,7 +302,7 @@ class QuickScanner @Inject constructor(
      * @param confidence مستوى الثقة الافتراضي للملفات المكتشفة
      * @param isLikelyDeleted هل الملفات في هذا الدليل يرجح أنها محذوفة؟
      */
-    private fun scanDirectory(
+    private suspend fun scanDirectory(
         directory: File,
         foundFiles: MutableList<FoundFileInfo>,
         scannedPaths: MutableSet<String>,
@@ -316,7 +321,7 @@ class QuickScanner @Inject constructor(
         val files = directory.listFiles() ?: return
 
         for (file in files) {
-            if (!isActive) return // فحص الإلغاء
+            if (!currentCoroutineContext().isActive) return // فحص الإلغاء
 
             try {
                 if (file.isDirectory) {

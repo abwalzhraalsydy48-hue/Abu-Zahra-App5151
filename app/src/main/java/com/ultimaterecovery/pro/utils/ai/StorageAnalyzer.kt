@@ -6,10 +6,13 @@ import android.os.StatFs
 import android.provider.MediaStore
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
@@ -422,14 +425,14 @@ class StorageAnalyzer @Inject constructor(
     /**
      * Recursively scans a directory, building file list and category breakdown.
      */
-    private fun scanDirectory(
+    private suspend fun scanDirectory(
         dir: File,
         allFiles: MutableList<AnalyzedFile>,
         categoryBreakdown: MutableMap<FileCategory, CategoryInfo>
     ) {
         dir.listFiles()?.forEach { file ->
             try {
-                if (!isActive) return
+                currentCoroutineContext().ensureActive()
 
                 if (file.isDirectory) {
                     scanDirectory(file, allFiles, categoryBreakdown)
@@ -457,10 +460,10 @@ class StorageAnalyzer @Inject constructor(
     /**
      * Simplified directory scan for file list only.
      */
-    private fun scanDirectorySimple(dir: File, files: MutableList<AnalyzedFile>) {
+    private suspend fun scanDirectorySimple(dir: File, files: MutableList<AnalyzedFile>) {
         dir.listFiles()?.forEach { file ->
             try {
-                if (!isActive) return
+                currentCoroutineContext().ensureActive()
                 if (file.isDirectory) {
                     scanDirectorySimple(file, files)
                 } else {
@@ -479,13 +482,13 @@ class StorageAnalyzer @Inject constructor(
     /**
      * Scan for category breakdown only (no file list).
      */
-    private fun scanDirectoryForCategories(
+    private suspend fun scanDirectoryForCategories(
         dir: File,
         breakdown: MutableMap<FileCategory, CategoryInfo>
     ) {
         dir.listFiles()?.forEach { file ->
             try {
-                if (!isActive) return
+                currentCoroutineContext().ensureActive()
                 if (file.isDirectory) {
                     scanDirectoryForCategories(file, breakdown)
                 } else {
@@ -503,14 +506,14 @@ class StorageAnalyzer @Inject constructor(
     /**
      * Scan for old files based on last modified timestamp.
      */
-    private fun scanForOldFiles(
+    private suspend fun scanForOldFiles(
         dir: File,
         cutoffMs: Long,
         oldFiles: MutableList<OldFileEntry>
     ) {
         dir.listFiles()?.forEach { file ->
             try {
-                if (!isActive) return
+                currentCoroutineContext().ensureActive()
                 if (file.isDirectory) {
                     scanForOldFiles(file, cutoffMs, oldFiles)
                 } else {
@@ -820,11 +823,7 @@ class StorageAnalyzer @Inject constructor(
         return "%.1f GB".format(gb)
     }
 
-    /**
-     * Helper for withContext on IO dispatcher.
-     */
-    private suspend fun <T> withContext(block: () -> T): T =
-        kotlinx.coroutines.withContext(Dispatchers.IO) { block() }
+
 }
 
 // ═══════════════════════════════════════════════════════════════

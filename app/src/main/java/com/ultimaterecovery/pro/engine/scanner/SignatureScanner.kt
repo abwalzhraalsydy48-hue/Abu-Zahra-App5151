@@ -1,3 +1,5 @@
+@file:OptIn(kotlin.ExperimentalStdlibApi::class)
+
 package com.ultimaterecovery.pro.engine.scanner
 
 import com.ultimaterecovery.pro.data.local.entity.RecoveredFileEntity.FileCategory
@@ -6,10 +8,11 @@ import com.ultimaterecovery.pro.engine.recovery.FoundFileInfo
 import com.ultimaterecovery.pro.engine.recovery.RecoveryConfidence
 import com.ultimaterecovery.pro.engine.signatures.FileSignatures
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.isActive
 import java.io.File
 import java.io.FileInputStream
 import java.io.RandomAccessFile
@@ -81,7 +84,7 @@ class SignatureScanner @Inject constructor() {
      * @param paths قائمة المسارات المراد مسحها
      * @return تدفق حالة المسح
      */
-    fun scanBySignatures(paths: List<String>): Flow<ScanState> = flow {
+    suspend fun scanBySignatures(paths: List<String>): Flow<ScanState> = flow {
         val startTime = System.currentTimeMillis()
         val foundFiles = mutableListOf<FoundFileInfo>()
         var totalBytesScanned = 0L
@@ -118,7 +121,7 @@ class SignatureScanner @Inject constructor() {
 
             // مسح كل مسار على حدة
             for (path in paths) {
-                if (!isActive) break
+                if (!currentCoroutineContext().isActive) break
 
                 val file = File(path)
                 if (!file.exists() || !file.canRead()) continue
@@ -260,7 +263,7 @@ class SignatureScanner @Inject constructor() {
      * @param foundFiles قائمة النتائج المراد الإضافة إليها
      * @param onProgress دالة استدعاء لتتبع التقدم
      */
-    private fun scanFileForSignatures(
+    private suspend fun scanFileForSignatures(
         file: File,
         foundFiles: MutableList<FoundFileInfo>,
         onProgress: (Long) -> Unit
@@ -275,7 +278,7 @@ class SignatureScanner @Inject constructor() {
                 var blockCount = 0
                 val processedOffsets = mutableSetOf<Long>() // لتجنب تكرار معالجة نفس الإزاحة
 
-                while (position < fileSize && isActive) {
+                while (position < fileSize && currentCoroutineContext().isActive) {
                     // حساب عدد البايتات المطلوب قراءتها
                     val remaining = fileSize - position
                     val bytesToRead = minOf(buffer.size.toLong(), remaining).toInt()
@@ -289,7 +292,7 @@ class SignatureScanner @Inject constructor() {
 
                     // البحث عن التوقيعات في الكتلة الحالية
                     for (offset in 0 until bytesRead - FileSignatures.MINIMUM_HEADER_SIZE) {
-                        if (!isActive) break
+                        if (!currentCoroutineContext().isActive) break
 
                         val absoluteOffset = position + offset
                         if (absoluteOffset in processedOffsets) continue
@@ -353,7 +356,7 @@ class SignatureScanner @Inject constructor() {
      * @param sourcePath مسار مصدر البيانات
      * @return معلومات الملف المستخرج أو null
      */
-    private fun carveFile(
+    private suspend fun carveFile(
         raf: RandomAccessFile,
         startOffset: Long,
         signature: FileSignatures.FileSignature,
@@ -483,7 +486,7 @@ class SignatureScanner @Inject constructor() {
      * @param signature التوقيع
      * @return حجم الملف أو -1 إذا لم يمكن تحديده
      */
-    private fun detectFileSizeFromHeader(
+    private suspend fun detectFileSizeFromHeader(
         raf: RandomAccessFile,
         startOffset: Long,
         signature: FileSignatures.FileSignature
@@ -572,7 +575,7 @@ class SignatureScanner @Inject constructor() {
      * @param dataSourceSize الحجم الإجمالي للبيانات
      * @return إزاحة بداية علامة النهاية أو -1
      */
-    private fun searchForEndMarker(
+    private suspend fun searchForEndMarker(
         raf: RandomAccessFile,
         startOffset: Long,
         endMarker: ByteArray,
@@ -591,7 +594,7 @@ class SignatureScanner @Inject constructor() {
             val searchBuffer = ByteArray(READ_BUFFER_SIZE)
             var currentPos = searchStart
 
-            while (currentPos < searchEnd && isActive) {
+            while (currentPos < searchEnd && currentCoroutineContext().isActive) {
                 raf.seek(currentPos)
                 val bytesRead = raf.read(searchBuffer)
                 if (bytesRead <= 0) break
@@ -633,7 +636,7 @@ class SignatureScanner @Inject constructor() {
      * @param dataSourceSize حجم مصدر البيانات
      * @return حجم الملف المكتشف أو -1
      */
-    private fun formatSpecificCarving(
+    private suspend fun formatSpecificCarving(
         raf: RandomAccessFile,
         startOffset: Long,
         signature: FileSignatures.FileSignature,
@@ -672,7 +675,7 @@ class SignatureScanner @Inject constructor() {
      *
      * الاستراتيجية: نبحث عن FFD9 متبوعاً بتوقيع ملف آخر أو نهاية البيانات
      */
-    private fun carveJpeg(
+    private suspend fun carveJpeg(
         raf: RandomAccessFile,
         startOffset: Long,
         dataSourceSize: Long
@@ -682,7 +685,7 @@ class SignatureScanner @Inject constructor() {
             val buffer = ByteArray(READ_BUFFER_SIZE)
             var pos = startOffset + 4 // تخطي SOI marker
 
-            while (pos < searchEnd && isActive) {
+            while (pos < searchEnd && currentCoroutineContext().isActive) {
                 raf.seek(pos)
                 val bytesRead = raf.read(buffer)
                 if (bytesRead <= 1) break
@@ -744,7 +747,7 @@ class SignatureScanner @Inject constructor() {
      *
      * الملف ينتهي بـ IEND chunk
      */
-    private fun carvePng(
+    private suspend fun carvePng(
         raf: RandomAccessFile,
         startOffset: Long,
         dataSourceSize: Long
@@ -753,7 +756,7 @@ class SignatureScanner @Inject constructor() {
             // تخطي توقيع PNG (8 بايت)
             var pos = startOffset + 8
 
-            while (pos < dataSourceSize - 12 && isActive) {
+            while (pos < dataSourceSize - 12 && currentCoroutineContext().isActive) {
                 raf.seek(pos)
 
                 // قراءة طول ونوع الجزء
@@ -790,7 +793,7 @@ class SignatureScanner @Inject constructor() {
      * GIF ينتهي بعلامة 0x3B (Trailer)
      * لكن يجب التعامل مع كتل البيانات المتعددة بعناية
      */
-    private fun carveGif(
+    private suspend fun carveGif(
         raf: RandomAccessFile,
         startOffset: Long,
         dataSourceSize: Long
@@ -800,7 +803,7 @@ class SignatureScanner @Inject constructor() {
             val buffer = ByteArray(READ_BUFFER_SIZE)
             var pos = startOffset
 
-            while (pos < searchEnd && isActive) {
+            while (pos < searchEnd && currentCoroutineContext().isActive) {
                 raf.seek(pos)
                 val bytesRead = raf.read(buffer)
                 if (bytesRead <= 0) break
@@ -1010,7 +1013,7 @@ class SignatureScanner @Inject constructor() {
     /**
      * الحصول على حجم القسم
      */
-    private fun getPartitionSize(partitionPath: String): Long {
+    private suspend fun getPartitionSize(partitionPath: String): Long {
         return try {
             val file = File(partitionPath)
             if (file.exists()) {
@@ -1030,11 +1033,11 @@ class SignatureScanner @Inject constructor() {
     /**
      * مسح قسم خام باستخدام صلاحيات الروت
      */
-    private fun scanPartitionWithRoot(
+    private suspend fun scanPartitionWithRoot(
         partitionPath: String,
         foundFiles: MutableList<FoundFileInfo>,
         estimatedSize: Long,
-        onProgress: (Long) -> Unit
+        onProgress: suspend (Long) -> Unit
     ) {
         try {
             val process = Runtime.getRuntime().exec(
@@ -1045,7 +1048,7 @@ class SignatureScanner @Inject constructor() {
             val buffer = ByteArray(READ_BUFFER_SIZE + OVERLAP_SIZE)
             var position = 0L
 
-            while (isActive) {
+            while (currentCoroutineContext().isActive) {
                 val bytesRead = inputStream.read(buffer)
                 if (bytesRead <= 0) break
 
@@ -1053,7 +1056,7 @@ class SignatureScanner @Inject constructor() {
 
                 // البحث عن التوقيعات
                 for (offset in 0 until bytesRead - FileSignatures.MINIMUM_HEADER_SIZE) {
-                    if (!isActive) break
+                    if (!currentCoroutineContext().isActive) break
 
                     val headerSize = minOf(FileSignatures.MINIMUM_HEADER_SIZE, bytesRead - offset)
                     val header = buffer.copyOfRange(offset, offset + headerSize)
@@ -1135,7 +1138,7 @@ class SignatureScanner @Inject constructor() {
                 val gap = next.offsetInBlock - (current.offsetInBlock + current.fileSize)
 
                 // إذا كانت الفجوة صغيرة، نعتبرها جزءاً من نفس الملف
-                if (gap in 0..DEFAULT_BLOCK_SIZE) {
+                if (gap in 0..SCAN_BLOCK_SIZE) {
                     current = current.copy(
                         fileSize = (next.offsetInBlock + next.fileSize) - current.offsetInBlock,
                         isFragment = true,
@@ -1163,7 +1166,7 @@ class SignatureScanner @Inject constructor() {
      * @param size حجم البيانات
      * @return تجزئة MD5 أو null في حالة الفشل
      */
-    fun computeMd5Hash(raf: RandomAccessFile, startOffset: Long, size: Long): String? {
+    suspend fun computeMd5Hash(raf: RandomAccessFile, startOffset: Long, size: Long): String? {
         return try {
             val digest = MessageDigest.getInstance("MD5")
             raf.seek(startOffset)
@@ -1171,7 +1174,7 @@ class SignatureScanner @Inject constructor() {
             val buffer = ByteArray(8192)
             var remaining = size
 
-            while (remaining > 0 && isActive) {
+            while (remaining > 0 && currentCoroutineContext().isActive) {
                 val toRead = minOf(buffer.size.toLong(), remaining).toInt()
                 val bytesRead = raf.read(buffer, 0, toRead)
                 if (bytesRead <= 0) break

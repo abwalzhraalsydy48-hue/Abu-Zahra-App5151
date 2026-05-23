@@ -15,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.AppDataEntity
 import com.ultimaterecovery.pro.data.local.entity.AppDataEntity.AppDataType
@@ -152,9 +153,13 @@ class AppDataRecoveryFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun setupSearch() {
-        binding.searchView.doOnTextChanged { text, _, _, _ ->
-            viewModel.search(text?.toString().orEmpty())
-        }
+        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.search(newText.orEmpty())
+                return true
+            }
+        })
     }
 
     // ──────────────────────────────────────────
@@ -200,39 +205,39 @@ class AppDataRecoveryFragment : Fragment() {
 
     private fun renderState(state: AppDataRecoveryUiState) {
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
-            binding.recyclerViewAppData.visibility = View.GONE
+            binding.recyclerViewAppData?.visibility = View.GONE
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
-            binding.recyclerViewAppData.visibility = View.VISIBLE
+            binding.recyclerViewAppData?.visibility = View.VISIBLE
         }
 
         appDataAdapter.submitList(state.filteredAppData)
 
         val selectedCount = state.selectedIds.size
         if (selectedCount > 0) {
-            binding.layoutSelectionBar.visibility = View.VISIBLE
+            binding.layoutSelectionBar?.visibility = View.VISIBLE
             binding.tvSelectedCount.text = getString(R.string.selected_count, selectedCount)
-            binding.fabRecover.visibility = View.VISIBLE
+            binding.fabRecover?.visibility = View.VISIBLE
         } else {
-            binding.layoutSelectionBar.visibility = View.GONE
-            binding.fabRecover.visibility = View.GONE
+            binding.layoutSelectionBar?.visibility = View.GONE
+            binding.fabRecover?.visibility = View.GONE
         }
 
         if (state.filteredAppData.isEmpty() && !state.isLoading) {
-            binding.layoutEmptyState.visibility = View.VISIBLE
-            binding.recyclerViewAppData.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.VISIBLE
+            binding.recyclerViewAppData?.visibility = View.GONE
         } else {
-            binding.layoutEmptyState.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.GONE
         }
 
         // Recovery progress
         if (state.isRecovering) {
-            binding.progressRecovery.visibility = View.VISIBLE
+            binding.progressRecovery?.visibility = View.VISIBLE
         } else {
-            binding.progressRecovery.visibility = View.GONE
+            binding.progressRecovery?.visibility = View.GONE
         }
 
         state.error?.let { error ->
@@ -332,9 +337,9 @@ class AppDataRecoveryFragment : Fragment() {
 
                 // System badge
                 if (appData.isSystemApp) {
-                    binding.tvSystemBadge.visibility = View.VISIBLE
+                    binding.tvSystemBadge?.visibility = View.VISIBLE
                 } else {
-                    binding.tvSystemBadge.visibility = View.GONE
+                    binding.tvSystemBadge?.visibility = View.GONE
                 }
 
                 // Recovery date

@@ -65,4 +65,15 @@
 
     </FrameLayout>
 
+
+
+    <!-- Additional missing views -->
+    <View android:id="@+id/viewSelectionDim" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <CheckBox android:id="@+id/checkboxOverlay" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <ImageView android:id="@+id/ivVideoThumbnail" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" />
+    <TextView android:id="@+id/tvFileName" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:id="@+id/tvFileSize" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:id="@+id/tvDuration" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    <ImageView android:id="@+id/ivPlayIcon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_play" />
 </com.google.android.material.card.MaterialCardView>

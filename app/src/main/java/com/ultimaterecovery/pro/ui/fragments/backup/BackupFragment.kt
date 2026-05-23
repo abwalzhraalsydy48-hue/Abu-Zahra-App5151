@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
+import com.ultimaterecovery.pro.utils.storage.formatFileSize
 import com.ultimaterecovery.pro.R
 import com.ultimaterecovery.pro.data.local.entity.BackupEntity
 import com.ultimaterecovery.pro.data.local.entity.BackupEntity.BackupType
@@ -117,9 +118,9 @@ class BackupFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
-                    0 -> { binding.layoutCreate.visibility = View.VISIBLE; binding.layoutRestore.visibility = View.GONE; binding.layoutCloud.visibility = View.GONE }
-                    1 -> { binding.layoutCreate.visibility = View.GONE; binding.layoutRestore.visibility = View.VISIBLE; binding.layoutCloud.visibility = View.GONE }
-                    2 -> { binding.layoutCreate.visibility = View.GONE; binding.layoutRestore.visibility = View.GONE; binding.layoutCloud.visibility = View.VISIBLE }
+                    0 -> { binding.layoutCreate?.visibility = View.VISIBLE; binding.layoutRestore?.visibility = View.GONE; binding.layoutCloud?.visibility = View.GONE }
+                    1 -> { binding.layoutCreate?.visibility = View.GONE; binding.layoutRestore?.visibility = View.VISIBLE; binding.layoutCloud?.visibility = View.GONE }
+                    2 -> { binding.layoutCreate?.visibility = View.GONE; binding.layoutRestore?.visibility = View.GONE; binding.layoutCloud?.visibility = View.VISIBLE }
                 }
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -155,7 +156,7 @@ class BackupFragment : Fragment() {
         binding.chipTypeVideos.setOnClickListener { viewModel.setBackupType(BackupType.VIDEOS) }
         binding.chipTypeDocuments.setOnClickListener { viewModel.setBackupType(BackupType.DOCUMENTS) }
         binding.chipTypeSms.setOnClickListener { viewModel.setBackupType(BackupType.SMS) }
-        binding.chipTypeCallLogs.setOnClickListener { viewModel.setBackupType(BackupType.CALL_LOGS) }
+        binding.chipTypeCallLogs.setOnClickListener { viewModel.setBackupType(BackupType.CALL_LOG) }
 
         // Encryption toggle
         binding.switchEncryption.setOnCheckedChangeListener { _, isChecked ->
@@ -186,10 +187,10 @@ class BackupFragment : Fragment() {
     private fun renderState(state: BackupUiState) {
         // Loading
         if (state.isLoading) {
-            binding.shimmerFrameLayout.visibility = View.VISIBLE
+            binding.shimmerFrameLayout?.visibility = View.VISIBLE
             binding.shimmerFrameLayout.startShimmer()
         } else {
-            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.shimmerFrameLayout?.visibility = View.GONE
             binding.shimmerFrameLayout.stopShimmer()
         }
 
@@ -198,13 +199,13 @@ class BackupFragment : Fragment() {
 
         // Create progress
         state.currentProgress?.let { progress ->
-            binding.layoutCreateProgress.visibility = View.VISIBLE
-            val percent = (progress.percent * 100).toInt()
+            binding.layoutCreateProgress?.visibility = View.VISIBLE
+            val percent = (progress.progress * 100).toInt()
             binding.progressCreateBackup.progress = percent
             binding.tvCreateProgressPercent.text = getString(R.string.progress_percent, percent)
             binding.tvCreateProgressPhase.text = progress.phase.name
         } ?: run {
-            binding.layoutCreateProgress.visibility = View.GONE
+            binding.layoutCreateProgress?.visibility = View.GONE
         }
 
         // Creating state
@@ -213,16 +214,16 @@ class BackupFragment : Fragment() {
 
         // Restoring state
         if (state.isRestoring) {
-            binding.progressRestore.visibility = View.VISIBLE
+            binding.progressRestore?.visibility = View.VISIBLE
         } else {
-            binding.progressRestore.visibility = View.GONE
+            binding.progressRestore?.visibility = View.GONE
         }
 
         // Uploading state
         if (state.isUploading) {
-            binding.progressCloud.visibility = View.VISIBLE
+            binding.progressCloud?.visibility = View.VISIBLE
         } else {
-            binding.progressCloud.visibility = View.GONE
+            binding.progressCloud?.visibility = View.GONE
         }
 
         // Success message
@@ -239,11 +240,11 @@ class BackupFragment : Fragment() {
 
         // Empty state for backup list
         if (state.backupHistory.isEmpty() && !state.isLoading) {
-            binding.layoutEmptyState.visibility = View.VISIBLE
-            binding.recyclerViewBackups.visibility = View.GONE
+            binding.layoutEmptyState?.visibility = View.VISIBLE
+            binding.recyclerViewBackups?.visibility = View.GONE
         } else {
-            binding.layoutEmptyState.visibility = View.GONE
-            binding.recyclerViewBackups.visibility = View.VISIBLE
+            binding.layoutEmptyState?.visibility = View.GONE
+            binding.recyclerViewBackups?.visibility = View.VISIBLE
         }
     }
 
@@ -353,7 +354,7 @@ class BackupFragment : Fragment() {
                 binding.tvBackupType.text = backup.backupType.name
 
                 // Size
-                binding.tvBackupSize.text = formatFileSize(backup.fileSize)
+                binding.tvBackupSize.text = formatFileSize(backup.backupSize)
 
                 // Encryption badge
                 binding.ivEncrypted.visibility = if (backup.isEncrypted) View.VISIBLE else View.GONE
@@ -383,7 +384,9 @@ class BackupFragment : Fragment() {
         BackupType.VIDEOS     -> R.drawable.ic_video
         BackupType.DOCUMENTS  -> R.drawable.ic_document
         BackupType.SMS        -> R.drawable.ic_sms
-        BackupType.CALL_LOGS  -> R.drawable.ic_call_log
+        BackupType.CALL_LOG   -> R.drawable.ic_call_log
+        BackupType.APP_DATA   -> R.drawable.ic_document
+        BackupType.CUSTOM     -> R.drawable.ic_backup_full
     }
 
     private fun formatFileSize(bytes: Long): String {

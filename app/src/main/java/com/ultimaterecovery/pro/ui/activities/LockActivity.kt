@@ -77,22 +77,22 @@ class LockActivity : AppCompatActivity() {
         val securityLevel = intent.getStringExtra(EXTRA_SECURITY_LEVEL) ?: "PIN"
         when (securityLevel) {
             "BIOMETRIC" -> {
-                binding.layoutPinInput.visibility = View.GONE
+                binding.layoutPinInput?.visibility = View.GONE
                 showBiometricPrompt()
             }
             "PIN_AND_BIOMETRIC" -> {
-                binding.layoutPinInput.visibility = View.VISIBLE
-                binding.btnBiometric.visibility = View.VISIBLE
+                binding.layoutPinInput?.visibility = View.VISIBLE
+                binding.btnFingerprint?.visibility = View.VISIBLE
                 showBiometricPrompt()
             }
             else -> {
-                binding.layoutPinInput.visibility = View.VISIBLE
-                binding.btnBiometric.visibility = View.GONE
+                binding.layoutPinInput?.visibility = View.VISIBLE
+                binding.btnFingerprint?.visibility = View.GONE
             }
         }
 
         // Biometric fallback button
-        binding.btnBiometric.setOnClickListener { showBiometricPrompt() }
+        binding.btnFingerprint.setOnClickListener { showBiometricPrompt() }
     }
 
     override fun onDestroy() {
@@ -106,17 +106,17 @@ class LockActivity : AppCompatActivity() {
 
     private fun setupNumpad() {
         val numpadButtons = listOf(
-            binding.btn0, binding.btn1, binding.btn2,
-            binding.btn3, binding.btn4, binding.btn5,
-            binding.btn6, binding.btn7, binding.btn8,
-            binding.btn9
+            binding.btnKey0, binding.btnKey1, binding.btnKey2,
+            binding.btnKey3, binding.btnKey4, binding.btnKey5,
+            binding.btnKey6, binding.btnKey7, binding.btnKey8,
+            binding.btnKey9
         )
 
         numpadButtons.forEach { button ->
             button.setOnClickListener { onDigitPressed(button.text.toString()) }
         }
 
-        binding.btnBackspace.setOnClickListener { onBackspacePressed() }
+        binding.btnDelete.setOnClickListener { onBackspacePressed() }
         binding.btnDone.setOnClickListener { onDonePressed() }
     }
 
@@ -183,12 +183,12 @@ class LockActivity : AppCompatActivity() {
         wrongAttempts++
         shakePinDots()
 
-        binding.tvWrongAttempts.text = getString(
+        binding.textWrongAttempt.text = getString(
             R.string.wrong_attempts,
             wrongAttempts,
             MAX_WRONG_ATTEMPTS
         )
-        binding.tvWrongAttempts.visibility = View.VISIBLE
+        binding.textWrongAttempt?.visibility = View.VISIBLE
 
         if (wrongAttempts >= MAX_WRONG_ATTEMPTS) {
             lockOut()
@@ -208,19 +208,19 @@ class LockActivity : AppCompatActivity() {
         isLocked = true
         lockUntilTime = System.currentTimeMillis() + lockDurationMs
 
-        binding.tvLockMessage.visibility = View.VISIBLE
+        binding.tvLockMessage?.visibility = View.VISIBLE
         binding.tvLockMessage.text = getString(R.string.lockout_message)
 
         binding.root.postDelayed({
             isLocked = false
-            binding.tvLockMessage.visibility = View.GONE
+            binding.tvLockMessage?.visibility = View.GONE
             wrongAttempts = 0
-            binding.tvWrongAttempts.visibility = View.GONE
+            binding.textWrongAttempt?.visibility = View.GONE
         }, lockDurationMs)
     }
 
     private fun onAuthenticated() {
-        binding.lottieSuccess.visibility = View.VISIBLE
+        binding.lottieSuccess?.visibility = View.VISIBLE
         binding.lottieSuccess.playAnimation()
 
         binding.root.postDelayed({
@@ -235,8 +235,8 @@ class LockActivity : AppCompatActivity() {
 
     private fun updatePinDots() {
         val dots = listOf(
-            binding.dot1, binding.dot2, binding.dot3,
-            binding.dot4, binding.dot5, binding.dot6
+            binding.pinDot1, binding.pinDot2, binding.pinDot3,
+            binding.pinDot4, binding.pinDot5, binding.pinDot6
         )
 
         dots.forEachIndexed { index, dot ->
@@ -287,7 +287,7 @@ class LockActivity : AppCompatActivity() {
                         errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON
                     ) {
                         // Show PIN fallback
-                        binding.layoutPinInput.visibility = View.VISIBLE
+                        binding.layoutPinInput?.visibility = View.VISIBLE
                     }
                 }
             }
@@ -306,8 +306,8 @@ class LockActivity : AppCompatActivity() {
             biometricPrompt.authenticate(promptInfo)
         } catch (e: Exception) {
             // Biometric not available — fall back to PIN
-            binding.layoutPinInput.visibility = View.VISIBLE
-            binding.btnBiometric.visibility = View.GONE
+            binding.layoutPinInput?.visibility = View.VISIBLE
+            binding.btnFingerprint?.visibility = View.GONE
         }
     }
 
@@ -316,9 +316,9 @@ class LockActivity : AppCompatActivity() {
     // ──────────────────────────────────────────
 
     private fun animateFingerprintIcon() {
-        val scaleX = ObjectAnimator.ofFloat(binding.ivFingerprint, View.SCALE_X, 1f, 1.1f, 1f)
-        val scaleY = ObjectAnimator.ofFloat(binding.ivFingerprint, View.SCALE_Y, 1f, 1.1f, 1f)
-        val alpha = ObjectAnimator.ofFloat(binding.ivFingerprint, View.ALPHA, 0.7f, 1f, 0.7f)
+        val scaleX = ObjectAnimator.ofFloat(binding.imageFingerprint, View.SCALE_X, 1f, 1.1f, 1f)
+        val scaleY = ObjectAnimator.ofFloat(binding.imageFingerprint, View.SCALE_Y, 1f, 1.1f, 1f)
+        val alpha = ObjectAnimator.ofFloat(binding.imageFingerprint, View.ALPHA, 0.7f, 1f, 0.7f)
 
         AnimatorSet().apply {
             playTogether(scaleX, scaleY, alpha)

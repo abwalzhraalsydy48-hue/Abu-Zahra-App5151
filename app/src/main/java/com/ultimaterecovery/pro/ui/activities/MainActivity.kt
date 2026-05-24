@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         // Connect BottomNavigationView with NavController
-        NavigationUI.setupWithNavController(binding.bottomNav, navController)
+        NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
 
         // Hide bottom nav on certain destinations (e.g. preview, lock)
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.previewActivity,
                 R.id.lockActivity
             )
-            binding.bottomNav.visibility = if (destination.id in hideNavDestinations) {
+            binding.bottomNavigation.visibility = if (destination.id in hideNavDestinations) {
                 View.GONE
             } else {
                 View.VISIBLE

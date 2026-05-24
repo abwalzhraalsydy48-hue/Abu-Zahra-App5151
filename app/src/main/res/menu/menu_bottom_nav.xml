@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
         android:title="Home" />
 
     <item
-        android:id="@+id/nav_scan"
+        android:id="@+id/scanFragment"
         android:icon="@drawable/ic_scan"
         android:title="Scan" />
 
     <item
-        android:id="@+id/nav_recovery"
+        android:id="@+id/photoRecoveryFragment"
         android:icon="@drawable/ic_recovery"
         android:title="Recovery" />
 
     <item
-        android:id="@+id/nav_tools"
+        android:id="@+id/fileManagerFragment"
         android:icon="@drawable/ic_tools"
         android:title="Tools" />
 
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_settings"
         android:title="Settings" />
 

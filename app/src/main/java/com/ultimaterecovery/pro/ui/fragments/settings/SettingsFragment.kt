@@ -244,21 +244,21 @@ class SettingsFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun showThemeDialog() {
-        val themes = AppTheme.entries.map { it.name }.toTypedArray()
+        val themes = AppTheme.values().map { it.name }.toTypedArray()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.theme)
             .setItems(themes) { _, which ->
-                viewModel.setTheme(AppTheme.entries[which])
+                viewModel.setTheme(AppTheme.values()[which])
             }
             .show()
     }
 
     private fun showLanguageDialog() {
-        val languages = AppLanguage.entries.map { it.displayName }.toTypedArray()
+        val languages = AppLanguage.values().map { it.displayName }.toTypedArray()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.language)
             .setItems(languages) { _, which ->
-                viewModel.setLanguage(AppLanguage.entries[which])
+                viewModel.setLanguage(AppLanguage.values()[which])
             }
             .show()
     }
@@ -320,11 +320,11 @@ class SettingsFragment : Fragment() {
     }
 
     private fun showSecurityLevelDialog() {
-        val levels = SecurityLevel.entries.map { it.name }.toTypedArray()
+        val levels = SecurityLevel.values().map { it.name }.toTypedArray()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.security_level)
             .setItems(levels) { _, which ->
-                val level = SecurityLevel.entries[which]
+                val level = SecurityLevel.values()[which]
                 viewModel.setSecurityLevel(level)
                 if (level == SecurityLevel.PIN || level == SecurityLevel.PIN_AND_BIOMETRIC) {
                     showPinSetupDialog()

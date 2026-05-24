@@ -353,11 +353,11 @@ class PhotoRecoveryFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun showSortDialog() {
-        val sortOptions = PhotoSortBy.entries.map { it.name }.toTypedArray()
+        val sortOptions = PhotoSortBy.values().map { it.name }.toTypedArray()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.sort_by)
             .setItems(sortOptions) { _, which ->
-                viewModel.sortPhotos(PhotoSortBy.entries[which])
+                viewModel.sortPhotos(PhotoSortBy.values()[which])
             }
             .show()
     }

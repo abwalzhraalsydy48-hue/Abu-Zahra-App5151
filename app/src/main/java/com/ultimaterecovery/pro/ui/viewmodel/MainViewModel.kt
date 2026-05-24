@@ -204,7 +204,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val categoryMap = mutableMapOf<FileCategory, Int>()
-                for (category in FileCategory.entries) {
+                for (category in FileCategory.values()) {
                     recoveredFileRepository.getFilesByCategory(category).catch { e ->
                         Timber.e(e, "Failed to load category: $category")
                     }.collect { resource ->

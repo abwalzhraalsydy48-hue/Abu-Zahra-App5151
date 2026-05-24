@@ -240,11 +240,11 @@ class VideoRecoveryFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun showSortDialog() {
-        val sortOptions = VideoSortBy.entries.map { it.name }.toTypedArray()
+        val sortOptions = VideoSortBy.values().map { it.name }.toTypedArray()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.sort_by)
             .setItems(sortOptions) { _, which ->
-                viewModel.sortVideos(VideoSortBy.entries[which])
+                viewModel.sortVideos(VideoSortBy.values()[which])
             }
             .show()
     }

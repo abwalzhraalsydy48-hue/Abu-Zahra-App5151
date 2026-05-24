@@ -152,7 +152,7 @@ class RawRecoveryEngine @Inject constructor(
         }
 
         val scanSize = if (maxBytes > 0L) minOf(maxBytes, partitionSize - startOffset) else partitionSize - startOffset
-        val targetCategories = if (categories.isEmpty()) FileCategory.entries else categories
+        val targetCategories = if (categories.isEmpty()) FileCategory.values().toList() else categories
         val foundFiles = mutableListOf<FoundFileInfo>()
         var bytesScanned = 0L
         var lastSignatureEnd = startOffset

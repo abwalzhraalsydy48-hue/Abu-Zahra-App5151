@@ -84,7 +84,7 @@ class DeepScanner @Inject constructor() {
         var totalBytesScanned = 0L
         var totalSize = 0L
 
-        val targetCategories = if (categories.isEmpty()) FileCategory.entries else categories
+        val targetCategories = if (categories.isEmpty()) FileCategory.values().toList() else categories
 
         try {
             val scanPaths = if (paths.isEmpty()) getDefaultDeepScanPaths() else paths

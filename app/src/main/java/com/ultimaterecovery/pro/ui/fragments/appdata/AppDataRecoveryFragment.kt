@@ -111,7 +111,7 @@ class AppDataRecoveryFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun setupDataTypeTabs() {
-        val dataTypes = AppDataType.entries
+        val dataTypes = AppDataType.values()
         dataTypes.forEach { type ->
             binding.tabLayout.addTab(
                 binding.tabLayout.newTab().setText(type.name.lowercase().replaceFirstChar { it.uppercase() })
@@ -266,11 +266,11 @@ class AppDataRecoveryFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun showSortDialog() {
-        val sortOptions = AppDataSortBy.entries.map { it.name }.toTypedArray()
+        val sortOptions = AppDataSortBy.values().map { it.name }.toTypedArray()
         com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.sort_by)
             .setItems(sortOptions) { _, which ->
-                viewModel.sortAppData(AppDataSortBy.entries[which])
+                viewModel.sortAppData(AppDataSortBy.values()[which])
             }
             .show()
     }

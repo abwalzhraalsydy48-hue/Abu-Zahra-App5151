@@ -400,11 +400,11 @@ class FileManagerFragment : Fragment() {
     }
 
     private fun showSortDialog() {
-        val sortOptions = SortOrder.entries.map { it.name }.toTypedArray()
+        val sortOptions = SortOrder.values().map { it.name }.toTypedArray()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.sort_by)
             .setItems(sortOptions) { _, which ->
-                viewModel.setSortOrder(SortOrder.entries[which])
+                viewModel.setSortOrder(SortOrder.values()[which])
             }
             .show()
     }

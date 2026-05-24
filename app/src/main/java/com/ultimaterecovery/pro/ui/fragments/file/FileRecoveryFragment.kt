@@ -271,11 +271,11 @@ class FileRecoveryFragment : Fragment() {
     // ──────────────────────────────────────────
 
     private fun showSortDialog() {
-        val sortOptions = FileSortBy.entries.map { it.name }.toTypedArray()
+        val sortOptions = FileSortBy.values().map { it.name }.toTypedArray()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.sort_by)
             .setItems(sortOptions) { _, which ->
-                viewModel.sortFiles(FileSortBy.entries[which])
+                viewModel.sortFiles(FileSortBy.values()[which])
             }
             .show()
     }

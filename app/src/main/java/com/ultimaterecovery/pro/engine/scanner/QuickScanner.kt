@@ -109,7 +109,7 @@ class QuickScanner @Inject constructor(
         val scanPaths = if (paths.isEmpty()) getDefaultScanPaths() else paths
 
         // تحديد التوقيعات المطلوبة حسب الفئات
-        val targetCategories = if (categories.isEmpty()) FileCategory.entries else categories
+        val targetCategories = if (categories.isEmpty()) FileCategory.values().toList() else categories
 
         try {
             // ═══════════════════════════════════════════

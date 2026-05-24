@@ -653,7 +653,7 @@ class FileManager @Inject constructor(
             val categorySizes = mutableMapOf<FileCategory, Long>()
 
             // Initialize all categories to 0
-            FileCategory.entries.forEach { categorySizes[it] = 0L }
+            FileCategory.values().forEach { categorySizes[it] = 0L }
 
             // Scan primary storage
             val rootDir = Environment.getExternalStorageDirectory()

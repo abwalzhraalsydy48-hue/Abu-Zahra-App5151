@@ -297,11 +297,11 @@ class BackupFragment : Fragment() {
     }
 
     private fun showCloudProviderDialog(onSelected: (CloudProvider) -> Unit) {
-        val providers = CloudProvider.entries.map { it.name }.toTypedArray()
+        val providers = CloudProvider.values().map { it.name }.toTypedArray()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.select_cloud_provider)
             .setItems(providers) { _, which ->
-                onSelected(CloudProvider.entries[which])
+                onSelected(CloudProvider.values()[which])
             }
             .show()
     }

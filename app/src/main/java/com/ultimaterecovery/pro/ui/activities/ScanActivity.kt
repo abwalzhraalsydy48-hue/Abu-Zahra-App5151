@@ -118,7 +118,7 @@ class ScanActivity : AppCompatActivity() {
     // ──────────────────────────────────────────
 
     private fun setupCategoryChips() {
-        val categories = FileCategory.entries
+        val categories = FileCategory.values()
         for (category in categories) {
             val chip = Chip(this).apply {
                 text = category.name.lowercase().replaceFirstChar { it.uppercase() }

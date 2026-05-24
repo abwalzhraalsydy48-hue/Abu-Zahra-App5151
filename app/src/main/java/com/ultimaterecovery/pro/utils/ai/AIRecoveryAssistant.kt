@@ -592,7 +592,7 @@ class AIRecoveryAssistant @Inject constructor(
         }
 
         val categoryBreakdown = mutableMapOf<FileCategory, Long>()
-        FileCategory.entries.forEach { categoryBreakdown[it] = 0L }
+        FileCategory.values().forEach { categoryBreakdown[it] = 0L }
 
         val allFiles = mutableListOf<File>()
         val largestFiles = mutableListOf<Pair<File, Long>>()
@@ -737,7 +737,7 @@ class AIRecoveryAssistant @Inject constructor(
         }
 
         // Check for missing categories
-        val missingCategories = FileCategory.entries.filter {
+        val missingCategories = FileCategory.values().filter {
             it != FileCategory.OTHER && it !in categoryCounts
         }
         if (missingCategories.isNotEmpty()) {

@@ -14,6 +14,7 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.topjohnwu.superuser.Shell
 import com.ultimaterecovery.pro.data.local.database.UltimateRecoveryDatabase
 import com.ultimaterecovery.pro.engine.root.RootManager
 import com.ultimaterecovery.pro.utils.backup.BackupManager
@@ -133,6 +134,12 @@ class UltimateRecoveryApplication : Application(), Configuration.Provider {
 
         // Install uncaught exception handler to prevent hard crashes
         installCrashHandler()
+
+        try {
+            Shell.setDefaultBuilder(Shell.Builder.create())
+        } catch (e: Exception) {
+            // libsu initialization failure should not crash the app
+        }
 
         try {
             // 1. Initialize Timber logging

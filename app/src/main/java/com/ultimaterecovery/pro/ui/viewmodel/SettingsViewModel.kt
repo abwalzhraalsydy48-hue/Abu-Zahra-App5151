@@ -131,7 +131,7 @@ class SettingsViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(
             // Appearance
             theme = AppTheme.valueOf(prefs.getString("theme", AppTheme.SYSTEM.name) ?: AppTheme.SYSTEM.name),
-            language = AppLanguage.entries.firstOrNull {
+            language = AppLanguage.values().firstOrNull {
                 it.code == prefs.getString("language", AppLanguage.AUTO.code)
             } ?: AppLanguage.AUTO,
             dynamicColor = prefs.getBoolean("dynamic_color", true),

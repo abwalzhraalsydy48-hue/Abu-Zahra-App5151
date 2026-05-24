@@ -30,7 +30,7 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toFileCategory(ordinal: Int?): FileCategory? =
-        ordinal?.let { FileCategory.entries.getOrNull(it) }
+        ordinal?.let { FileCategory.values().getOrNull(it) }
 
     // --- RecoveredFileEntity.RecoveryStatus ---
 
@@ -41,7 +41,7 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toRecoveryStatus(ordinal: Int?): RecoveryStatus? =
-        ordinal?.let { RecoveryStatus.entries.getOrNull(it) }
+        ordinal?.let { RecoveryStatus.values().getOrNull(it) }
 
     // --- ScanSessionEntity.ScanType ---
 
@@ -52,7 +52,7 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toScanType(ordinal: Int?): ScanType? =
-        ordinal?.let { ScanType.entries.getOrNull(it) }
+        ordinal?.let { ScanType.values().getOrNull(it) }
 
     // --- ScanSessionEntity.ScanStatus ---
 
@@ -63,7 +63,7 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toScanStatus(ordinal: Int?): ScanStatus? =
-        ordinal?.let { ScanStatus.entries.getOrNull(it) }
+        ordinal?.let { ScanStatus.values().getOrNull(it) }
 
     // --- SmsMessageEntity.SmsType ---
 
@@ -74,7 +74,7 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toSmsType(ordinal: Int?): SmsType? =
-        ordinal?.let { SmsType.entries.getOrNull(it) }
+        ordinal?.let { SmsType.values().getOrNull(it) }
 
     // --- CallLogEntity.CallType ---
 
@@ -85,7 +85,7 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toCallType(ordinal: Int?): CallType? =
-        ordinal?.let { CallType.entries.getOrNull(it) }
+        ordinal?.let { CallType.values().getOrNull(it) }
 
     // --- AppDataEntity.AppDataType ---
 
@@ -96,7 +96,7 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toAppDataType(ordinal: Int?): AppDataType? =
-        ordinal?.let { AppDataType.entries.getOrNull(it) }
+        ordinal?.let { AppDataType.values().getOrNull(it) }
 
     // --- BackupEntity.BackupType ---
 
@@ -107,7 +107,7 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toBackupType(ordinal: Int?): BackupType? =
-        ordinal?.let { BackupType.entries.getOrNull(it) }
+        ordinal?.let { BackupType.values().getOrNull(it) }
 
     // --- BackupEntity.CloudProvider ---
 
@@ -118,7 +118,7 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toCloudProvider(ordinal: Int?): CloudProvider? =
-        ordinal?.let { CloudProvider.entries.getOrNull(it) }
+        ordinal?.let { CloudProvider.values().getOrNull(it) }
 
     // --- BackupEntity.BackupStatus ---
 
@@ -129,5 +129,5 @@ object EnumTypeConverters {
     @JvmStatic
     @TypeConverter
     fun toBackupStatus(ordinal: Int?): BackupStatus? =
-        ordinal?.let { BackupStatus.entries.getOrNull(it) }
+        ordinal?.let { BackupStatus.values().getOrNull(it) }
 }

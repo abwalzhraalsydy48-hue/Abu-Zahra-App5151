@@ -164,7 +164,7 @@ class StorageAnalyzer @Inject constructor(
         val allFiles = mutableListOf<AnalyzedFile>()
         val categoryBreakdown = mutableMapOf<FileCategory, CategoryInfo>()
 
-        FileCategory.entries.forEach { cat ->
+        FileCategory.values().forEach { cat ->
             categoryBreakdown[cat] = CategoryInfo(
                 category = cat,
                 totalSize = 0L,
@@ -234,7 +234,7 @@ class StorageAnalyzer @Inject constructor(
     suspend fun getCategoryBreakdown(): Map<FileCategory, CategoryInfo> {
         return withContext(Dispatchers.IO) {
             val breakdown = mutableMapOf<FileCategory, CategoryInfo>()
-            FileCategory.entries.forEach { cat ->
+            FileCategory.values().forEach { cat ->
                 breakdown[cat] = CategoryInfo(
                     category = cat, totalSize = 0L, fileCount = 0,
                     extensions = mutableMapOf()
@@ -400,7 +400,7 @@ class StorageAnalyzer @Inject constructor(
         return withContext(Dispatchers.IO) {
             val files = mutableListOf<AnalyzedFile>()
             val categoryBreakdown = mutableMapOf<FileCategory, CategoryInfo>()
-            FileCategory.entries.forEach { cat ->
+            FileCategory.values().forEach { cat ->
                 categoryBreakdown[cat] = CategoryInfo(
                     category = cat, totalSize = 0L, fileCount = 0,
                     extensions = mutableMapOf()

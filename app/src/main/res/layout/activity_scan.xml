@@ -176,20 +176,20 @@
                                 android:layout_width="@dimen/icon_size_extra_large"
                                 android:layout_height="@dimen/icon_size_extra_large"
                                 android:src="@drawable/ic_signature_scan"
-                                android:contentDescription="Signature"
+                                android:contentDescription="@string/scan_type_signature"
                                 app:tint="@color/tertiary"
                                 android:layout_marginBottom="@dimen/spacing_sm" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Signature"
+                                android:text="@string/scan_type_signature"
                                 android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="File signature based scan"
+                                android:text="@string/scan_signature_desc"
                                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                                 android:textColor="@color/on_surface_variant"
                                 android:maxWidth="120dp"
@@ -224,20 +224,20 @@
                                 android:layout_width="@dimen/icon_size_extra_large"
                                 android:layout_height="@dimen/icon_size_extra_large"
                                 android:src="@drawable/ic_raw_scan"
-                                android:contentDescription="Raw"
+                                android:contentDescription="@string/scan_type_raw"
                                 app:tint="@color/warning"
                                 android:layout_marginBottom="@dimen/spacing_sm" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Raw"
+                                android:text="@string/scan_type_raw"
                                 android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Raw sector-level scan"
+                                android:text="@string/scan_raw_desc"
                                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                                 android:textColor="@color/on_surface_variant"
                                 android:maxWidth="120dp"
@@ -271,20 +271,20 @@
                                 android:layout_width="@dimen/icon_size_extra_large"
                                 android:layout_height="@dimen/icon_size_extra_large"
                                 android:src="@drawable/ic_partition_scan"
-                                android:contentDescription="Partition"
+                                android:contentDescription="@string/scan_type_partition"
                                 app:tint="@color/error"
                                 android:layout_marginBottom="@dimen/spacing_sm" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Partition"
+                                android:text="@string/scan_type_partition"
                                 android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Scan partition tables"
+                                android:text="@string/scan_partition_desc"
                                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                                 android:textColor="@color/on_surface_variant"
                                 android:maxWidth="120dp"
@@ -303,7 +303,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Filter by Category"
+                android:text="@string/scan_filter_category"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 android:layout_marginBottom="@dimen/spacing_sm" />
 
@@ -541,108 +541,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnResume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSaveResults"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <android.widget.LinearLayout
-        android:id="@+id/layoutScanConfig"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <android.widget.LinearLayout
-        android:id="@+id/layoutScanResults"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieScanProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <android.widget.ProgressBar
-        android:id="@+id/progressSaving"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggleScanType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvCurrentPath"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvElapsedTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvFilesFound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvProgressPercent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvResultDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvResultScanType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvResultTotalFiles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvResultTotalSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-
-    <!-- Auto-added missing views -->
-    <TextView
-        android:id="@+id/tvScanStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvScanResults"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    <TextView
-        android:id="@+id/tvBytesScanned"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

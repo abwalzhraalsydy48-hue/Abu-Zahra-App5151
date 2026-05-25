@@ -5,26 +5,26 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/nav_home" />
 
     <item
         android:id="@+id/scanFragment"
         android:icon="@drawable/ic_scan"
-        android:title="Scan" />
+        android:title="@string/nav_scan" />
 
     <item
         android:id="@+id/photoRecoveryFragment"
         android:icon="@drawable/ic_recovery"
-        android:title="Recovery" />
+        android:title="@string/nav_recovery" />
 
     <item
         android:id="@+id/fileManagerFragment"
         android:icon="@drawable/ic_tools"
-        android:title="Tools" />
+        android:title="@string/nav_tools" />
 
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_settings"
-        android:title="Settings" />
+        android:title="@string/nav_settings" />
 
 </menu>

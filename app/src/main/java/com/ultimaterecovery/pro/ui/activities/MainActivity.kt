@@ -77,7 +77,8 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.READ_MEDIA_AUDIO,
                     Manifest.permission.READ_CONTACTS,
                     Manifest.permission.READ_CALL_LOG,
-                    Manifest.permission.READ_SMS
+                    Manifest.permission.READ_SMS,
+                    Manifest.permission.POST_NOTIFICATIONS
                 )
             } else {
                 arrayOf(

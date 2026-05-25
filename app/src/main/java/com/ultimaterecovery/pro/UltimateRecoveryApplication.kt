@@ -495,13 +495,27 @@ class UltimateRecoveryApplication : Application(), Configuration.Provider {
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
             try {
-                Timber.e(throwable, "Uncaught exception on thread: ${thread.name}")
+                // Log the exception
+                android.util.Log.e(TAG, "Uncaught exception on thread: ${thread.name}", throwable)
             } catch (_: Exception) {
-                // Timber might not be initialized yet
+                // Logging might fail
             }
-            // Forward to the default handler so the system can still handle it
-            // but avoid the ANR crash dialog if possible
-            defaultHandler?.uncaughtException(thread, throwable)
+            
+            // For non-main threads, just log and let the thread die
+            if (thread != Thread.currentThread() || thread.name != "main") {
+                // Don't crash the app for background thread exceptions
+                return@setDefaultUncaughtExceptionHandler
+            }
+            
+            // For main thread, try to forward to default handler
+            // but avoid the ANR crash dialog
+            try {
+                defaultHandler?.uncaughtException(thread, throwable)
+            } catch (_: Exception) {
+                // If default handler also fails, just exit
+                android.os.Process.killProcess(android.os.Process.myPid())
+                System.exit(1)
+            }
         }
     }
 }

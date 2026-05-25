@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.RoomDatabase.JournalMode
 import androidx.room.TypeConverters
 import com.ultimaterecovery.pro.data.local.converter.EnumTypeConverters
 import com.ultimaterecovery.pro.data.local.dao.AccountDataDao
@@ -105,36 +106,25 @@ abstract class UltimateRecoveryDatabase : RoomDatabase() {
                         UltimateRecoveryDatabase::class.java,
                         "ultimate_recovery_db"
                     )
-                        .addCallback(DatabaseCallback())
+                        .setJournalMode(JournalMode.TRUNCATE)
+                        .addCallback(SafeDatabaseCallback())
                         .build()
                         .also { INSTANCE = it }
                 } catch (e: Exception) {
-                    // If database creation fails (e.g., WAL mode unsupported),
-                    // try again with TRUNCATE journal mode as fallback
+                    // If database creation fails, delete and recreate
                     try {
+                        context.applicationContext.deleteDatabase("ultimate_recovery_db")
                         Room.databaseBuilder(
                             context.applicationContext,
                             UltimateRecoveryDatabase::class.java,
                             "ultimate_recovery_db"
                         )
+                            .setJournalMode(JournalMode.TRUNCATE)
                             .addCallback(SafeDatabaseCallback())
                             .build()
                             .also { INSTANCE = it }
                     } catch (e2: Exception) {
-                        // Last resort: delete the database file and recreate
-                        try {
-                            context.applicationContext.deleteDatabase("ultimate_recovery_db")
-                            Room.databaseBuilder(
-                                context.applicationContext,
-                                UltimateRecoveryDatabase::class.java,
-                                "ultimate_recovery_db"
-                            )
-                                .addCallback(SafeDatabaseCallback())
-                                .build()
-                                .also { INSTANCE = it }
-                        } catch (e3: Exception) {
-                            throw e3 // Re-throw if we truly can't create the database
-                        }
+                        throw e2
                     }
                 }
             }
@@ -163,32 +153,6 @@ abstract class UltimateRecoveryDatabase : RoomDatabase() {
             } catch (e: Exception) {
                 // PRAGMA execution failure should not crash the app
                 // Some devices don't support certain PRAGMA operations
-            }
-        }
-    }
-
-    /**
-     * Safe database callback that wraps all PRAGMA operations in try-catch
-     * to prevent crashes on devices with incompatible SQLite implementations.
-     */
-    private class DatabaseCallback : RoomDatabase.Callback() {
-
-        override fun onCreate(connection: androidx.sqlite.db.SupportSQLiteDatabase) {
-            super.onCreate(connection)
-            safeExecSQL(connection, "PRAGMA journal_mode=WAL")
-            safeExecSQL(connection, "PRAGMA foreign_keys=ON")
-        }
-
-        override fun onOpen(connection: androidx.sqlite.db.SupportSQLiteDatabase) {
-            super.onOpen(connection)
-            safeExecSQL(connection, "PRAGMA foreign_keys=ON")
-        }
-
-        private fun safeExecSQL(connection: androidx.sqlite.db.SupportSQLiteDatabase, sql: String) {
-            try {
-                connection.execSQL(sql)
-            } catch (e: Exception) {
-                // PRAGMA execution failure should not crash the app
             }
         }
     }
